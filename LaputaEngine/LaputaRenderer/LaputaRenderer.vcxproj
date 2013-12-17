@@ -10,6 +10,13 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\LptaRenderer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="header\LptaRenderDevice.h" />
+    <ClInclude Include="header\LptaRenderer.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{CA46416F-C5FF-467E-9F90-0C14EA05CE30}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -70,9 +77,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

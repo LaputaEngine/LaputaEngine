@@ -15,22 +15,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="LptaD3D_init.cpp">
+    <None Include="LptaD3D.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\LptaD3D_enum.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LptaD3D_enum.cpp">
+    <ClCompile Include="source\LptaD3D_init.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LptaD3D_main.cpp">
+    <ClCompile Include="source\LptaD3D_main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LptaD3D.h">
+    <ClInclude Include="header\LptaD3D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="LptaD3D.def" />
   </ItemGroup>
 </Project>
