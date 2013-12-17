@@ -26,5 +26,8 @@
     <ClInclude Include="header\LptaRenderDevice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="header\LptaRenderDeviceImpl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

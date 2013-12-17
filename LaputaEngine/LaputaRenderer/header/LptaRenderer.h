@@ -1,0 +1,21 @@
+#include <memory>
+#include <string>
+#include <Windows.h>
+#include "LptaRenderDevice.h"
+
+class LptaRenderer
+{
+public:
+	LptaRenderer(HINSTANCE hInst);
+	~LptaRenderer(void);
+
+	HRESULT CreateDevice(std::string api);
+	void Release(void);
+	LPTAFXRENDERER GetDevice(void);
+	HINSTANCE GetModeul(void);
+
+private:
+	std::shared_ptr<LptaRenderDevice> renderDevice;
+	HINSTANCE hInst;
+	HMODULE dllHandle;
+};
