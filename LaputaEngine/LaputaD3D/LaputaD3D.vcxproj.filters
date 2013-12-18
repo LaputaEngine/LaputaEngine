@@ -18,10 +18,13 @@
     <None Include="LptaD3D.def" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\LptaD3D_enum.cpp">
+    <ClCompile Include="source\LptaD3D_init.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\LptaD3D_init.cpp">
+    <ClCompile Include="source\LptaD3DModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LptaD3DUtilities.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\LptaD3D_main.cpp">
@@ -32,5 +35,19 @@
     <ClInclude Include="header\LptaD3D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\LptaD3DModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\LptaD3DUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="dlgChangeDevice.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

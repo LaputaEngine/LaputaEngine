@@ -15,7 +15,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\LptaRenderDevice.h" />
+    <ClInclude Include="header\LptaRenderDeviceImpl.h" />
     <ClInclude Include="header\LptaRenderer.h" />
+    <ClInclude Include="header\LptaRendererStatus.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{CA46416F-C5FF-467E-9F90-0C14EA05CE30}</ProjectGuid>
@@ -46,7 +48,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(ProjectDir)\header;$(IncludePath)</IncludePath>
+    <SourcePath>$(ProjectDir)\source;$(SourcePath)</SourcePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>
