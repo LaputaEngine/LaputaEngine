@@ -12,7 +12,7 @@ public:
 	///////////////////////////////////////////////////////////////////////////
 	// Initialization/Release
 	/////////////////////////////////////////////////////////////////
-	virtual HRESULT Init(HWND, const std::shared_ptr<HWND>, int, int, int, bool) = 0;
+	virtual HRESULT Init(HWND, const std::shared_ptr<HWND>, int, int, bool) = 0;
 	virtual void Release(void) = 0;
 	virtual bool IsRunning(void) = 0;
 
@@ -30,10 +30,7 @@ typedef std::shared_ptr<LptaRenderDevice> LPTAFXRENDERER;
 
 extern "C"
 {
-	HRESULT CreateRenderDevice(HINSTANCE hDLL, const LPTAFXRENDERER& pInterface);
 	typedef HRESULT(*CREATERENDERDEVICE) (HINSTANCE hDLL, const LPTAFXRENDERER& pInterface);
-
-	HRESULT ReleaseRenderDevice(const LPTAFXRENDERER& pInterface);
 	typedef HRESULT(*RELEASERENDERDEVICE) (const LPTAFXRENDERER& pInterface);
 }
 

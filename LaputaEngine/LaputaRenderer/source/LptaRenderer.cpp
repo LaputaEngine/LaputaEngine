@@ -37,6 +37,19 @@ HRESULT LptaRenderer::CreateDevice(std::string api)
 	_CreateRenderDevice = (CREATERENDERDEVICE)GetProcAddress(dllHandle, "CreateRenderDevice");
 
 	if (!_CreateRenderDevice) {
+		LPVOID errorMessage;
+		FormatMessage(
+			FORMAT_MESSAGE_ALLOCATE_BUFFER |
+			FORMAT_MESSAGE_FROM_SYSTEM |
+			FORMAT_MESSAGE_IGNORE_INSERTS,
+			NULL,
+			GetLastError(),
+			0, // Default language
+			(LPWSTR) &errorMessage,
+			0,
+			NULL
+			);
+		MessageBox(NULL, (LPWSTR) errorMessage, L"LaputaEngine - error", MB_OK | MB_ICONERROR);
 		return E_FAIL;
 	}
 
@@ -48,6 +61,11 @@ HRESULT LptaRenderer::CreateDevice(std::string api)
 	}
 
 	return S_OK;
+}
+
+LPTAFXRENDERER LptaRenderer::GetDevice(void)
+{
+	return renderDevice;
 }
 
 void LptaRenderer::Release(void)

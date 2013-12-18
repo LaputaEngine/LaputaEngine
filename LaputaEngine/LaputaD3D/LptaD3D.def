@@ -1,4 +1,4 @@
-LIBRARY "LptaD3D.dll"
+LIBRARY "LaputaD3D.dll"
 EXPORTS
 	CreateRenderDevice
 	ReleaseRenderDevice

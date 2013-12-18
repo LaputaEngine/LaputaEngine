@@ -21,7 +21,7 @@ public:
 	LptaD3D(HINSTANCE hDLL);
 	~LptaD3D(void);
 
-	HRESULT Init(HWND, const std::shared_ptr<HWND>, int, int, int, bool);
+	HRESULT Init(HWND, const std::shared_ptr<HWND>, int, int, bool);
 	BOOL CALLBACK DlgProc(HWND, UINT, WPARAM, LPARAM);
 
 	void Release(void);

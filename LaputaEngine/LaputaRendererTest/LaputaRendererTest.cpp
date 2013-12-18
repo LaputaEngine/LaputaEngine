@@ -1,7 +1,7 @@
 #include <Windows.h>
 #include "LptaRenderer.h"
 
-#pragma comment(lib, "LaputaRenderer.lib");
+#pragma comment(lib, "LaputaRenderer.lib")
 
 #define SCREEN_WIDTH 400
 #define SCREEN_HEIGHT 300
@@ -39,6 +39,9 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
 
 	LptaRenderer renderer(instance);
 	renderer.CreateDevice("Direct3D");
+	LPTAFXRENDERER device = renderer.GetDevice();
+	std::shared_ptr<HWND> t;
+	device->Init(hWnd, t, 16, 0, false);
 
 	MSG message;
 	while (true) {

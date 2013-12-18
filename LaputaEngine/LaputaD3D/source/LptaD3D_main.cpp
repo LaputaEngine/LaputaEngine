@@ -7,6 +7,11 @@ using std::move;
 
 LptaD3D *g_Renderer = NULL;
 
+BOOL CALLBACK DlgProcWrapper(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	return g_Renderer->DlgProc(hWnd, message, wParam, lParam);
+}
+
 LptaD3D::LptaD3D(HINSTANCE dll)
 {
 	d3d = Direct3DCreate9(D3D_SDK_VERSION);
@@ -20,8 +25,9 @@ LptaD3D::~LptaD3D(void)
 
 }
 
-HRESULT LptaD3D::Init(HWND, const std::shared_ptr<HWND>, int, int, int, bool)
+HRESULT LptaD3D::Init(HWND hWnd, const std::shared_ptr<HWND> h3DWnd, int mindDepth, int minStencil, bool saveLog)
 {
+	DialogBox(dll, L"dlgChangeDevice", hWnd, DlgProcWrapper);
 	return S_OK;
 }
 

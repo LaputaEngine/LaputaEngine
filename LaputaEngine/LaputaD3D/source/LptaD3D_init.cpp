@@ -5,7 +5,7 @@
 #include "LptaD3D.h"
 using std::shared_ptr;
 
-HRESULT CreateRenderDevice(HINSTANCE dll, LPTAFXRENDERER& pInterface)
+extern "C" __declspec(dllexport) HRESULT CreateRenderDevice(HINSTANCE dll, LPTAFXRENDERER& pInterface)
 {
 	if (!pInterface) {
 		pInterface = shared_ptr<LptaD3D>(new LptaD3D(dll));
@@ -15,7 +15,7 @@ HRESULT CreateRenderDevice(HINSTANCE dll, LPTAFXRENDERER& pInterface)
 	return LPTA_FAIL;
 }
 
-HRESULT ReleaseRenderDevice(LPTAFXRENDERER& pInterface)
+extern "C" __declspec(dllexport)HRESULT ReleaseRenderDevice(LPTAFXRENDERER& pInterface)
 {
 	if (!pInterface) {
 		return LPTA_FAIL;

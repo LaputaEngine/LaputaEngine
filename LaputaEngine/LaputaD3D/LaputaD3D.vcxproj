@@ -78,9 +78,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="LptaD3D.def" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="source\LptaD3DModel.cpp" />
     <ClCompile Include="source\LptaD3DUtilities.cpp" />
     <ClCompile Include="source\LptaD3D_init.cpp" />
@@ -94,6 +91,9 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="dlgChangeDevice.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LptaD3D.def" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
