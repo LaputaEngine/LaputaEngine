@@ -14,6 +14,7 @@ BOOL CALLBACK DlgProcWrapper(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 
 LptaD3D::LptaD3D(HINSTANCE dll)
 {
+	this->dll = dll;
 	d3d = Direct3DCreate9(D3D_SDK_VERSION);
 
 	configuration = unique_ptr<LptaD3DModel>(new LptaD3DModel(d3d));
@@ -27,7 +28,7 @@ LptaD3D::~LptaD3D(void)
 
 HRESULT LptaD3D::Init(HWND hWnd, const std::shared_ptr<HWND> h3DWnd, int mindDepth, int minStencil, bool saveLog)
 {
-	DialogBox(dll, L"dlgChangeDevice", hWnd, DlgProcWrapper);
+	DialogBox(dll, MAKEINTRESOURCE(dlgChangeDevice), hWnd, DlgProcWrapper);
 	return S_OK;
 }
 
@@ -41,7 +42,14 @@ BOOL CALLBACK LptaD3D::DlgProc(HWND dialog,
 	switch (message) {
 	case WM_INITDIALOG:
 		configuration->Model(dialog);
-		break;
+		return TRUE;
+	case WM_COMMAND:
+		switch (LOWORD(wParam)) {
+		case IDOK:
+		case IDCANCEL:
+			EndDialog(dialog, 0);
+			return TRUE;
+		}
 	default:
 		break;
 	}
