@@ -15,7 +15,7 @@ public:
 	HRESULT CreateDevice(std::string api);
 	void Release(void);
 	LPTAFXRENDERER GetDevice(void);
-	HINSTANCE GetModeul(void);
+	HINSTANCE GetModele(void);
 
 private:
 	std::shared_ptr<LptaRenderDevice> renderDevice;
