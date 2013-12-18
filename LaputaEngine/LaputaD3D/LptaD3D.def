@@ -1,0 +1,4 @@
+LIBRARY "LptaD3D.dll"
+EXPORTS
+	CreateRenderDevice
+	ReleaseRenderDevice

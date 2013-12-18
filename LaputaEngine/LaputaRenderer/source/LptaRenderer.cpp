@@ -16,9 +16,9 @@ LptaRenderer::~LptaRenderer(void)
 HRESULT LptaRenderer::CreateDevice(std::string api)
 {
 	if (api == "Direct3D") {
-		dllHandle = LoadLibrary(L"LptaD3D.dll");
+		dllHandle = LoadLibrary(L"LaputaD3D.dll");
 		if (!dllHandle) {
-			MessageBox(NULL, L"Loading LptaD3D.dll failed.", L"LaputaEngine - error", 
+			MessageBox(NULL, L"Loading LaputaD3D.dll failed.", L"LaputaEngine - error", 
 					   MB_OK | MB_ICONERROR);
 			return E_FAIL;
 		}

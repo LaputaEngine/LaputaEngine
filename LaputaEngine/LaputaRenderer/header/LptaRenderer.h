@@ -1,3 +1,6 @@
+#ifndef _LPTARENDERER_H_
+#define _LPTARENDERET_H_
+
 #include <memory>
 #include <string>
 #include <Windows.h>
@@ -19,3 +22,5 @@ private:
 	HINSTANCE hInst;
 	HMODULE dllHandle;
 };
+
+#endif
