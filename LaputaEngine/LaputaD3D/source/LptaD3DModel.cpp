@@ -72,19 +72,20 @@ void LptaD3DModel::Model(HWND dialog)
 }
 void PopulateAdapterSelections(vector<LPTAADAPTERINFO> &adapterInfos, HWND comboBox)
 {
-	SendMessage(comboBox, CB_RESETCONTENT, 0, 0);
+	//SendMessage(comboBox, CB_RESETCONTENT, 0, 0);
 	vector<LPTAADAPTERINFO>::iterator adapter;
 	for (adapter = adapterInfos.begin(); adapter != adapterInfos.end(); adapter++) {
 		std::wstringstream ss;
 		ss << adapter->identifier.Description;
 		AddComboBoxItem(comboBox, ss.str().c_str(), &(*adapter));
 	}
+	SendMessage(comboBox, CB_SETCURSEL, 0, NULL);
 }
 
 void AddComboBoxItem(HWND comboBox, const wchar_t *title, void *data)
 {
 	int itemIndex = (int)SendMessage(comboBox, CB_ADDSTRING, NULL, (LPARAM)title);
-	//SendMessage(comboBox, CB_SETITEMDATA, (WPARAM)itemIndex, (LPARAM)data);
+	SendMessage(comboBox, CB_SETITEMDATA, (WPARAM)itemIndex, (LPARAM)data);
 }
 
 LPDIRECT3D9 LptaD3DModel::GetD3D() const

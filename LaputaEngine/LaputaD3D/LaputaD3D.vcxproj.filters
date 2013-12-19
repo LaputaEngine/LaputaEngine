@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Adapter">
+      <UniqueIdentifier>{4324e6af-6ca1-4704-bb07-e59a2dee53d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Adapter">
+      <UniqueIdentifier>{f2aa6032-da99-4796-b9fe-0f1feead69f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\LptaD3D_init.cpp">
@@ -27,6 +33,9 @@
     <ClCompile Include="source\LptaD3D_main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\adapter\AdapterInfo.cpp">
+      <Filter>Source Files\Adapter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\LptaD3D.h">
@@ -40,6 +49,9 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\adapter\AdapterInfo.h">
+      <Filter>Header Files\Adapter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

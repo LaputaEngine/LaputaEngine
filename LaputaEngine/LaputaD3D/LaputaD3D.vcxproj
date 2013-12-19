@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)\header;$(IncludePath);$(ProjectDir)\</IncludePath>
+    <IncludePath>$(DXSDK_DIR)\Include;$(ProjectDir)\header;$(IncludePath);$(ProjectDir)\</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -78,12 +78,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\adapter\AdapterInfo.cpp" />
     <ClCompile Include="source\LptaD3DModel.cpp" />
     <ClCompile Include="source\LptaD3DUtilities.cpp" />
     <ClCompile Include="source\LptaD3D_init.cpp" />
     <ClCompile Include="source\LptaD3D_main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="header\adapter\AdapterInfo.h" />
     <ClInclude Include="header\LptaD3D.h" />
     <ClInclude Include="header\LptaD3DModel.h" />
     <ClInclude Include="header\LptaD3DUtils.h" />
