@@ -62,6 +62,7 @@ private:
 	HWND adapterSelection;
 	HWND backBufferSelection;
 	HWND modeSelection;
+	HWND formatSelection;
 	HWND deviceSelection;
 };
 

@@ -1,3 +1,4 @@
+#include <sstream>
 #include "LptaD3DModel.h"
 #include "LptaD3D.h"
 #include "LptaD3DUtils.h"
@@ -11,20 +12,24 @@ void DiscoverDisplayModesFor(LPTAADAPTERINFO &adapterInfo, LptaD3DModel *model, 
 bool ValidDisplayMode(const D3DDISPLAYMODE &displayMode);
 
 void PopulateAdapterSelections(vector<LPTAADAPTERINFO> &adapterInfos, HWND comboBox);
-void AddComboBoxItem(HWND comboxBox, char *title, void *data);
+void AddComboBoxItem(HWND comboxBox, const wchar_t *title, void *data);
 
 LptaD3DModel::LptaD3DModel(LPDIRECT3D9 d3d)
 {
 	this->d3d = d3d;
-	DiscoverAdapters(this, d3d, adapterInfos);
+	for (unsigned int i = 0; i < lpta_d3d::NUM_RENDER_FORMATS; i++) {
+		displayModes.push_back(lpta_d3d::RENDER_FORMATS[i]);
+	}
+	DiscoverAdapters(this, d3d, adapterInfos); // depends on render formats
 }
 void DiscoverAdapters(LptaD3DModel *model, const LPDIRECT3D9 d3d, vector<LPTAADAPTERINFO> &adapterInfos)
 {
 	for (unsigned int i = 0; i < d3d->GetAdapterCount(); i++) {
 		LPTAADAPTERINFO currentInfo;
 		currentInfo.nAdapter = i;
+		d3d->GetAdapterIdentifier(i, 0, &currentInfo.identifier);
 		DiscoverDisplayModesFor(currentInfo, model, d3d);
-		//if (currentInfo)
+		adapterInfos.push_back(currentInfo);
 	}
 }
 void DiscoverDisplayModesFor(LPTAADAPTERINFO &adapterInfo, LptaD3DModel *model, const LPDIRECT3D9 d3d)
@@ -59,7 +64,7 @@ void LptaD3DModel::Model(HWND dialog)
 	windowedToggle = GetDlgItem(dialog, IDC_WINDOWED);
 	adapterSelection = GetDlgItem(dialog, IDC_ADAPTER);
 	modeSelection = GetDlgItem(dialog, IDC_MODE);
-	adapterSelection = GetDlgItem(dialog, IDC_FORMAT);
+	formatSelection = GetDlgItem(dialog, IDC_FORMAT);
     backBufferSelection = GetDlgItem(dialog, IDC_BACKFMT);
 	deviceSelection = GetDlgItem(dialog, IDC_DEVICE);
 
@@ -70,14 +75,16 @@ void PopulateAdapterSelections(vector<LPTAADAPTERINFO> &adapterInfos, HWND combo
 	SendMessage(comboBox, CB_RESETCONTENT, 0, 0);
 	vector<LPTAADAPTERINFO>::iterator adapter;
 	for (adapter = adapterInfos.begin(); adapter != adapterInfos.end(); adapter++) {
-		AddComboBoxItem(comboBox, adapter->identifier.Description, &(*adapter));
+		std::wstringstream ss;
+		ss << adapter->identifier.Description;
+		AddComboBoxItem(comboBox, ss.str().c_str(), &(*adapter));
 	}
 }
 
-void AddComboBoxItem(HWND comboBox, char *title, void *data)
+void AddComboBoxItem(HWND comboBox, const wchar_t *title, void *data)
 {
 	int itemIndex = (int)SendMessage(comboBox, CB_ADDSTRING, NULL, (LPARAM)title);
-	SendMessage(comboBox, CB_SETITEMDATA, (WPARAM)itemIndex, (LPARAM)data);
+	//SendMessage(comboBox, CB_SETITEMDATA, (WPARAM)itemIndex, (LPARAM)data);
 }
 
 LPDIRECT3D9 LptaD3DModel::GetD3D() const
