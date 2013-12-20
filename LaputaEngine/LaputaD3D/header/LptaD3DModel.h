@@ -3,41 +3,11 @@
 #include <vector>
 #include <d3d9.h>
 #include <Windows.h>
+#include "adapter/AdapterInfo.h"
 using std::vector;
 
 struct LPTADEVICEINFO;
 struct LPTACOMBOINFO;
-
-struct LPTAADAPTERINFO 
-{
-	D3DADAPTER_IDENTIFIER9 identifier;
-	UINT nAdapter;
-	vector<D3DDISPLAYMODE> displayeModes;
-	vector<LPTADEVICEINFO> devices;
-};
-
-struct LPTADEVICEINFO
-{
-	UINT nAdapter;
-	D3DDEVTYPE type;
-	D3DCAPS9 capabilities;
-	vector<LPTACOMBOINFO> combos;
-};
-
-struct LPTACOMBOINFO
-{
-	UINT nAdapter;
-	D3DDEVTYPE type;
-	bool isWindowed;
-
-	D3DFORMAT pixelBufferFormat;
-	D3DFORMAT backBufferFormat;
-	D3DFORMAT stencilDepthFormat;
-
-	DWORD vertexProcessingBehavior;
-	D3DMULTISAMPLE_TYPE multisampleType;
-};
-
 
 class LptaD3DModel
 {
@@ -55,7 +25,7 @@ private:
 	LPDIRECT3D9 d3d;
 
 	vector<D3DFORMAT> displayModes;
-	vector<LPTAADAPTERINFO> adapterInfos;
+	vector<AdapterInfo> adapterInfos;
 
 	HWND fullscreenToggle;
 	HWND windowedToggle;

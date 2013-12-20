@@ -7,11 +7,11 @@ using std::vector;
 using std::iterator;
 using std::string;
 
-void DiscoverAdapters(LptaD3DModel *model, const LPDIRECT3D9 d3d, vector<LPTAADAPTERINFO> &adapterInfos);
-void DiscoverDisplayModesFor(LPTAADAPTERINFO &adapterInfo, LptaD3DModel *model, const LPDIRECT3D9 d3d);
+void DiscoverAdapters(LptaD3DModel *model, const LPDIRECT3D9 d3d, vector<AdapterInfo> &adapterInfos);
+void DiscoverDisplayModesFor(AdapterInfo &adapterInfo, LptaD3DModel *model, const LPDIRECT3D9 d3d);
 bool ValidDisplayMode(const D3DDISPLAYMODE &displayMode);
 
-void PopulateAdapterSelections(vector<LPTAADAPTERINFO> &adapterInfos, HWND comboBox);
+void PopulateAdapterSelections(vector<AdapterInfo> &adapterInfos, HWND comboBox);
 void AddComboBoxItem(HWND comboxBox, const wchar_t *title, void *data);
 
 LptaD3DModel::LptaD3DModel(LPDIRECT3D9 d3d)
@@ -22,26 +22,27 @@ LptaD3DModel::LptaD3DModel(LPDIRECT3D9 d3d)
 	}
 	DiscoverAdapters(this, d3d, adapterInfos); // depends on render formats
 }
-void DiscoverAdapters(LptaD3DModel *model, const LPDIRECT3D9 d3d, vector<LPTAADAPTERINFO> &adapterInfos)
+void DiscoverAdapters(LptaD3DModel *model, const LPDIRECT3D9 d3d, vector<AdapterInfo> &adapterInfos)
 {
 	for (unsigned int i = 0; i < d3d->GetAdapterCount(); i++) {
-		LPTAADAPTERINFO currentInfo;
-		currentInfo.nAdapter = i;
-		d3d->GetAdapterIdentifier(i, 0, &currentInfo.identifier);
+		D3DADAPTER_IDENTIFIER9 identifier;
+		d3d->GetAdapterIdentifier(i, 0, &identifier);
+		AdapterInfo currentInfo(i, identifier);
+		
 		DiscoverDisplayModesFor(currentInfo, model, d3d);
 		adapterInfos.push_back(currentInfo);
 	}
 }
-void DiscoverDisplayModesFor(LPTAADAPTERINFO &adapterInfo, LptaD3DModel *model, const LPDIRECT3D9 d3d)
+void DiscoverDisplayModesFor(AdapterInfo &adapterInfo, LptaD3DModel *model, const LPDIRECT3D9 d3d)
 {
 	vector<D3DFORMAT> displayModes = model->GetDisplayModes();
 	vector<D3DFORMAT>::iterator mode;
 	for (mode = displayModes.begin(); mode != displayModes.end();  mode++) {
-		for (unsigned int i = 0; i < d3d->GetAdapterModeCount(adapterInfo.nAdapter, *mode); i++) {
+		for (unsigned int i = 0; i < d3d->GetAdapterModeCount(adapterInfo.GetAdapterIndex(), *mode); i++) {
 			D3DDISPLAYMODE displayMode;
-			d3d->EnumAdapterModes(adapterInfo.nAdapter, *mode, i, &displayMode);
+			d3d->EnumAdapterModes(adapterInfo.GetAdapterIndex(), *mode, i, &displayMode);
 			if (ValidDisplayMode(displayMode)) {
-				adapterInfo.displayeModes.push_back(displayMode);
+				adapterInfo.AddDisplayMode(displayMode);
 			}
 		}
 	}
@@ -70,14 +71,14 @@ void LptaD3DModel::Model(HWND dialog)
 
 	PopulateAdapterSelections(adapterInfos, adapterSelection);
 }
-void PopulateAdapterSelections(vector<LPTAADAPTERINFO> &adapterInfos, HWND comboBox)
+void PopulateAdapterSelections(vector<AdapterInfo> &adapterInfos, HWND comboBox)
 {
 	//SendMessage(comboBox, CB_RESETCONTENT, 0, 0);
-	vector<LPTAADAPTERINFO>::iterator adapter;
+	vector<AdapterInfo>::iterator adapter;
 	for (adapter = adapterInfos.begin(); adapter != adapterInfos.end(); adapter++) {
-		std::wstringstream ss;
-		ss << adapter->identifier.Description;
-		AddComboBoxItem(comboBox, ss.str().c_str(), &(*adapter));
+		std::string adapterDescription = adapter->GetDescription();
+		std::wstring wDescription(adapterDescription.begin(), adapterDescription.end());
+		AddComboBoxItem(comboBox, wDescription.c_str(), &(*adapter));
 	}
 	SendMessage(comboBox, CB_SETCURSEL, 0, NULL);
 }
