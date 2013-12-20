@@ -32,6 +32,7 @@ HRESULT LptaD3D::Init(HWND hWnd, const std::shared_ptr<HWND> h3DWnd, int mindDep
 	return S_OK;
 }
 
+// this should be hidden inside the model
 BOOL CALLBACK LptaD3D::DlgProc(HWND dialog,
 	UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -45,6 +46,9 @@ BOOL CALLBACK LptaD3D::DlgProc(HWND dialog,
 		return TRUE;
 	case WM_COMMAND:
 		switch (LOWORD(wParam)) {
+		case IDC_ADAPTER:
+			configuration->UpdateAdapterOptions();
+			return TRUE;
 		case IDOK:
 		case IDCANCEL:
 			EndDialog(dialog, 0);

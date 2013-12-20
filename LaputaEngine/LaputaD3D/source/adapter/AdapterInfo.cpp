@@ -21,6 +21,11 @@ string AdapterInfo::GetDescription(void) const
 	return string(identifier.Description);
 }
 
+const vector<D3DDISPLAYMODE> & AdapterInfo::GetDisplayModes(void) const
+{
+	return displayModes;
+}
+
 void AdapterInfo::AddDisplayMode(const D3DDISPLAYMODE &mode)
 {
 	displayModes.push_back(mode);

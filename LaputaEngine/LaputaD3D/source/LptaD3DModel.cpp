@@ -70,6 +70,7 @@ void LptaD3DModel::Model(HWND dialog)
 	deviceSelection = GetDlgItem(dialog, IDC_DEVICE);
 
 	PopulateAdapterSelections(adapterInfos, adapterSelection);
+	UpdateAdapterOptions();
 }
 void PopulateAdapterSelections(vector<AdapterInfo> &adapterInfos, HWND comboBox)
 {
@@ -81,6 +82,22 @@ void PopulateAdapterSelections(vector<AdapterInfo> &adapterInfos, HWND comboBox)
 		AddComboBoxItem(comboBox, wDescription.c_str(), &(*adapter));
 	}
 	SendMessage(comboBox, CB_SETCURSEL, 0, NULL);
+}
+
+// TODO: sort the display modes
+void LptaD3DModel::UpdateAdapterOptions(void) const
+{
+	UINT current = (UINT)SendMessage(adapterSelection, CB_GETCURSEL, 0, 0);
+	AdapterInfo *adapter = (AdapterInfo *)SendMessage(adapterSelection, CB_GETITEMDATA, current, 0);
+	SendMessage(modeSelection, CB_RESETCONTENT, NULL, NULL);
+	vector<D3DDISPLAYMODE> displayModes = adapter->GetDisplayModes();
+	vector<D3DDISPLAYMODE>::iterator displayMode;
+	for (displayMode = displayModes.begin(); displayMode != displayModes.end(); displayMode++) {
+		std::wstringstream ss;
+		ss << displayMode->Width << " x " << displayMode->Height << " @ " << displayMode->RefreshRate;
+		AddComboBoxItem(modeSelection, ss.str().c_str(), &(*displayMode));
+	}
+	SendMessage(modeSelection, CB_SETCURSEL, 0, NULL);
 }
 
 void AddComboBoxItem(HWND comboBox, const wchar_t *title, void *data)

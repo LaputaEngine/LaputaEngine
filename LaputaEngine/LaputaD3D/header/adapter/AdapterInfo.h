@@ -12,9 +12,9 @@ public:
 
 	UINT GetAdapterIndex(void) const;
 	string GetDescription(void) const;
+	const vector<D3DDISPLAYMODE> & GetDisplayModes(void) const;
 
 	void AddDisplayMode(const D3DDISPLAYMODE &mode);
-
 private:
 	UINT adapterIndex;
 	D3DADAPTER_IDENTIFIER9 identifier;

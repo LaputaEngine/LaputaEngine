@@ -21,6 +21,7 @@ public:
 
 	const vector<D3DFORMAT> & GetDisplayModes(void) const;
 
+	void UpdateAdapterOptions(void) const;
 private:
 	LPDIRECT3D9 d3d;
 
