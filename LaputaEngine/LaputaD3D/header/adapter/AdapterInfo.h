@@ -1,8 +1,11 @@
-#include <vector>
+#include <set>
 #include <Windows.h>
 #include <d3d9.h>
-using std::vector;
+#include "LptaD3DUtils.h"
+using std::set;
 using std::string;
+
+typedef set<D3DDISPLAYMODE, LptaD3DUtils::DisplayFormatComparator> DISPLAY_MODES;
 
 class AdapterInfo
 {
@@ -12,11 +15,12 @@ public:
 
 	UINT GetAdapterIndex(void) const;
 	string GetDescription(void) const;
-	const vector<D3DDISPLAYMODE> & GetDisplayModes(void) const;
+	const DISPLAY_MODES & GetDisplayModes(void) const;
 
 	void AddDisplayMode(const D3DDISPLAYMODE &mode);
+	void AddDisplayModes(const DISPLAY_MODES &modes);
 private:
 	UINT adapterIndex;
 	D3DADAPTER_IDENTIFIER9 identifier;
-	vector<D3DDISPLAYMODE> displayModes;
+	DISPLAY_MODES displayModes;
 };

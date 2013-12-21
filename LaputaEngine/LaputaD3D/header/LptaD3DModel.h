@@ -19,13 +19,13 @@ public:
 
 	LPDIRECT3D9 GetD3D() const;
 
-	const vector<D3DFORMAT> & GetDisplayModes(void) const;
+	const vector<D3DFORMAT> & GetFormats(void) const;
 
 	void UpdateAdapterOptions(void) const;
 private:
 	LPDIRECT3D9 d3d;
 
-	vector<D3DFORMAT> displayModes;
+	vector<D3DFORMAT> displayFormats;
 	vector<AdapterInfo> adapterInfos;
 
 	HWND fullscreenToggle;

@@ -18,7 +18,7 @@ LptaD3DModel::LptaD3DModel(LPDIRECT3D9 d3d)
 {
 	this->d3d = d3d;
 	for (unsigned int i = 0; i < lpta_d3d::NUM_RENDER_FORMATS; i++) {
-		displayModes.push_back(lpta_d3d::RENDER_FORMATS[i]);
+		displayFormats.push_back(lpta_d3d::RENDER_FORMATS[i]);
 	}
 	DiscoverAdapters(this, d3d, adapterInfos); // depends on render formats
 }
@@ -35,12 +35,12 @@ void DiscoverAdapters(LptaD3DModel *model, const LPDIRECT3D9 d3d, vector<Adapter
 }
 void DiscoverDisplayModesFor(AdapterInfo &adapterInfo, LptaD3DModel *model, const LPDIRECT3D9 d3d)
 {
-	vector<D3DFORMAT> displayModes = model->GetDisplayModes();
-	vector<D3DFORMAT>::iterator mode;
-	for (mode = displayModes.begin(); mode != displayModes.end();  mode++) {
-		for (unsigned int i = 0; i < d3d->GetAdapterModeCount(adapterInfo.GetAdapterIndex(), *mode); i++) {
+	vector<D3DFORMAT> formats = model->GetFormats();
+	vector<D3DFORMAT>::iterator format;
+	for (format = formats.begin(); format != formats.end();  format++) {
+		for (unsigned int i = 0; i < d3d->GetAdapterModeCount(adapterInfo.GetAdapterIndex(), *format); i++) {
 			D3DDISPLAYMODE displayMode;
-			d3d->EnumAdapterModes(adapterInfo.GetAdapterIndex(), *mode, i, &displayMode);
+			d3d->EnumAdapterModes(adapterInfo.GetAdapterIndex(), *format, i, &displayMode);
 			if (ValidDisplayMode(displayMode)) {
 				adapterInfo.AddDisplayMode(displayMode);
 			}
@@ -74,7 +74,7 @@ void LptaD3DModel::Model(HWND dialog)
 }
 void PopulateAdapterSelections(vector<AdapterInfo> &adapterInfos, HWND comboBox)
 {
-	//SendMessage(comboBox, CB_RESETCONTENT, 0, 0);
+	SendMessage(comboBox, CB_RESETCONTENT, 0, 0);
 	vector<AdapterInfo>::iterator adapter;
 	for (adapter = adapterInfos.begin(); adapter != adapterInfos.end(); adapter++) {
 		std::string adapterDescription = adapter->GetDescription();
@@ -84,20 +84,20 @@ void PopulateAdapterSelections(vector<AdapterInfo> &adapterInfos, HWND comboBox)
 	SendMessage(comboBox, CB_SETCURSEL, 0, NULL);
 }
 
-// TODO: sort the display modes
 void LptaD3DModel::UpdateAdapterOptions(void) const
 {
 	UINT current = (UINT)SendMessage(adapterSelection, CB_GETCURSEL, 0, 0);
 	AdapterInfo *adapter = (AdapterInfo *)SendMessage(adapterSelection, CB_GETITEMDATA, current, 0);
-	SendMessage(modeSelection, CB_RESETCONTENT, NULL, NULL);
-	vector<D3DDISPLAYMODE> displayModes = adapter->GetDisplayModes();
-	vector<D3DDISPLAYMODE>::iterator displayMode;
+	SendMessage(modeSelection, CB_RESETCONTENT, 0, 0);
+	SendMessage(modeSelection, CB_SETCURSEL, 0, 0);
+	DISPLAY_MODES displayModes = adapter->GetDisplayModes();
+	DISPLAY_MODES::iterator displayMode;
 	for (displayMode = displayModes.begin(); displayMode != displayModes.end(); displayMode++) {
 		std::wstringstream ss;
 		ss << displayMode->Width << " x " << displayMode->Height << " @ " << displayMode->RefreshRate;
-		AddComboBoxItem(modeSelection, ss.str().c_str(), &(*displayMode));
+		AddComboBoxItem(modeSelection, ss.str().c_str(), (void *)&(*displayMode));
 	}
-	SendMessage(modeSelection, CB_SETCURSEL, 0, NULL);
+	SendMessage(modeSelection, CB_SETCURSEL, 0, 0);
 }
 
 void AddComboBoxItem(HWND comboBox, const wchar_t *title, void *data)
@@ -111,7 +111,7 @@ LPDIRECT3D9 LptaD3DModel::GetD3D() const
 	return d3d;
 }
 
-const vector<D3DFORMAT> & LptaD3DModel::GetDisplayModes(void) const
+const vector<D3DFORMAT> & LptaD3DModel::GetFormats(void) const
 {
-	return displayModes;
+	return displayFormats;
 }

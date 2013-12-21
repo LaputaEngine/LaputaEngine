@@ -80,7 +80,7 @@
   <ItemGroup>
     <ClCompile Include="source\adapter\AdapterInfo.cpp" />
     <ClCompile Include="source\LptaD3DModel.cpp" />
-    <ClCompile Include="source\LptaD3DUtilities.cpp" />
+    <ClCompile Include="source\LptaD3DUtils.cpp" />
     <ClCompile Include="source\LptaD3D_init.cpp" />
     <ClCompile Include="source\LptaD3D_main.cpp" />
   </ItemGroup>

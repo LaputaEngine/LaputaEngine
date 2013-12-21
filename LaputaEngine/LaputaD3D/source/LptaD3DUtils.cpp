@@ -1,4 +1,7 @@
 #include "LptaD3DUtils.h"
+#include <algorithm>
+
+bool CompareFormats(const D3DDISPLAYMODE &first, const D3DDISPLAYMODE &second);
 
 unsigned int LptaD3DUtils::GetBitsFor(D3DFORMAT format)
 {
