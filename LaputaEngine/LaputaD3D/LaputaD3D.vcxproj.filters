@@ -24,9 +24,6 @@
     <ClCompile Include="source\LptaD3D_init.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\LptaD3DModel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\LptaD3D_main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -36,12 +33,15 @@
     <ClCompile Include="source\LptaD3DUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\LptaD3DConfig_dlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LptaD3DConfig_main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\LptaD3D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\LptaD3DModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="header\LptaD3DUtils.h">
@@ -52,6 +52,9 @@
     </ClInclude>
     <ClInclude Include="header\adapter\AdapterInfo.h">
       <Filter>Header Files\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="header\LptaD3DConfig.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

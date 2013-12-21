@@ -2,7 +2,7 @@
 #define _LPTAD3D_H_
 
 #include <d3dx9.h>
-#include "LptaD3DModel.h"
+#include "LptaD3DConfig.h"
 #include "LptaRenderDeviceImpl.h"
 using std::unique_ptr;
 
@@ -38,7 +38,7 @@ public:
 private:
 	LPDIRECT3D9 d3d;
 	LPDIRECT3DDEVICE9 d3ddev;
-	unique_ptr<LptaD3DModel> configuration;
+	LPTA_D3D_CONFIG config;
 	LPDIRECT3DSWAPCHAIN9 chain[MAX_3DHWND];
 	D3DCOLOR clearColor;
 	bool isSceneRunning;
