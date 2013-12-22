@@ -16,7 +16,7 @@ protected:
 	DWORD screenWidth;
 	DWORD screenHeight;
 	bool isWindows;
-	char adapterName[256];
+	string adapterName;
 	FILE *logFile;
 	bool isRunning;
 };

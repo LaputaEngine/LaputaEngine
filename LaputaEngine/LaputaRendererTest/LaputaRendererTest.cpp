@@ -6,6 +6,8 @@
 #define SCREEN_WIDTH 400
 #define SCREEN_HEIGHT 300
 
+bool g_hasFocus = false;
+
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, int showArg)
@@ -15,12 +17,16 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
 	ZeroMemory(&windowConfig, sizeof(WNDCLASSEX));
 
 	windowConfig.cbSize = sizeof(WNDCLASSEX);
-	windowConfig.style = (CS_HREDRAW | CS_VREDRAW);
+	windowConfig.style = ( CS_OWNDC | CS_DBLCLKS);
 	windowConfig.lpfnWndProc = WindowProc;
+	windowConfig.cbClsExtra = 0;
+	windowConfig.cbWndExtra = 0;
 	windowConfig.hInstance = instance;
+	windowConfig.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 	windowConfig.hCursor = LoadCursor(NULL, IDC_ARROW);
 	windowConfig.hbrBackground = (HBRUSH)COLOR_WINDOW;
 	windowConfig.lpszClassName = L"LaputaRendererTestWindowClass";
+	windowConfig.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
 	
 	RegisterClassEx(&windowConfig);
 
@@ -35,17 +41,25 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
 		instance,
 		NULL);
 
-	ShowWindow(hWnd, showArg);
-
 	LptaRenderer renderer(instance);
 	renderer.CreateDevice("Direct3D");
 	LPTAFXRENDERER device = renderer.GetDevice();
-	std::shared_ptr<HWND> t;
-	device->Init(hWnd, t, 16, 0, false);
+	vector<HWND> renderWindows;
 
+	renderWindows.push_back(CreateWindowEx(
+		WS_EX_CLIENTEDGE,
+		L"static",
+		NULL,
+		WS_CHILD | SS_BLACKRECT | WS_VISIBLE, 10, 10, 100, 100, hWnd, NULL, instance, NULL)
+		);
+	device->SetClearColor(1.0f, 0.0f, 0.0f);
+	device->Init(hWnd, renderWindows, 16, 0, false);
+	device->UseWindow(0);
+	ShowWindow(hWnd, showArg);
 	MSG message;
+	device->BeginRendering(true, true, true);
+	device->EndRendering();
 	while (true) {
-		
 		while (PeekMessage(&message, NULL, 0, 0, PM_REMOVE)) {
 			TranslateMessage(&message);
 			DispatchMessage(&message);
@@ -55,8 +69,10 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
 			break;
 		}
 
-		device->BeginRendering(true, true, true);
-		device->EndRendering();
+		if (g_hasFocus) {
+			device->BeginRendering(true, true, true);
+			device->EndRendering();
+		}
 	}
 	renderer.Release();
 	return message.wParam;
@@ -65,6 +81,9 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) {
+	case WM_ACTIVATE:
+		g_hasFocus = (bool)wParam;
+		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;
