@@ -100,7 +100,7 @@ void LptaD3D::SetClearColor(float r, float g, float b)
 
 HRESULT LptaD3D::UseWindow(UINT windowIndex)
 {
-	if (0 < windowIndex || windowIndex >= numWindows) {
+	if (windowIndex < 0 || numWindows <= windowIndex) {
 		return S_OK;
 	}
 	LPDIRECT3DSURFACE9 surf = NULL;
