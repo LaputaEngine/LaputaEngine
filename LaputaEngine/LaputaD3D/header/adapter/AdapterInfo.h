@@ -1,11 +1,11 @@
-#include <set>
+#include <vector>
 #include <Windows.h>
 #include <d3d9.h>
 #include "LptaD3DUtils.h"
-using std::set;
+using std::vector;
 using std::string;
 
-typedef set<D3DDISPLAYMODE, LptaD3DUtils::DisplayFormatComparator> DISPLAY_MODES;
+typedef vector<D3DDISPLAYMODE> DISPLAY_MODES;
 
 class AdapterInfo
 {

@@ -15,6 +15,16 @@ struct LPTACOMBOINFO;
 class LptaD3DConfig;
 typedef shared_ptr<LptaD3DConfig> LPTA_D3D_CONFIG;
 
+namespace lpta_d3d
+{
+	const UINT DEFAULT_WIDTH = 800;
+	const UINT DEFAULT_HEIGHT = 600;
+
+	const BOOL DEFAULT_WINDOWED = TRUE;
+
+	const D3DSWAPEFFECT DEFAULT_SWAP_EFFECT = D3DSWAPEFFECT_DISCARD;
+}
+
 class LptaD3DConfig
 {
 public:
@@ -27,9 +37,11 @@ public:
 	~LptaD3DConfig(void);
 
 	///////////////////////////////////////////////////////////////////////////
-	// Accessors
+	// Queries
 	/////////////////////////////////////////////////////////////////
-	const vector<D3DFORMAT> & GetFormats(void) const;
+	D3DPRESENT_PARAMETERS GetParameters(void) const;
+	UINT GetSelectedAdapter(void) const;
+	D3DDEVTYPE GetDeviceType(void) const;
 
 	///////////////////////////////////////////////////////////////////////////
 	// User dialog methods
@@ -48,12 +60,15 @@ private:
 	// User dialog helper methods
 	/////////////////////////////////////////////////////////////////
 	void UpdateAdapterOptions(void) const;
+	void UpdateParametersFromDialog(void);
 
 	///////////////////////////////////////////////////////////////////////////
 	//
 	/////////////////////////////////////////////////////////////////
-	vector<D3DFORMAT> displayFormats;
 	vector<AdapterInfo> adapterInfos;
+	UINT selectedAdapter;
+	D3DDEVTYPE deviceType;
+	D3DPRESENT_PARAMETERS parameters;
 
 	///////////////////////////////////////////////////////////////////////////
 	// Dialog specific attributes

@@ -39,9 +39,14 @@ LptaD3DConfig::~LptaD3DConfig(void)
 /////////////////////////////////////////////////////////////////
 LptaD3DConfig::LptaD3DConfig(const LPDIRECT3D9 d3d)
 {
-	for (unsigned int i = 0; i < lpta_d3d::NUM_RENDER_FORMATS; i++) {
-		displayFormats.push_back(lpta_d3d::RENDER_FORMATS[i]);
-	}
+	selectedAdapter = 0;
+	deviceType = D3DDEVTYPE_HAL;
+	ZeroMemory(&parameters, sizeof(D3DPRESENT_PARAMETERS));
+	parameters.BackBufferFormat = lpta_d3d::RENDER_FORMAT;
+	parameters.BackBufferWidth = lpta_d3d::DEFAULT_WIDTH;
+	parameters.BackBufferHeight = lpta_d3d::DEFAULT_HEIGHT;
+	parameters.Windowed = lpta_d3d::DEFAULT_WINDOWED;
+	parameters.SwapEffect = lpta_d3d::DEFAULT_SWAP_EFFECT;
 	DiscoverAdapters(this, d3d, adapterInfos); // depends on render formats
 }
 void DiscoverAdapters(LptaD3DConfig *model, const LPDIRECT3D9 d3d, vector<AdapterInfo> &adapterInfos)
@@ -57,15 +62,12 @@ void DiscoverAdapters(LptaD3DConfig *model, const LPDIRECT3D9 d3d, vector<Adapte
 }
 void DiscoverDisplayModesFor(AdapterInfo &adapterInfo, LptaD3DConfig *model, const LPDIRECT3D9 d3d)
 {
-	vector<D3DFORMAT> formats = model->GetFormats();
-	vector<D3DFORMAT>::iterator format;
-	for (format = formats.begin(); format != formats.end();  format++) {
-		for (unsigned int i = 0; i < d3d->GetAdapterModeCount(adapterInfo.GetAdapterIndex(), *format); i++) {
-			D3DDISPLAYMODE displayMode;
-			d3d->EnumAdapterModes(adapterInfo.GetAdapterIndex(), *format, i, &displayMode);
-			if (ValidDisplayMode(displayMode)) {
-				adapterInfo.AddDisplayMode(displayMode);
-			}
+	D3DFORMAT format = lpta_d3d::RENDER_FORMAT;
+	for (unsigned int i = 0; i < d3d->GetAdapterModeCount(adapterInfo.GetAdapterIndex(), format); i++) {
+		D3DDISPLAYMODE displayMode;
+		d3d->EnumAdapterModes(adapterInfo.GetAdapterIndex(), format, i, &displayMode);
+		if (ValidDisplayMode(displayMode)) {
+			adapterInfo.AddDisplayMode(displayMode);
 		}
 	}
 }
@@ -77,9 +79,19 @@ bool ValidDisplayMode(const D3DDISPLAYMODE &displayMode)
 }
 
 ///////////////////////////////////////////////////////////////////////////
-// Accessors
+// Queries
 /////////////////////////////////////////////////////////////////
-const vector<D3DFORMAT> & LptaD3DConfig::GetFormats(void) const
+D3DPRESENT_PARAMETERS LptaD3DConfig::GetParameters(void) const
 {
-	return displayFormats;
+	return parameters;
+}
+
+UINT LptaD3DConfig::GetSelectedAdapter(void) const
+{
+	return selectedAdapter;
+}
+
+D3DDEVTYPE LptaD3DConfig::GetDeviceType(void) const
+{
+	return deviceType;
 }

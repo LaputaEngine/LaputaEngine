@@ -29,10 +29,7 @@ const DISPLAY_MODES & AdapterInfo::GetDisplayModes(void) const
 
 void AdapterInfo::AddDisplayMode(const D3DDISPLAYMODE &mode)
 {
-	if (displayModes.find(mode) == displayModes.end())
-	{
-		displayModes.insert(mode);
-	}
+	displayModes.push_back(mode);
 }
 void AdapterInfo::AddDisplayModes(const DISPLAY_MODES &modes)
 {

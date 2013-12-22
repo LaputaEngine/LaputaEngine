@@ -2,10 +2,14 @@
 #define _LPTAD3DUTILS_H_
 
 #include <vector>
+#include <string>
 #include <d3d9.h>
 
 namespace LptaD3DUtils {
 	unsigned int GetBitsFor(D3DFORMAT format);
+	std::string GetTitleFor(D3DDEVTYPE deviceType);
+
+	std::wstring ToUnicode(const std::string &str);
 
 	struct DisplayFormatComparator
 	{

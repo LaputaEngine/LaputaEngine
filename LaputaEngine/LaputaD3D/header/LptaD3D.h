@@ -14,8 +14,14 @@ namespace lpta_d3d
 	const int MIN_HEIGHT = 600;
 	const int MIN_BITS = 16;
 
-	const D3DFORMAT RENDER_FORMATS[] = {D3DFMT_X8R8G8B8, D3DFMT_X1R5G5B5, D3DFMT_R5G6B5};
-	const int NUM_RENDER_FORMATS = sizeof(RENDER_FORMATS) / sizeof(D3DFORMAT);
+	const D3DFORMAT RENDER_FORMAT = D3DFMT_X8R8G8B8;
+
+	const D3DDEVTYPE DEVICE_TYPES[] = {
+		D3DDEVTYPE_HAL,
+		D3DDEVTYPE_REF,
+		D3DDEVTYPE_SW,
+	};
+	const int NUM_DEVICE_TYPES = sizeof(DEVICE_TYPES) / sizeof(D3DDEVTYPE);
 }
 
 class LptaD3D : public LptaRenderDeviceImpl

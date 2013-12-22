@@ -1,5 +1,6 @@
 #include "LptaD3DUtils.h"
 #include <algorithm>
+#include <sstream>
 
 bool CompareFormats(const D3DDISPLAYMODE &first, const D3DDISPLAYMODE &second);
 
@@ -19,4 +20,21 @@ unsigned int LptaD3DUtils::GetBitsFor(D3DFORMAT format)
 		case D3DFMT_A8R3G3B2: return 8;
 		default: return 0;
 	}
+}
+
+std::string LptaD3DUtils::GetTitleFor(D3DDEVTYPE deviceType)
+{
+	switch (deviceType) {
+	case D3DDEVTYPE_HAL: return "DEVICE_TYPE_HAL";
+	case D3DDEVTYPE_REF: return "DEVICE_TYPE_REF";
+	case D3DDEVTYPE_SW: return "DEVICE_TYPE_SW";
+	default: return "UNKNOWN_DEVICE_TYPE";
+	}
+}
+
+std::wstring LptaD3DUtils::ToUnicode(const std::string &str)
+{
+	std::wstringstream ss;
+	ss << str.c_str();
+	return ss.str();
 }
