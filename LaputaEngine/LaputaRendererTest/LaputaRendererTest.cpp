@@ -54,6 +54,9 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
 		if (message.message == WM_QUIT) {
 			break;
 		}
+
+		device->BeginRendering(true, true, true);
+		device->EndRendering();
 	}
 	renderer.Release();
 	return message.wParam;

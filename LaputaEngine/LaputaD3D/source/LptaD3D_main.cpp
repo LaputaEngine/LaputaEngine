@@ -16,36 +16,20 @@ LptaD3D::LptaD3D(HINSTANCE dll)
 
 LptaD3D::~LptaD3D(void)
 {
-	d3d->Release();
 	config.reset();
-}
-
-HRESULT LptaD3D::Init(HWND hWnd, const std::shared_ptr<HWND> h3DWnd, int mindDepth, int minStencil, bool saveLog)
-{
-	config->ShowUserDialog(dll, hWnd);
-	D3DPRESENT_PARAMETERS d3dpp = config->GetParameters();
-	d3dpp.hDeviceWindow = hWnd;
-	d3d->CreateDevice(
-		config->GetSelectedAdapter(),
-		config->GetDeviceType(),
-		hWnd,
-		D3DCREATE_MIXED_VERTEXPROCESSING,
-		&d3dpp,
-		&d3ddev
-	);
-	return S_OK;
-}
-
-// this should be hidden inside the model
-
-void LptaD3D::SelectRadioButton(HWND handle)
-{
-	SendMessage(handle, BM_SETCHECK, BST_CHECKED, 0);
+	Release();
 }
 
 void LptaD3D::Release(void)
 {
-
+	if (NULL != d3ddev) {
+		d3ddev->Release();
+		d3ddev = NULL;
+	}
+	if (NULL != d3d) {
+		d3d->Release();
+		d3d = NULL;
+	}
 }
 
 bool LptaD3D::IsRunning(void)
@@ -55,6 +39,7 @@ bool LptaD3D::IsRunning(void)
 
 HRESULT LptaD3D::BeginRendering(bool, bool, bool)
 {
+	d3ddev->BeginScene();
 	return S_OK;
 }
 
@@ -65,7 +50,8 @@ HRESULT LptaD3D::Clear(bool, bool, bool)
 
 void LptaD3D::EndRendering(void)
 {
-
+	d3ddev->EndScene();
+	d3ddev->Present(NULL, NULL, NULL, NULL);
 }
 
 void LptaD3D::SetClearColor(float, float, float)

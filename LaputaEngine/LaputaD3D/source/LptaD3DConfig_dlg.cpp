@@ -74,6 +74,8 @@ BOOL CALLBACK LptaD3DConfig::DlgProc(HWND dialog, UINT message, WPARAM wParam, L
 			break;
 		case IDOK:
 			UpdateParametersFromDialog();
+			EndDialog(dialog, 1);
+			return TRUE;
 		case IDCANCEL:
 			EndDialog(dialog, 0);
 			return TRUE;
