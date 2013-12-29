@@ -1,7 +1,7 @@
 #include <memory>
 #include <Windows.h>
 #include "LptaRenderDevice.h"
-#include "LptaRendererStatus.h"
+#include "LptaRendererStatusCodes.h"
 #include "LptaD3D.h"
 using std::shared_ptr;
 

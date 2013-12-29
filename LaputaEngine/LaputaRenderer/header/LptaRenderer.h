@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <Windows.h>
+#include "LptaStatusCodes.h"
 #include "LptaRenderDevice.h"
 
 class LptaRenderer
@@ -12,7 +13,7 @@ public:
 	LptaRenderer(HINSTANCE hInst);
 	~LptaRenderer(void);
 
-	HRESULT CreateDevice(std::string api);
+	LPTA_RESULT CreateDevice(std::string api);
 	void Release(void);
 	LPTAFXRENDERER GetDevice(void);
 

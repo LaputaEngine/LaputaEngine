@@ -1,4 +1,0 @@
-LIBRARY "LaputaD3D.dll"
-EXPORTS
-	CreateRenderDevice
-	ReleaseRenderDevice

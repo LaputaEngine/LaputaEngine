@@ -6,17 +6,24 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LaputaEngine", "LaputaEngine\LaputaEngine.vcxproj", "{037941D4-0AA9-4549-BFA9-5AD92C037581}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LaputaRenderer", "LaputaRenderer\LaputaRenderer.vcxproj", "{CA46416F-C5FF-467E-9F90-0C14EA05CE30}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9F682FC7-AA12-4CE4-9951-F1F6E160CBF2} = {9F682FC7-AA12-4CE4-9951-F1F6E160CBF2}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LaputaD3D", "LaputaD3D\LaputaD3D.vcxproj", "{93517340-9C10-4E16-A841-1F0F867E9204}"
 	ProjectSection(ProjectDependencies) = postProject
 		{CA46416F-C5FF-467E-9F90-0C14EA05CE30} = {CA46416F-C5FF-467E-9F90-0C14EA05CE30}
+		{9F682FC7-AA12-4CE4-9951-F1F6E160CBF2} = {9F682FC7-AA12-4CE4-9951-F1F6E160CBF2}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LaputaRendererTest", "LaputaRendererTest\LaputaRendererTest.vcxproj", "{5722E2D8-64C5-4952-AFBF-16AF6EF98976}"
 	ProjectSection(ProjectDependencies) = postProject
 		{93517340-9C10-4E16-A841-1F0F867E9204} = {93517340-9C10-4E16-A841-1F0F867E9204}
 		{CA46416F-C5FF-467E-9F90-0C14EA05CE30} = {CA46416F-C5FF-467E-9F90-0C14EA05CE30}
+		{9F682FC7-AA12-4CE4-9951-F1F6E160CBF2} = {9F682FC7-AA12-4CE4-9951-F1F6E160CBF2}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LaputaGeneral", "LaputaGeneral\LaputaGeneral.vcxproj", "{9F682FC7-AA12-4CE4-9951-F1F6E160CBF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +47,10 @@ Global
 		{5722E2D8-64C5-4952-AFBF-16AF6EF98976}.Debug|Win32.Build.0 = Debug|Win32
 		{5722E2D8-64C5-4952-AFBF-16AF6EF98976}.Release|Win32.ActiveCfg = Release|Win32
 		{5722E2D8-64C5-4952-AFBF-16AF6EF98976}.Release|Win32.Build.0 = Release|Win32
+		{9F682FC7-AA12-4CE4-9951-F1F6E160CBF2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9F682FC7-AA12-4CE4-9951-F1F6E160CBF2}.Debug|Win32.Build.0 = Debug|Win32
+		{9F682FC7-AA12-4CE4-9951-F1F6E160CBF2}.Release|Win32.ActiveCfg = Release|Win32
+		{9F682FC7-AA12-4CE4-9951-F1F6E160CBF2}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

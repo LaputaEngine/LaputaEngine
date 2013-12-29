@@ -10,17 +10,26 @@ LptaD3D::LptaD3D(HINSTANCE dll)
 {
 	this->dll = dll;
 	this->isRunning = false;
-
+	
+	this->d3ddev = NULL;
+	this->d3d = NULL;
+	for (unsigned int i = 0; i < MAX_3DHWND; ++i) {
+		chain[i] = NULL;
+	}
+	this->numWindows = 0;
+	
 	this->d3d = Direct3DCreate9(D3D_SDK_VERSION);
 	this->clearColor = lpta_d3d::DEFAULT_CLEAR_COLOR;
 	this->isSceneRunning = false;
+	this->numWindows = 0;
 
-	config = LptaD3DConfig::GetConfig(this->d3d);
+	this->config = LptaD3DConfig::GetConfig(this->d3d);
+
+	
 }
 
 LptaD3D::~LptaD3D(void)
 {
-	config.reset();
 	Release();
 }
 
@@ -36,10 +45,13 @@ void LptaD3D::Release(void)
 	}
 	for (unsigned int i = 0; i < numWindows; i++) {
 		renderWindows[i] = NULL;
-		chain[i]->Release();
-		chain[i] = NULL;
+		if (NULL != chain[i]) {
+			chain[i]->Release();
+			chain[i] = NULL;
+		}
 	}
 	numWindows = 0;
+	dll = NULL;
 }
 
 bool LptaD3D::IsRunning(void)
