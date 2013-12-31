@@ -5,6 +5,7 @@
 #define new DBG_NEW
 #include <Windows.h>
 #include "LptaRenderer.h"
+#include <LptaVector.h>
 
 #pragma comment(lib, "LaputaRenderer.lib")
 
@@ -81,6 +82,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
 		}
 	}
 	renderer.Release();
+	OutputDebugString(LptaVector::sseCapable? L"hasSSE" : L"noSSE");
 	return message.wParam;
 }
 
