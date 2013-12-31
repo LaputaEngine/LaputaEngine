@@ -8,17 +8,17 @@
 class LptaRenderDeviceImpl : public LptaRenderDevice
 {
 protected:
-	HWND mainWindow;
-	HWND renderWindows[MAX_3DHWND];
-	UINT numWindows;
-	UINT numActiveWindows;
-	HINSTANCE dll;
-	DWORD screenWidth;
-	DWORD screenHeight;
-	bool isWindows;
-	string adapterName;
-	FILE *logFile;
-	bool isRunning;
+    HWND mainWindow;
+    HWND renderWindows[MAX_3DHWND];
+    UINT numWindows;
+    UINT numActiveWindows;
+    HINSTANCE dll;
+    DWORD screenWidth;
+    DWORD screenHeight;
+    bool isWindows;
+    string adapterName;
+    FILE *logFile;
+    bool isRunning;
 };
 
 #endif

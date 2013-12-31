@@ -3,8 +3,8 @@
 
 AdapterInfo::AdapterInfo(UINT adapterIndex, D3DADAPTER_IDENTIFIER9 identifier)
 {
-	this->adapterIndex = adapterIndex;
-	this->identifier = identifier;
+    this->adapterIndex = adapterIndex;
+    this->identifier = identifier;
 }
 
 AdapterInfo::~AdapterInfo(void)
@@ -14,27 +14,27 @@ AdapterInfo::~AdapterInfo(void)
 
 UINT AdapterInfo::GetAdapterIndex(void) const
 {
-	return adapterIndex;
+    return adapterIndex;
 }
 
 string AdapterInfo::GetDescription(void) const
 {
-	return string(identifier.Description);
+    return string(identifier.Description);
 }
 
 const DISPLAY_MODES & AdapterInfo::GetDisplayModes(void) const
 {
-	return displayModes;
+    return displayModes;
 }
 
 void AdapterInfo::AddDisplayMode(const D3DDISPLAYMODE &mode)
 {
-	displayModes.push_back(mode);
+    displayModes.push_back(mode);
 }
 void AdapterInfo::AddDisplayModes(const DISPLAY_MODES &modes)
 {
-	DISPLAY_MODES::const_iterator mode;
-	for (mode = modes.begin(); mode != modes.end(); mode++) {
-		AddDisplayMode(*mode);
-	}
+    DISPLAY_MODES::const_iterator mode;
+    for (mode = modes.begin(); mode != modes.end(); mode++) {
+        AddDisplayMode(*mode);
+    }
 }

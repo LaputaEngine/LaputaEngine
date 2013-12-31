@@ -10,17 +10,17 @@ typedef vector<D3DDISPLAYMODE> DISPLAY_MODES;
 class AdapterInfo
 {
 public:
-	AdapterInfo(UINT adapterIndex, D3DADAPTER_IDENTIFIER9 identifier);
-	~AdapterInfo(void);
+    AdapterInfo(UINT adapterIndex, D3DADAPTER_IDENTIFIER9 identifier);
+    ~AdapterInfo(void);
 
-	UINT GetAdapterIndex(void) const;
-	string GetDescription(void) const;
-	const DISPLAY_MODES & GetDisplayModes(void) const;
+    UINT GetAdapterIndex(void) const;
+    string GetDescription(void) const;
+    const DISPLAY_MODES & GetDisplayModes(void) const;
 
-	void AddDisplayMode(const D3DDISPLAYMODE &mode);
-	void AddDisplayModes(const DISPLAY_MODES &modes);
+    void AddDisplayMode(const D3DDISPLAYMODE &mode);
+    void AddDisplayModes(const DISPLAY_MODES &modes);
 private:
-	UINT adapterIndex;
-	D3DADAPTER_IDENTIFIER9 identifier;
-	DISPLAY_MODES displayModes;
+    UINT adapterIndex;
+    D3DADAPTER_IDENTIFIER9 identifier;
+    DISPLAY_MODES displayModes;
 };

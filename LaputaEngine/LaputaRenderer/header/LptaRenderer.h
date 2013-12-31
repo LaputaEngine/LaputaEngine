@@ -10,17 +10,17 @@
 class LptaRenderer
 {
 public:
-	LptaRenderer(HINSTANCE hInst);
-	~LptaRenderer(void);
+    LptaRenderer(HINSTANCE hInst);
+    ~LptaRenderer(void);
 
-	LPTA_RESULT CreateDevice(std::string api);
-	void Release(void);
-	LPTAFXRENDERER GetDevice(void);
+    LPTA_RESULT CreateDevice(std::string api);
+    void Release(void);
+    LPTAFXRENDERER GetDevice(void);
 
 private:
-	std::shared_ptr<LptaRenderDevice> renderDevice;
-	HINSTANCE hInst;
-	HMODULE dllHandle;
+    std::shared_ptr<LptaRenderDevice> renderDevice;
+    HINSTANCE hInst;
+    HMODULE dllHandle;
 };
 
 #endif
