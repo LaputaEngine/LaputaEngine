@@ -14,7 +14,6 @@
 
 bool g_hasFocus = false;
 
-//int RunRendererTest(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, int showArg);
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, int showArg)
@@ -82,7 +81,6 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
 		}
 	}
 	renderer.Release();
-	OutputDebugString(LptaVector::sseCapable? L"hasSSE" : L"noSSE");
 	return message.wParam;
 }
 
