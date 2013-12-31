@@ -14,6 +14,8 @@ namespace
 
 class LptaVector
 {
+protected:
+	static bool sseCapable;
 public:
 	LptaVector(void);
 	LptaVector(float x, float y, float z);
@@ -22,6 +24,8 @@ public:
 	float GetX(void);
 	float GetY(void);
 	float GetZ(void);
+
+	float Length(void) const;
 
 	void operator +=(const LptaVector &other);
 	void operator -=(const LptaVector &other);
@@ -35,8 +39,6 @@ public:
 private:
 	typedef struct VECTOR_TYPE VECTOR;
 	VECTOR vector;
-
-	static bool sseCapable;
 };
 
 #endif

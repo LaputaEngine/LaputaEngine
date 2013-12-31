@@ -1,4 +1,5 @@
 #include <Windows.h>
+#include <math.h>
 #include "LptaVector.h"
 
 bool CheckSSECapability(void);
@@ -40,6 +41,7 @@ LptaVector::~LptaVector(void)
 {
 }
 
+
 float LptaVector::GetX(void)
 {
 	return vector.x;
@@ -54,6 +56,37 @@ float LptaVector::GetZ(void)
 {
 	return vector.z;
 }
+
+
+float LptaVector::Length(void) const
+{
+	if (sseCapable) {
+		float length;
+		float *lengthPtr = &length;
+		VECTOR v = vector;
+		VECTOR *vPtr = &v;
+		_asm {
+			MOV		ecx, lengthPtr
+			MOV		esi, vPtr
+			MOVUPS	XMM0, [esi]
+			MULPS	XMM0, XMM0      ; [x*x, y*y, z*z, w*w]
+			MOVAPS	XMM1, XMM0
+			SHUFPS	XMM1, XMM1, 4Eh ; [z*z, w*w, x*x, y*y]
+			ADDPS	XMM0, XMM1      ; [x*x + z*z]
+			SHUFPS  XMM1, XMM1, 00h ; [y*y, y*y, y*y, y*y]
+			ADDPS	XMM0, XMM1		; [x*x + z*z + y*y]
+			SQRTSS	XMM0, XMM0
+			MOVSS	[ecx], XMM0
+		}
+		return length;
+	}
+	else {
+		return sqrt(vector.x * vector.x +
+			vector.y + vector.y +
+			vector.z + vector.z);
+	}
+}
+
 
 void LptaVector::operator +=(const LptaVector &other)
 {
