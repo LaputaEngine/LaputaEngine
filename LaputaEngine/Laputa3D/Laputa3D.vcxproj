@@ -11,9 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="header\LptaMatrix.h" />
     <ClInclude Include="header\LptaVector.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\LptaMatrix.cpp" />
     <ClCompile Include="source\LptaVector.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

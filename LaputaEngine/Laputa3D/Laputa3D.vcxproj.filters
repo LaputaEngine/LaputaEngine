@@ -18,9 +18,15 @@
     <ClInclude Include="header\LptaVector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="header\LptaMatrix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\LptaVector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LptaMatrix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

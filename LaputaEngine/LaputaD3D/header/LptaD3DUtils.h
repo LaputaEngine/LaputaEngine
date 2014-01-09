@@ -15,16 +15,13 @@ namespace LptaD3DUtils {
     {
         bool operator()(const D3DDISPLAYMODE &first, const D3DDISPLAYMODE &second)
         {
-            if (first.Width != second.Width)
-            {
+            if (first.Width != second.Width) {
                 return first.Width < second.Width;
             }
-            else if (first.Height != second.Height)
-            {
+            else if (first.Height != second.Height) {
                 return first.Height < second.Height;
             }
-            else
-            {
+            else {
                 return first.RefreshRate < second.RefreshRate;
             }
         }

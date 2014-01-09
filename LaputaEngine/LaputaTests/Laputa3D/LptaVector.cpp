@@ -39,6 +39,15 @@ TEST_F(LptaVectorNoSSETest, LengthNormalCase)
     ASSERT_EQ(3.0f, v.Length());
 }
 
+TEST(LptaVectorTest, NormalizeNormalCase)
+{
+    LptaVector v(1.0f, 2.0f, 2.0f);
+    v.Normalize();
+    ASSERT_NEAR(1.0f / 3.0f, v.GetX(), 0.001);
+    ASSERT_NEAR(2.0f / 3.0f, v.GetY(), 0.001);
+    ASSERT_NEAR(2.0f / 3.0f, v.GetZ(), 0.001);
+}
+
 TEST(LptaVectorTest, AddToNormalCase)
 {
     LptaVector v0(0.0f, 0.0f, 0.0f);
@@ -85,6 +94,16 @@ TEST(LptaVectorTest, MultiplyByVectorNormalCase)
     LptaVector v1(4.0f, 5.0f, 6.0f);
     float f = v0 * v1;
     ASSERT_EQ(f, 32.0f);
+}
+
+TEST_F(LptaVectorNoSSETest, MultipleByMatrixNormalCase)
+{
+    ::LptaVector v(1.0f, 2.0f, 3.0f);
+    LPTA_MATRIX m = LptaMatrix::MakeIdentityMatrix();
+    ::LptaVector result = v * (*m);
+    ASSERT_EQ(1.0f, result.GetX());
+    ASSERT_EQ(2.0f, result.GetY());
+    ASSERT_EQ(3.0f, result.GetZ());
 }
 
 TEST(LptaVectorTest, MultiplyByScalarNormalCase)

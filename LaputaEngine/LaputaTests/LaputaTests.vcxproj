@@ -81,6 +81,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Laputa3D\LptaMatrix.cpp" />
     <ClCompile Include="Laputa3D\LptaVector.cpp" />
     <ClCompile Include="TestRunner.cpp" />
   </ItemGroup>
