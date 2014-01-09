@@ -170,7 +170,7 @@ LptaVector LptaVector::operator *(const LptaMatrix &m) const
             MOV     ecx, vPtr
             MOV     edx, mPtr
             MOV     eax, v
-
+            // TODO finish
         }
     }
     else {
