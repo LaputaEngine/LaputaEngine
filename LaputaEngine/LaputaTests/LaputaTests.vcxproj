@@ -60,7 +60,8 @@
       <AdditionalDependencies>$(SolutionDir)\..\lib\gtest\gtestd.lib;$(SolutionDir)\..\lib\gtest\gtest_maind.lib;$(OutputPath)\Laputa3D.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>$(TargetDir)\$(TargetFileName)</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

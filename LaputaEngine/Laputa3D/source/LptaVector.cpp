@@ -14,11 +14,11 @@ bool CheckSSECapability(void)
     bool hasSSE = false;
     __try {
         _asm {
-            MOV        eax, 1
+            MOV		eax, 1
             CPUID
             TEST    edx, 02000000h
-            JZ        _NOSSE
-            MOV        [hasSSE], 1
+            JZ		_NOSSE
+            MOV		[hasSSE], 1
         _NOSSE:
         }
     }
@@ -159,27 +159,56 @@ float LptaVector::operator *(const LptaVector &other) const
         vector.z * other.vector.z);
 }
 
-LptaVector LptaVector::operator *(const LptaMatrix &m) const
+LptaVector LptaVector::operator *(const LPTA_MATRIX m) const
 {
     LptaVector result;
     VECTOR *v = &result.vector;
     if (sseCapable) {
         const VECTOR *vPtr = &vector;
-        const LptaMatrix::MATRIX *mPtr = &m.GetMatrix();
+        const LptaMatrix::MATRIX *mPtr = &m->GetMatrix();
+		// XMM0 holds the vector
+		// XMM1 holds the resulting vector
+		// XMM2 holds the broadcast of current working dimension
+		// XMM3 holds the transposed column of matrix
         _asm {
-            MOV     ecx, vPtr
-            MOV     edx, mPtr
-            MOV     eax, v
-            // TODO finish
+			MOV		ecx, vPtr
+			MOV     edx, mPtr
+			MOV     edi, v
+			MOVUPS	XMM0, [ecx]
+			; x
+			MOVSS	XMM1, XMM0
+			SHUFPS  XMM1, XMM1, 00h
+			MOVUPS  XMM3, [edx]
+			MULPS   XMM1, XMM3
+			; y
+			MOVAPS  XMM2, XMM0
+			SHUFPS  XMM2, XMM2, 55h
+			MOVUPS  XMM3, [edx + 16]
+			MULPS   XMM2, XMM3
+			ADDPS   XMM1, XMM2
+			; z
+			MOVAPS  XMM2, XMM0
+			SHUFPS  XMM2, XMM2, 0AAh
+			MOVUPS  XMM3, [edx + 32]
+			MULPS   XMM2, XMM3
+			ADDPS   XMM1, XMM2
+			; w
+			MOVAPS  XMM2, XMM0
+			SHUFPS  XMM2, XMM2, 0FFh
+			MOVUPS  XMM3, [edx + 48]
+			MULPS   XMM2, XMM3
+			ADDPS   XMM1, XMM2
+			; store
+			MOVUPS	[edi], XMM1
         }
     }
     else {
         for (unsigned int row = 0; row < LPTA_MATRIX_ROWS; ++row) {
             float *vRow = ((float *)v) + row;
-            *vRow = (vector.x * m.Get(row, 0)) + 
-                (vector.y * m.Get(row, 1)) +
-                (vector.z * m.Get(row, 2)) +
-                (vector.w * m.Get(row, 3));
+            *vRow = (vector.x * m->Get(row, 0)) + 
+                (vector.y * m->Get(row, 1)) +
+                (vector.z * m->Get(row, 2)) +
+                (vector.w * m->Get(row, 3));
         }
     }
     return result;
