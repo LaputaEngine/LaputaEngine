@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Errors">
+      <UniqueIdentifier>{02722415-b52e-4d74-a78f-3bf93918f4ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Errors">
+      <UniqueIdentifier>{eb7f7e6f-30a9-44d1-a06a-5a659dff0957}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\LptaVector.h">
@@ -21,6 +27,9 @@
     <ClInclude Include="header\LptaMatrix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="header\errors\InvalidRotationAxis.h">
+      <Filter>Header Files\Errors</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\LptaVector.cpp">
@@ -28,6 +37,9 @@
     </ClCompile>
     <ClCompile Include="source\LptaMatrix.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\errors\InvalidRotationAxis.cpp">
+      <Filter>Source Files\Errors</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

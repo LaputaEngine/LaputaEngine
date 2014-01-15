@@ -11,10 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="header\errors\InvalidRotationAxis.h" />
     <ClInclude Include="header\LptaMatrix.h" />
     <ClInclude Include="header\LptaVector.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\errors\InvalidRotationAxis.cpp" />
     <ClCompile Include="source\LptaMatrix.cpp" />
     <ClCompile Include="source\LptaVector.cpp" />
   </ItemGroup>

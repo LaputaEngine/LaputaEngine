@@ -28,6 +28,8 @@ public:
     float GetZ(void) const;
 
     float Length(void) const;
+	bool IsNormal(void) const;
+
     void Normalize(void);
 
     void operator +=(const LptaVector &other);

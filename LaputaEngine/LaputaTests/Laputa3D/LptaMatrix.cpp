@@ -3,6 +3,7 @@
 #include <math.h>
 #include "LptaVector.h"
 #include "LptaMatrix.h"
+#include "errors/InvalidRotationAxis.h"
 
 #define ACCEPTABLE_ERROR 1e-5f
 
@@ -52,4 +53,45 @@ TEST(LptaMatrixTest, MakeRotateZAxisMatrixNormalCase)
 	ASSERT_NEAR(0.0f, rotated.GetX(), ACCEPTABLE_ERROR);
 	ASSERT_NEAR(1.0f, rotated.GetY(), ACCEPTABLE_ERROR);
 	ASSERT_NEAR(2.0f, rotated.GetZ(), ACCEPTABLE_ERROR);
+}
+
+TEST(LptaMatrixTest, MakeRotationMatrixForNormalCase)
+{
+	// simulate y axis rotation
+	LptaVector axis(0.0f, 1.0f, 0.0f);
+	LptaVector v(1.0f, 2.0f, 0.0f);
+	LPTA_MATRIX m = LptaMatrix::MakeRotationMatrixFor(axis, (float)M_PI_2);
+	LptaVector rotated = v * m;
+	ASSERT_NEAR(0.0f, rotated.GetX(), ACCEPTABLE_ERROR);
+	ASSERT_NEAR(2.0f, rotated.GetY(), ACCEPTABLE_ERROR);
+	ASSERT_NEAR(1.0f, rotated.GetZ(), ACCEPTABLE_ERROR);
+
+	// simulate x axis rotation
+	axis = LptaVector(1.0f, 0.0f, 0.0f);
+	v = LptaVector(2.0f, 0.0f, -1.0f);
+	m = LptaMatrix::MakeRotationMatrixFor(axis, (float)M_PI_2);
+	rotated = v * m;
+	ASSERT_NEAR(2.0f, rotated.GetX(), ACCEPTABLE_ERROR);
+	ASSERT_NEAR(-1.0f, rotated.GetY(), ACCEPTABLE_ERROR);
+	ASSERT_NEAR(0.0f, rotated.GetZ(), ACCEPTABLE_ERROR);
+
+	// simulate z axis rotation
+	axis = LptaVector(0.0f, 0.0f, 1.0f);
+	v = LptaVector(0.0f, 1.0f, 2.0f);
+	m = LptaMatrix::MakeRotationMatrixFor(axis, (float)M_PI_2);
+	rotated = v * m;
+	ASSERT_NEAR(1.0f, rotated.GetX(), ACCEPTABLE_ERROR);
+	ASSERT_NEAR(0.0f, rotated.GetY(), ACCEPTABLE_ERROR);
+	ASSERT_NEAR(2.0f, rotated.GetZ(), ACCEPTABLE_ERROR);
+
+	// todo: add real arbitray axis
+}
+
+TEST(LptaMatrixTest, MakeRotationMatrixForNotNormalRotationAxis)
+{
+	LptaVector axis(1.0f, 1.0f, 1.0f);
+	LptaVector v(1.0f, 2.0f, 3.0f);
+	ASSERT_THROW({
+		LPTA_MATRIX m = LptaMatrix::MakeRotationMatrixFor(axis, (float)M_PI_2);
+	}, InvalidRotationAxis);
 }

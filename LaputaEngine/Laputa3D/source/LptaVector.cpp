@@ -6,6 +6,8 @@
 #error LptaVector only works with 4x4 matrices
 #endif
 
+#define IS_NORMAL_EPSILON 1E-8
+
 bool CheckSSECapability(void);
 
 bool LptaVector::sseCapable = CheckSSECapability();
@@ -76,20 +78,28 @@ float LptaVector::Length(void) const
             MULPS   XMM0, XMM0      ; [x*x, y*y, z*z, w*w]
             MOVAPS  XMM1, XMM0
             SHUFPS  XMM1, XMM1, 4Eh ; [z*z, w*w, x*x, y*y]
-            ADDPS   XMM0, XMM1      ; [x*x + z*z]
-            SHUFPS  XMM1, XMM1, 00h ; [y*y, y*y, y*y, y*y]
+			ADDPS   XMM0, XMM1		; [x*x + z*z, y*y + w*w, z*z + x*x, w*w + y*y]
+			SHUFPS  XMM1, XMM1, 0FFh; [w*w + y*y, w*w + y*y, w*w + y*y, w*w + y*y]
             ADDPS   XMM0, XMM1      ; [x*x + z*z + y*y]
             SQRTSS  XMM0, XMM0
-            MOVSS   [ecx], XMM0
+			MOVSS[ecx], XMM0
         }
         return length;
     }
     else {
         return sqrt(vector.x * vector.x +
-            vector.y + vector.y +
-            vector.z + vector.z);
+            vector.y * vector.y +
+            vector.z * vector.z);
     }
 }
+
+bool LptaVector::IsNormal(void) const
+{
+	const float normal_length = 1.0f;
+	const float length = Length();
+	return fabs((length - normal_length) / length) <= IS_NORMAL_EPSILON;
+}
+
 
 void LptaVector::Normalize(void)
 {
