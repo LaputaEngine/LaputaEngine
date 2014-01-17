@@ -242,3 +242,46 @@ LptaVector LptaVector::operator -(const LptaVector &other) const
     result -= other;
     return result;
 }
+
+// todo: **** Note **** this is in the right-hand rule coordinate system
+// while all the matrix stuff is in left-hand rule coordinate system.
+// Need to determine whether this is correct or keep everthing consistent.
+LptaVector LptaVector::Cross(const LptaVector &other) const
+{
+	LptaVector result;
+	VECTOR &v = result.vector;
+	if (sseCapable) {
+		const VECTOR *uPtr = &vector;
+		const VECTOR *vPtr = &other.vector;
+		VECTOR *rPtr = &v;
+		_asm {
+			
+			MOV		esi, uPtr
+			MOV		edi, vPtr
+
+			MOVUPS  XMM0, [esi]
+			MOVUPS  XMM1, [edi]
+			MOVAPS  XMM2, XMM0
+			MOVAPS  XMM3, XMM1
+
+			SHUFPS  XMM0, XMM0, 0C9h
+			SHUFPS  XMM1, XMM1, 0D2h
+			MULPS   XMM0, XMM1
+
+			SHUFPS  XMM2, XMM2, 0D2h
+			SHUFPS  XMM3, XMM3, 0C9h
+			MULPS   XMM2, XMM3
+
+			SUBPS   XMM0, XMM2
+
+			MOV     edi, rPtr
+			MOVUPS	[edi], XMM0
+		}
+	}
+	else {
+		v.x = (GetY() * other.GetZ()) - (GetZ() * other.GetY());
+		v.y = (GetZ() * other.GetX()) - (GetX() * other.GetZ());
+		v.z = (GetX() * other.GetY()) - (GetY() * other.GetX());
+	}
+	return result;
+}

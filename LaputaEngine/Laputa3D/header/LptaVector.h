@@ -42,6 +42,7 @@ public:
     LptaVector operator *(float f) const;
     LptaVector operator +(const LptaVector &other) const;
     LptaVector operator -(const LptaVector &other) const;
+	LptaVector Cross(const LptaVector &other) const;
 private:
     typedef struct VECTOR_TYPE VECTOR;
     VECTOR vector;

@@ -144,3 +144,44 @@ TEST(LptaVectorTest, SubtractVectorsNormalCase)
     ASSERT_EQ(4.0f, v2.GetY());
     ASSERT_EQ(6.0f, v2.GetZ());
 }
+
+// todo: **** NOTE **** see notes in implementation file.
+TEST(LptaVectorTest, CrossVectorNormalCaseX)
+{
+	LptaVector u(0.0f, 0.0f, 1.0f);
+	LptaVector v(0.0f, 1.0f, 0.0f);
+	LptaVector crossProduct = u.Cross(v);
+	ASSERT_EQ(-1.0f, crossProduct.GetX());
+	ASSERT_EQ(0.0f, crossProduct.GetY());
+	ASSERT_EQ(0.0f, crossProduct.GetZ());
+}
+
+TEST(LptaVectorTest, CrossVectorNormalCaseY)
+{
+	LptaVector u(1.0f, 0.0f, 0.0f);
+	LptaVector v(0.0f, 0.0f, 1.0f);
+	LptaVector crossProduct = u.Cross(v);
+	ASSERT_EQ(0.0f, crossProduct.GetX());
+	ASSERT_EQ(-1.0f, crossProduct.GetY());
+	ASSERT_EQ(0.0f, crossProduct.GetZ());
+}
+
+TEST(LptaVectorTest, CrossVectorNormalCaseZ)
+{
+	LptaVector u(1.0f, 0.0f, 0.0f);
+	LptaVector v(0.0f, 1.0f, 0.0f);
+	LptaVector crossProduct = u.Cross(v);
+	ASSERT_EQ(0.0f, crossProduct.GetX());
+	ASSERT_EQ(0.0f, crossProduct.GetY());
+	ASSERT_EQ(1.0f, crossProduct.GetZ());
+}
+
+TEST(LptaVectorTest, CrossVectorNormalCaseArbitrary)
+{
+	LptaVector u(1.0f, 2.0f, 3.0f);
+	LptaVector v(4.0f, 2.0f, 9.0f);
+	LptaVector crossProduct = u.Cross(v);
+	ASSERT_EQ(12.0f, crossProduct.GetX());
+	ASSERT_EQ(3.0f, crossProduct.GetY());
+	ASSERT_EQ(-6.0f, crossProduct.GetZ());
+}
