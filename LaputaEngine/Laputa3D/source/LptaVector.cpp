@@ -1,12 +1,11 @@
 #include <Windows.h>
 #include <math.h>
+#include "Lpta3D.h"
 #include "LptaVector.h"
 
 #if LPTA_MATRIX_ROWS != 4 || LPTA_MATRIX_COLUMNS != 4
 #error LptaVector only works with 4x4 matrices
 #endif
-
-#define IS_NORMAL_EPSILON 1E-8
 
 bool CheckSSECapability(void);
 
@@ -97,7 +96,7 @@ bool LptaVector::IsNormal(void) const
 {
 	const float normal_length = 1.0f;
 	const float length = Length();
-	return fabs((length - normal_length) / length) <= IS_NORMAL_EPSILON;
+	return fabs((length - normal_length) / length) < LPTA_EPSILON;
 }
 
 

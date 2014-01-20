@@ -19,6 +19,9 @@
     <Filter Include="Source Files\Errors">
       <UniqueIdentifier>{eb7f7e6f-30a9-44d1-a06a-5a659dff0957}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Geometry">
+      <UniqueIdentifier>{7b96eacb-8af8-425b-8393-767d687bd415}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\LptaVector.h">
@@ -30,6 +33,15 @@
     <ClInclude Include="header\errors\InvalidRotationAxis.h">
       <Filter>Header Files\Errors</Filter>
     </ClInclude>
+    <ClInclude Include="header\LptaRay.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\geometry\Shapes.h">
+      <Filter>Header Files\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Lpta3D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\LptaVector.cpp">
@@ -40,6 +52,9 @@
     </ClCompile>
     <ClCompile Include="source\errors\InvalidRotationAxis.cpp">
       <Filter>Source Files\Errors</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LptaRay.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

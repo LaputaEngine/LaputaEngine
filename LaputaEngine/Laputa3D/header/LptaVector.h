@@ -48,4 +48,6 @@ private:
     VECTOR vector;
 };
 
+typedef LptaVector COORDINATE;
+
 #endif
