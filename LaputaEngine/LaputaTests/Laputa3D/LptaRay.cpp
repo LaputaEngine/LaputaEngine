@@ -1,4 +1,6 @@
 #include <gtest/gtest.h>
+#include "LptaPlane.h"
+#include "LptaNormalVector.h"
 #include "LptaRay.h"
 
 TEST(LptaRayTest, ContructorNormalCase)
@@ -32,4 +34,31 @@ TEST(LptaRayTest, IntersectsTriangleNormalCase_NoIntersect)
 		COORDINATE(-1.0f, -1.0f, 0.0f),
 	};
 	ASSERT_FALSE(ray.Intersects(triangle));
+}
+
+TEST(LptaRayTest, IntersectsTriangleNormalCase_Intersect)
+{
+	COORDINATE origin(0.0f, 0.0f, 0.0f);
+	LptaVector direction(1.0f, 0.0f, 1.0f);
+	LptaRay ray(origin, direction);
+	LptaPlane plane(COORDINATE(1.0f, 1.0f, 0.0f), LptaNormalVector(1.0f, 0.0f, 0.0f));
+	ASSERT_TRUE(ray.Intersects(plane));
+}
+
+TEST(LptaRayTest, IntersectsTriangleNormalCase_NoIntersect_Parallel)
+{
+	COORDINATE origin(0.0f, 0.0f, 0.0f);
+	LptaVector direction(0.0f, 1.0f, 1.0f);
+	LptaRay ray(origin, direction);
+	LptaPlane plane(COORDINATE(1.0f, 1.0f, 0.0f), LptaNormalVector(1.0f, 0.0f, 0.0f));
+	ASSERT_FALSE(ray.Intersects(plane));
+}
+
+TEST(LptaRayTest, IntersectsTriangleNormalCase_NoIntersect_OriginOffset)
+{
+	COORDINATE origin(1.1f, 0.0f, 0.0f);
+	LptaVector direction(1.0f, 0.0f, 1.0f);
+	LptaRay ray(origin, direction);
+	LptaPlane plane(COORDINATE(1.0f, 1.0f, 0.0f), LptaNormalVector(1.0f, 0.0f, 0.0f));
+	ASSERT_FALSE(ray.Intersects(plane));
 }

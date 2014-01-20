@@ -42,6 +42,15 @@
     <ClInclude Include="header\Lpta3D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="header\LptaPlane.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\errors\NonNormalVector.h">
+      <Filter>Header Files\Errors</Filter>
+    </ClInclude>
+    <ClInclude Include="header\LptaNormalVector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\LptaVector.cpp">
@@ -54,6 +63,15 @@
       <Filter>Source Files\Errors</Filter>
     </ClCompile>
     <ClCompile Include="source\LptaRay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\errors\NonNormalVector.cpp">
+      <Filter>Source Files\Errors</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LptaNormalVector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LptaPlane.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

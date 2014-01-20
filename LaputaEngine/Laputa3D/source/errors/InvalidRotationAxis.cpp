@@ -8,7 +8,7 @@ InvalidRotationAxis::InvalidRotationAxis(const LptaVector &axis) :
 			to_string(axis.GetX()) + ", " +
 			to_string(axis.GetY()) + ", " +
 			to_string(axis.GetZ()) +
-		"] is not normal and cannot be used as a rotation axis"
+		"]' is not normal and cannot be used as a rotation axis"
 	)
 {
 }
