@@ -22,6 +22,8 @@ public:
 
 	float Distance(const COORDINATE &p) const;
 	LptaPlane::Location Classify(const COORDINATE &p) const;
+	
+	bool Intersects(const LptaPlane &other) const;
 private:
 	COORDINATE point;
 	LptaNormalVector normal;

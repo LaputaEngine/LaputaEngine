@@ -92,6 +92,13 @@ float LptaVector::Length(void) const
     }
 }
 
+float LptaVector::LengthSquared(void) const
+{
+	return (vector.x * vector.x) +
+		(vector.y * vector.y) +
+		(vector.z * vector.z);
+}
+
 bool LptaVector::IsNormal(void) const
 {
 	const float normal_length = 1.0f;

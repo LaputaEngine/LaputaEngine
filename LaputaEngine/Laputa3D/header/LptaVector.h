@@ -28,6 +28,7 @@ public:
     float GetZ(void) const;
 
     float Length(void) const;
+	float LengthSquared(void) const;
 	bool IsNormal(void) const;
 
     void Normalize(void);

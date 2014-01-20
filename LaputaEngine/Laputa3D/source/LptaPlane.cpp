@@ -1,6 +1,9 @@
 #include "Lpta3D.h"
 #include "LptaPlane.h"
 
+// Intersects(plane)
+inline bool IsParallel(const LptaVector &crossProduct);
+
 LptaPlane::LptaPlane(const COORDINATE &point, const LptaNormalVector &normal)
 	: LptaPlane(point, normal, -(normal * point))
 {
@@ -35,4 +38,19 @@ LptaPlane::Location LptaPlane::Classify(const COORDINATE &p) const
 	else {
 		return Location::PLANE;
 	}
+}
+
+// based on David Eberly's algorithm, with most of the interesting stuff left
+// out for now.
+bool LptaPlane::Intersects(const LptaPlane &other) const
+{
+	LptaVector cross = normal.Cross(other.normal);
+	
+	return !IsParallel(cross);
+}
+bool IsParallel(const LptaVector &crossProduct)
+{
+	// note that this is slower than LengthSquared, we me want to optimize
+	// this part as the book suggests if needed.
+	return crossProduct.Length() < LPTA_EPSILON;
 }

@@ -21,5 +21,8 @@
     <ClCompile Include="Laputa3D\LptaRay.cpp">
       <Filter>Laputa3D</Filter>
     </ClCompile>
+    <ClCompile Include="Laputa3D\LptaPlane.cpp">
+      <Filter>Laputa3D</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
