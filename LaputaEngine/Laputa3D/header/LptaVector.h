@@ -38,7 +38,7 @@ public:
     void operator /=(const LptaVector &other);
 
     float operator *(const LptaVector &other) const;
-    LptaVector operator *(const LPTA_MATRIX m) const;
+    LptaVector operator *(const LptaMatrix &m) const;
     LptaVector operator *(float f) const;
     LptaVector operator +(const LptaVector &other) const;
     LptaVector operator -(const LptaVector &other) const;

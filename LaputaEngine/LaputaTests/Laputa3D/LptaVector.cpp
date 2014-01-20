@@ -99,7 +99,7 @@ TEST(LptaVectorTest, MultiplyByVectorNormalCase)
 TEST(LptaVectorTest, MultipleByMatrixNormalCase)
 {
     LptaVector v(1.0f, 2.0f, 3.0f);
-    LPTA_MATRIX m = LptaMatrix::MakeIdentityMatrix();
+    LptaMatrix m = LptaMatrix::MakeIdentityMatrix();
     LptaVector result = v * m;
     ASSERT_EQ(1.0f, result.GetX());
     ASSERT_EQ(2.0f, result.GetY());
@@ -109,7 +109,7 @@ TEST(LptaVectorTest, MultipleByMatrixNormalCase)
 TEST_F(LptaVectorNoSSETest, MultipleByMatrixNormalCase)
 {
     ::LptaVector v(1.0f, 2.0f, 3.0f);
-    LPTA_MATRIX m = LptaMatrix::MakeIdentityMatrix();
+    LptaMatrix m = LptaMatrix::MakeIdentityMatrix();
     ::LptaVector result = v * m;
     ASSERT_EQ(1.0f, result.GetX());
     ASSERT_EQ(2.0f, result.GetY());

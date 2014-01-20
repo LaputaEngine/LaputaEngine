@@ -168,13 +168,13 @@ float LptaVector::operator *(const LptaVector &other) const
         vector.z * other.vector.z);
 }
 
-LptaVector LptaVector::operator *(const LPTA_MATRIX m) const
+LptaVector LptaVector::operator *(const LptaMatrix &m) const
 {
     LptaVector result;
     VECTOR *v = &result.vector;
     if (sseCapable) {
         const VECTOR *vPtr = &vector;
-        const LptaMatrix::MATRIX *mPtr = &m->GetMatrix();
+        const LptaMatrix::MATRIX *mPtr = &m.GetMatrix();
 		// XMM0 holds the vector
 		// XMM1 holds the resulting vector
 		// XMM2 holds the broadcast of current working dimension
@@ -214,10 +214,10 @@ LptaVector LptaVector::operator *(const LPTA_MATRIX m) const
     else {
         for (unsigned int row = 0; row < LPTA_MATRIX_ROWS; ++row) {
             float *vRow = ((float *)v) + row;
-            *vRow = (vector.x * m->Get(row, 0)) + 
-                (vector.y * m->Get(row, 1)) +
-                (vector.z * m->Get(row, 2)) +
-                (vector.w * m->Get(row, 3));
+            *vRow = (vector.x * m.Get(row, 0)) + 
+                (vector.y * m.Get(row, 1)) +
+                (vector.z * m.Get(row, 2)) +
+                (vector.w * m.Get(row, 3));
         }
     }
     return result;
