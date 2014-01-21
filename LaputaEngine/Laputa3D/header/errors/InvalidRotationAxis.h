@@ -7,7 +7,7 @@
 class InvalidRotationAxis : public std::domain_error
 {
 public:
-	InvalidRotationAxis(const LptaVector &axis);
+    InvalidRotationAxis(const LptaVector &axis);
 };
 
 #endif

@@ -19,11 +19,11 @@ class LptaVector
 protected:
     static bool sseCapable;
 public:
-	enum VECTOR_DIRECTION 
-	{
-		POSITIVE,
-		NEGATIVE
-	};
+    enum VECTOR_DIRECTION 
+    {
+        POSITIVE,
+        NEGATIVE
+    };
 public:
     LptaVector(void);
     LptaVector(float x, float y, float z);
@@ -33,13 +33,13 @@ public:
     inline float GetY(void) const;
     inline float GetZ(void) const;
 
-	inline void SetX(float x);
-	inline void SetY(float y);
-	inline void SetZ(float z);
+    inline void SetX(float x);
+    inline void SetY(float y);
+    inline void SetZ(float z);
 
     float Length(void) const;
-	float LengthSquared(void) const;
-	bool IsNormal(void) const;
+    float LengthSquared(void) const;
+    bool IsNormal(void) const;
 
     void Normalize(void);
 
@@ -50,11 +50,11 @@ public:
 
     float operator *(const LptaVector &other) const;
     LptaVector operator *(const LptaMatrix &m) const;
-	LptaVector operator *(float multiplier) const;
-	LptaVector operator /(float divisor) const;
+    LptaVector operator *(float multiplier) const;
+    LptaVector operator /(float divisor) const;
     LptaVector operator +(const LptaVector &other) const;
     LptaVector operator -(const LptaVector &other) const;
-	LptaVector Cross(const LptaVector &other) const;
+    LptaVector Cross(const LptaVector &other) const;
 private:
     typedef struct VECTOR_TYPE VECTOR;
     VECTOR vector;
@@ -65,32 +65,32 @@ typedef LptaVector COORDINATE;
 
 float LptaVector::GetX(void) const
 {
-	return vector.x;
+    return vector.x;
 }
 
 float LptaVector::GetY(void) const
 {
-	return vector.y;
+    return vector.y;
 }
 
 float LptaVector::GetZ(void) const
 {
-	return vector.z;
+    return vector.z;
 }
 
 void LptaVector::SetX(float x)
 {
-	vector.x = x;
+    vector.x = x;
 }
 
 void LptaVector::SetY(float y)
 {
-	vector.y = y;
+    vector.y = y;
 }
 
 void LptaVector::SetZ(float z)
 {
-	vector.z = z;
+    vector.z = z;
 }
 
 #endif

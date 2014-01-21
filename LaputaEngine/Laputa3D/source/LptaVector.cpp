@@ -19,11 +19,11 @@ bool CheckSSECapability(void)
     bool hasSSE = false;
     __try {
         _asm {
-            MOV		eax, 1
+            MOV        eax, 1
             CPUID
             TEST    edx, 02000000h
-            JZ		_NOSSE
-            MOV		[hasSSE], 1
+            JZ        _NOSSE
+            MOV        [hasSSE], 1
         _NOSSE:
         }
     }
@@ -65,11 +65,11 @@ float LptaVector::Length(void) const
             MULPS   XMM0, XMM0      ; [x*x, y*y, z*z, w*w]
             MOVAPS  XMM1, XMM0
             SHUFPS  XMM1, XMM1, 4Eh ; [z*z, w*w, x*x, y*y]
-			ADDPS   XMM0, XMM1		; [x*x + z*z, y*y + w*w, z*z + x*x, w*w + y*y]
-			SHUFPS  XMM1, XMM1, 0FFh; [w*w + y*y, w*w + y*y, w*w + y*y, w*w + y*y]
+            ADDPS   XMM0, XMM1        ; [x*x + z*z, y*y + w*w, z*z + x*x, w*w + y*y]
+            SHUFPS  XMM1, XMM1, 0FFh; [w*w + y*y, w*w + y*y, w*w + y*y, w*w + y*y]
             ADDPS   XMM0, XMM1      ; [x*x + z*z + y*y]
             SQRTSS  XMM0, XMM0
-			MOVSS[ecx], XMM0
+            MOVSS[ecx], XMM0
         }
         return length;
     }
@@ -82,16 +82,16 @@ float LptaVector::Length(void) const
 
 float LptaVector::LengthSquared(void) const
 {
-	return (vector.x * vector.x) +
-		(vector.y * vector.y) +
-		(vector.z * vector.z);
+    return (vector.x * vector.x) +
+        (vector.y * vector.y) +
+        (vector.z * vector.z);
 }
 
 bool LptaVector::IsNormal(void) const
 {
-	const float normal_length = 1.0f;
-	const float length = Length();
-	return fabs((length - normal_length) / length) < LPTA_EPSILON;
+    const float normal_length = 1.0f;
+    const float length = Length();
+    return fabs((length - normal_length) / length) < LPTA_EPSILON;
 }
 
 
@@ -114,16 +114,16 @@ void LptaVector::Normalize(void)
             ADDPS   XMM0, XMM1      ; [x*x + y*y + z*z + w*w x 4]
 
             RSQRTPS XMM1, XMM0
-			; use the Newton-Raphson to refine approximation
-			MOVAPS  XMM3, RSQRT_CONST
-			MULPS	XMM0, XMM1
-			MULPS   XMM0, XMM1
-			SUBPS   XMM3, XMM0
-			MULPS   XMM3, XMM1
-			MOVAPS  XMM1, RSQRT_DIV
-			DIVPS   XMM3, XMM1
+            ; use the Newton-Raphson to refine approximation
+            MOVAPS  XMM3, RSQRT_CONST
+            MULPS    XMM0, XMM1
+            MULPS   XMM0, XMM1
+            SUBPS   XMM3, XMM0
+            MULPS   XMM3, XMM1
+            MOVAPS  XMM1, RSQRT_DIV
+            DIVPS   XMM3, XMM1
 
-			;MULPS   XMM0, XMM1
+            ;MULPS   XMM0, XMM1
 
             MULPS   XMM3, XMM2
             MOVUPS  [esi], XMM3
@@ -181,40 +181,40 @@ LptaVector LptaVector::operator *(const LptaMatrix &m) const
     if (sseCapable) {
         const VECTOR *vPtr = &vector;
         const LptaMatrix::MATRIX *mPtr = &m.GetMatrix();
-		// XMM0 holds the vector
-		// XMM1 holds the resulting vector
-		// XMM2 holds the broadcast of current working dimension
-		// XMM3 holds the transposed column of matrix
+        // XMM0 holds the vector
+        // XMM1 holds the resulting vector
+        // XMM2 holds the broadcast of current working dimension
+        // XMM3 holds the transposed column of matrix
         _asm {
-			MOV		ecx, vPtr
-			MOV     edx, mPtr
-			MOV     edi, v
-			MOVUPS	XMM0, [ecx]
-			; x
-			MOVSS	XMM1, XMM0
-			SHUFPS  XMM1, XMM1, 00h
-			MOVUPS  XMM3, [edx]
-			MULPS   XMM1, XMM3
-			; y
-			MOVAPS  XMM2, XMM0
-			SHUFPS  XMM2, XMM2, 55h
-			MOVUPS  XMM3, [edx + 16]
-			MULPS   XMM2, XMM3
-			ADDPS   XMM1, XMM2
-			; z
-			MOVAPS  XMM2, XMM0
-			SHUFPS  XMM2, XMM2, 0AAh
-			MOVUPS  XMM3, [edx + 32]
-			MULPS   XMM2, XMM3
-			ADDPS   XMM1, XMM2
-			; w
-			MOVAPS  XMM2, XMM0
-			SHUFPS  XMM2, XMM2, 0FFh
-			MOVUPS  XMM3, [edx + 48]
-			MULPS   XMM2, XMM3
-			ADDPS   XMM1, XMM2
-			; store
-			MOVUPS	[edi], XMM1
+            MOV        ecx, vPtr
+            MOV     edx, mPtr
+            MOV     edi, v
+            MOVUPS    XMM0, [ecx]
+            ; x
+            MOVSS    XMM1, XMM0
+            SHUFPS  XMM1, XMM1, 00h
+            MOVUPS  XMM3, [edx]
+            MULPS   XMM1, XMM3
+            ; y
+            MOVAPS  XMM2, XMM0
+            SHUFPS  XMM2, XMM2, 55h
+            MOVUPS  XMM3, [edx + 16]
+            MULPS   XMM2, XMM3
+            ADDPS   XMM1, XMM2
+            ; z
+            MOVAPS  XMM2, XMM0
+            SHUFPS  XMM2, XMM2, 0AAh
+            MOVUPS  XMM3, [edx + 32]
+            MULPS   XMM2, XMM3
+            ADDPS   XMM1, XMM2
+            ; w
+            MOVAPS  XMM2, XMM0
+            SHUFPS  XMM2, XMM2, 0FFh
+            MOVUPS  XMM3, [edx + 48]
+            MULPS   XMM2, XMM3
+            ADDPS   XMM1, XMM2
+            ; store
+            MOVUPS    [edi], XMM1
         }
     }
     else {
@@ -231,12 +231,12 @@ LptaVector LptaVector::operator *(const LptaMatrix &m) const
 
 LptaVector LptaVector::operator *(float multiplier) const
 {
-	return LptaVector(vector.x * multiplier, vector.y * multiplier, vector.z * multiplier);
+    return LptaVector(vector.x * multiplier, vector.y * multiplier, vector.z * multiplier);
 }
 
 LptaVector LptaVector::operator /(float divisor) const
 {
-	return LptaVector(vector.x / divisor, vector.y / divisor, vector.z / divisor);
+    return LptaVector(vector.x / divisor, vector.y / divisor, vector.z / divisor);
 }
 
 LptaVector LptaVector::operator +(const LptaVector &other) const
@@ -258,40 +258,40 @@ LptaVector LptaVector::operator -(const LptaVector &other) const
 // Need to determine whether this is correct or keep everthing consistent.
 LptaVector LptaVector::Cross(const LptaVector &other) const
 {
-	LptaVector result;
-	VECTOR &v = result.vector;
-	if (sseCapable) {
-		const VECTOR *uPtr = &vector;
-		const VECTOR *vPtr = &other.vector;
-		VECTOR *rPtr = &v;
-		_asm {
-			
-			MOV		esi, uPtr
-			MOV		edi, vPtr
+    LptaVector result;
+    VECTOR &v = result.vector;
+    if (sseCapable) {
+        const VECTOR *uPtr = &vector;
+        const VECTOR *vPtr = &other.vector;
+        VECTOR *rPtr = &v;
+        _asm {
+            
+            MOV        esi, uPtr
+            MOV        edi, vPtr
 
-			MOVUPS  XMM0, [esi]
-			MOVUPS  XMM1, [edi]
-			MOVAPS  XMM2, XMM0
-			MOVAPS  XMM3, XMM1
+            MOVUPS  XMM0, [esi]
+            MOVUPS  XMM1, [edi]
+            MOVAPS  XMM2, XMM0
+            MOVAPS  XMM3, XMM1
 
-			SHUFPS  XMM0, XMM0, 0C9h
-			SHUFPS  XMM1, XMM1, 0D2h
-			MULPS   XMM0, XMM1
+            SHUFPS  XMM0, XMM0, 0C9h
+            SHUFPS  XMM1, XMM1, 0D2h
+            MULPS   XMM0, XMM1
 
-			SHUFPS  XMM2, XMM2, 0D2h
-			SHUFPS  XMM3, XMM3, 0C9h
-			MULPS   XMM2, XMM3
+            SHUFPS  XMM2, XMM2, 0D2h
+            SHUFPS  XMM3, XMM3, 0C9h
+            MULPS   XMM2, XMM3
 
-			SUBPS   XMM0, XMM2
+            SUBPS   XMM0, XMM2
 
-			MOV     edi, rPtr
-			MOVUPS	[edi], XMM0
-		}
-	}
-	else {
-		v.x = (GetY() * other.GetZ()) - (GetZ() * other.GetY());
-		v.y = (GetZ() * other.GetX()) - (GetX() * other.GetZ());
-		v.z = (GetX() * other.GetY()) - (GetY() * other.GetX());
-	}
-	return result;
+            MOV     edi, rPtr
+            MOVUPS    [edi], XMM0
+        }
+    }
+    else {
+        v.x = (GetY() * other.GetZ()) - (GetZ() * other.GetY());
+        v.y = (GetZ() * other.GetX()) - (GetX() * other.GetZ());
+        v.z = (GetX() * other.GetY()) - (GetY() * other.GetX());
+    }
+    return result;
 }

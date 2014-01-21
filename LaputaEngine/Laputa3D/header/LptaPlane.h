@@ -8,40 +8,40 @@ class LptaAABB;
 class LptaPlane
 {
 public:
-	enum Location
-	{
-		FRONT,
-		BACK,
-		PLANE,
-	};
+    enum Location
+    {
+        FRONT,
+        BACK,
+        PLANE,
+    };
 public:
-	LptaPlane(void);
-	LptaPlane(const COORDINATE &point, const LptaNormalVector &normal);
-	LptaPlane(const COORDINATE &point, const LptaNormalVector &normal, float distanceToOrigin);
-	~LptaPlane(void);
+    LptaPlane(void);
+    LptaPlane(const COORDINATE &point, const LptaNormalVector &normal);
+    LptaPlane(const COORDINATE &point, const LptaNormalVector &normal, float distanceToOrigin);
+    ~LptaPlane(void);
 
-	inline const COORDINATE &GetPoint(void) const;
-	inline const LptaVector &GetNormal(void) const;
+    inline const COORDINATE &GetPoint(void) const;
+    inline const LptaVector &GetNormal(void) const;
 
-	float Distance(const COORDINATE &p) const;
-	LptaPlane::Location Classify(const COORDINATE &p) const;
-	
-	bool Intersects(const LptaPlane &other) const;
-	bool Intersects(const LptaAABB &aabb) const;
+    float Distance(const COORDINATE &p) const;
+    LptaPlane::Location Classify(const COORDINATE &p) const;
+    
+    bool Intersects(const LptaPlane &other) const;
+    bool Intersects(const LptaAABB &aabb) const;
 private:
-	COORDINATE point;
-	LptaNormalVector normal;
-	float distanceToOrigin;
+    COORDINATE point;
+    LptaNormalVector normal;
+    float distanceToOrigin;
 };
 
 const COORDINATE &LptaPlane::GetPoint(void) const
 {
-	return point;
+    return point;
 }
 
 const LptaVector &LptaPlane::GetNormal(void) const
 {
-	return normal;
+    return normal;
 }
 
 #endif

@@ -4,7 +4,7 @@
 
 typedef struct 
 {
-	COORDINATE vertices[3];
+    COORDINATE vertices[3];
 } LPTA_TRIANGLE;
 
 #endif

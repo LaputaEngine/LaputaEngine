@@ -7,7 +7,7 @@
 class NonNormalVector : public std::domain_error
 {
 public:
-	NonNormalVector(const LptaVector &vector);
+    NonNormalVector(const LptaVector &vector);
 };
 
 #endif

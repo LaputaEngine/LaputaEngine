@@ -8,31 +8,31 @@
 class LptaAABB
 {
 public:
-	LptaAABB(const COORDINATE &min, const COORDINATE &max);
-	const LptaBBPlanes GetPlanes(void) const;
+    LptaAABB(const COORDINATE &min, const COORDINATE &max);
+    const LptaBBPlanes GetPlanes(void) const;
 
-	inline const COORDINATE &GetMin(void) const;
-	inline const COORDINATE &GetMax(void) const;
-	inline const COORDINATE &GetCentre(void) const;
+    inline const COORDINATE &GetMin(void) const;
+    inline const COORDINATE &GetMax(void) const;
+    inline const COORDINATE &GetCentre(void) const;
 private:
-	const COORDINATE min; // near bottom left
-	const COORDINATE max; // far top right
-	const COORDINATE centre;
+    const COORDINATE min; // near bottom left
+    const COORDINATE max; // far top right
+    const COORDINATE centre;
 };
 
 const COORDINATE &LptaAABB::GetMin(void) const
 {
-	return min;
+    return min;
 }
 
 const COORDINATE &LptaAABB::GetMax(void) const
 {
-	return max;
+    return max;
 }
 
 const COORDINATE &LptaAABB::GetCentre(void) const
 {
-	return centre;
+    return centre;
 }
 
 #endif
