@@ -82,7 +82,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Laputa3D\LptaAABB.cpp" />
     <ClCompile Include="Laputa3D\LptaMatrix.cpp" />
+    <ClCompile Include="Laputa3D\LptaNormalVector.cpp" />
     <ClCompile Include="Laputa3D\LptaPlane.cpp" />
     <ClCompile Include="Laputa3D\LptaRay.cpp" />
     <ClCompile Include="Laputa3D\LptaVector.cpp" />

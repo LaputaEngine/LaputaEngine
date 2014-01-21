@@ -4,12 +4,19 @@
 // Intersects(plane)
 inline bool IsParallel(const LptaVector &crossProduct);
 
+LptaPlane::LptaPlane(void) : LptaPlane(COORDINATE(0.0f, 0.0f, 0.0f), 
+	LptaNormalVector::MakeXAlignedVector(LptaVector::POSITIVE))
+{
+}
+
 LptaPlane::LptaPlane(const COORDINATE &point, const LptaNormalVector &normal)
 	: LptaPlane(point, normal, -(normal * point))
 {
 }
 
-LptaPlane::LptaPlane(const COORDINATE &point, const LptaNormalVector &normal, float distanceToOrigin)
+LptaPlane::LptaPlane(const COORDINATE &point, 
+	const LptaNormalVector &normal, 
+	float distanceToOrigin)
 {
 	
 	this->point = point;

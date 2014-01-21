@@ -13,6 +13,7 @@ public:
 		PLANE,
 	};
 public:
+	LptaPlane(void);
 	LptaPlane(const COORDINATE &point, const LptaNormalVector &normal);
 	LptaPlane(const COORDINATE &point, const LptaNormalVector &normal, float distanceToOrigin);
 	~LptaPlane(void);

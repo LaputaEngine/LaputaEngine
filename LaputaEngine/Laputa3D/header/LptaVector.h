@@ -19,6 +19,12 @@ class LptaVector
 protected:
     static bool sseCapable;
 public:
+	enum VECTOR_DIRECTION 
+	{
+		POSITIVE,
+		NEGATIVE
+	};
+public:
     LptaVector(void);
     LptaVector(float x, float y, float z);
     ~LptaVector(void);
@@ -48,7 +54,6 @@ private:
     typedef struct VECTOR_TYPE VECTOR;
     VECTOR vector;
 };
-
 typedef LptaVector COORDINATE;
 
 #endif

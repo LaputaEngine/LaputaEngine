@@ -51,6 +51,12 @@
     <ClInclude Include="header\LptaNormalVector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="header\LptaAABB.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\LptaBoundingBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\LptaVector.cpp">
@@ -72,6 +78,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\LptaPlane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LptaAABB.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
