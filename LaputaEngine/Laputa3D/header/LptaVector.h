@@ -29,9 +29,13 @@ public:
     LptaVector(float x, float y, float z);
     ~LptaVector(void);
 
-    float GetX(void) const;
-    float GetY(void) const;
-    float GetZ(void) const;
+    inline float GetX(void) const;
+    inline float GetY(void) const;
+    inline float GetZ(void) const;
+
+	inline void SetX(float x);
+	inline void SetY(float y);
+	inline void SetZ(float z);
 
     float Length(void) const;
 	float LengthSquared(void) const;
@@ -55,5 +59,37 @@ private:
     VECTOR vector;
 };
 typedef LptaVector COORDINATE;
+
+
+
+float LptaVector::GetX(void) const
+{
+	return vector.x;
+}
+
+float LptaVector::GetY(void) const
+{
+	return vector.y;
+}
+
+float LptaVector::GetZ(void) const
+{
+	return vector.z;
+}
+
+void LptaVector::SetX(float x)
+{
+	vector.x = x;
+}
+
+void LptaVector::SetY(float y)
+{
+	vector.y = y;
+}
+
+void LptaVector::SetZ(float z)
+{
+	vector.z = z;
+}
 
 #endif

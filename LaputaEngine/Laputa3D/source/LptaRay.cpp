@@ -2,6 +2,7 @@
  * http://www.scratchapixel.com/lessons/3d-basic-lessons/lesson-7-intersecting-simple-shapes/ray-plane-and-ray-disk-intersection/
  */
 
+#include <algorithm>
 #include "Lpta3D.h"
 #include "LptaRay.h"
 
@@ -9,11 +10,14 @@
 #define BARYCENTRIC_LOWER_LIMIT 0.0f
 #define BARYCENTRIC_UPPER_LIMIT 1.0f
 
+#define NUM_DIMENSIONS 3
+
 // Intersects(triangle)
 inline bool IsOnSamePlane(float determinant);
 inline bool IsWithinTriangle(float barycentricCoordinate);
 // Intersects(plane)
 inline bool IsParallel(float denominator);
+// Intersects(aabb)
 
 LptaRay::LptaRay(const COORDINATE &origin, const LptaVector &direction) : 
 	origin(origin), direction(direction)
@@ -75,4 +79,82 @@ bool LptaRay::Intersects(const LptaPlane &plane) const
 inline bool IsParallel(float denominator)
 {
 	return fabs(denominator) < LPTA_EPSILON;
+}
+
+// uses the "Fast Ray-Box Intersection" by Andrew Woo
+// todo: cleanup... srsly
+bool LptaRay::Intersects(const LptaAABB &bBox) const
+{
+	bool isInside = true;
+	COORDINATE intersectCoord;
+	LptaVector maxT(-1.0f, -1.0f, -1.0f);
+	const COORDINATE &bMin = bBox.GetMin();
+	const COORDINATE &bMax = bBox.GetMax();
+	// x
+	if (origin.GetX() < bMin.GetX()) {
+		isInside = false;
+		if (direction.GetX() != 0.0f) {
+			maxT.SetX((bMin.GetX() - origin.GetX()) / direction.GetX());
+		}
+	}
+	else if (origin.GetX() > bMax.GetX()) {
+		isInside = false;
+		if (direction.GetX() != 0.0f) {
+			maxT.SetX((bMax.GetX() - origin.GetX()) / direction.GetX());
+		}
+	}
+	// y
+	if (origin.GetY() < bMin.GetY()) {
+		isInside = false;
+		if (direction.GetY() != 0.0f) {
+			maxT.SetY((bMin.GetY() - origin.GetY()) / direction.GetY());
+		}
+	}
+	else if (origin.GetY() > bMax.GetY()) {
+		isInside = false;
+		if (direction.GetY() != 0.0f) {
+			maxT.SetY((bMax.GetY() - origin.GetY()) / direction.GetY());
+		}
+	}
+	// z
+	if (origin.GetZ() < bMin.GetZ()) {
+		isInside = false;
+		if (direction.GetZ() != 0.0f) {
+			maxT.SetZ((bMin.GetZ() - origin.GetZ()) / direction.GetZ());
+		}
+	}
+	else if (origin.GetZ() > bMax.GetZ()) {
+		isInside = false;
+		if (direction.GetZ() != 0.0f) {
+			maxT.SetZ((bMax.GetZ() - origin.GetZ()) / direction.GetZ());
+		}
+	}
+
+	if (isInside) {
+		return INTERSECTS;
+	}
+	float maxDistance = std::max(maxT.GetX(), maxT.GetY());
+	maxDistance = std::max(maxDistance, maxT.GetZ());
+	if (maxDistance == -1.0f) {
+		return !INTERSECTS;
+	}
+	// intersects iff all dimensions intersect
+	// note that the original implementations saves a branch by saving which plane
+	// it uses
+	intersectCoord.SetX(origin.GetX() + maxDistance * direction.GetX());
+	if (intersectCoord.GetX() < bMin.GetX() - LPTA_EPSILON ||
+		bMax.GetX() + LPTA_EPSILON < intersectCoord.GetX()) {
+		return !INTERSECTS;
+	}
+	intersectCoord.SetY(origin.GetY() + maxDistance * direction.GetY());
+	if (intersectCoord.GetY() < bMin.GetY() - LPTA_EPSILON ||
+		bMax.GetY() + LPTA_EPSILON < intersectCoord.GetY()) {
+		return !INTERSECTS;
+	}
+	intersectCoord.SetZ(origin.GetZ() + maxDistance * direction.GetZ());
+	if (intersectCoord.GetZ() < bMin.GetZ() - LPTA_EPSILON ||
+		bMax.GetZ() + LPTA_EPSILON < intersectCoord.GetZ()) {
+		return !INTERSECTS;
+	}
+	return INTERSECTS;
 }

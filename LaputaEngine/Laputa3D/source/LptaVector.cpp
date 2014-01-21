@@ -46,22 +46,6 @@ LptaVector::~LptaVector(void)
 {
 }
 
-
-float LptaVector::GetX(void) const
-{
-    return vector.x;
-}
-
-float LptaVector::GetY(void) const
-{
-    return vector.y;
-}
-
-float LptaVector::GetZ(void) const
-{
-    return vector.z;
-}
-
 float LptaVector::Length(void) const
 {
     if (sseCapable) {
