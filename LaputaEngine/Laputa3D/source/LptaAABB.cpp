@@ -2,9 +2,9 @@
 #include "LptaNormalVector.h"
 #include "LptaAABB.h"
 
-LptaAABB::LptaAABB(const COORDINATE &min, const COORDINATE &max) : min(min), max(max)
+LptaAABB::LptaAABB(const COORDINATE &min, const COORDINATE &max) : 
+	min(min), max(max), centre((min + max) / 2)
 {
-
 }
 
 const LptaBBPlanes LptaAABB::GetPlanes(void) const

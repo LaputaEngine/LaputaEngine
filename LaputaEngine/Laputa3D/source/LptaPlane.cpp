@@ -1,4 +1,8 @@
+/* Resources used:
+ */
+
 #include "Lpta3D.h"
+#include "LptaAABB.h"
 #include "LptaPlane.h"
 
 // Intersects(plane)
@@ -9,8 +13,8 @@ LptaPlane::LptaPlane(void) : LptaPlane(COORDINATE(0.0f, 0.0f, 0.0f),
 {
 }
 
-LptaPlane::LptaPlane(const COORDINATE &point, const LptaNormalVector &normal)
-	: LptaPlane(point, normal, -(normal * point))
+LptaPlane::LptaPlane(const COORDINATE &point, const LptaNormalVector &normal) : 
+	LptaPlane(point, normal, -(normal * point))
 {
 }
 
@@ -60,4 +64,43 @@ bool IsParallel(const LptaVector &crossProduct)
 	// note that this is slower than LengthSquared, we me want to optimize
 	// this part as the book suggests if needed.
 	return crossProduct.Length() < LPTA_EPSILON;
+}
+
+bool LptaPlane::Intersects(const LptaAABB &aabb) const
+{
+	const LptaVector &aabbMin = aabb.GetMin();
+	const LptaVector &aabbMax = aabb.GetMax();
+	LptaVector min;
+	LptaVector max;
+	if (normal.GetX() >= 0.0f) {
+		min.SetX(aabbMin.GetX());
+		max.SetX(aabbMax.GetX());
+	}
+	else {
+		min.SetX(aabbMax.GetX());
+		max.SetX(aabbMin.GetX());
+	}
+	if (normal.GetY() >= 0.0f) {
+		min.SetY(aabbMin.GetY());
+		max.SetY(aabbMax.GetY());
+	}
+	else {
+		min.SetY(aabbMax.GetY());
+		max.SetY(aabbMin.GetY());
+	}
+	if (normal.GetZ() >= 0.0f) {
+		min.SetZ(aabbMin.GetZ());
+		max.SetZ(aabbMax.GetZ());
+	}
+	else {
+		min.SetZ(aabbMax.GetZ());
+		max.SetZ(aabbMin.GetZ());
+	}
+	if ((normal * min) + distanceToOrigin > 0.0f) {
+		return false;
+	}
+	if ((normal * max) + distanceToOrigin >= 0.0f) {
+		return true;
+	}
+	return false;
 }

@@ -50,7 +50,8 @@ public:
 
     float operator *(const LptaVector &other) const;
     LptaVector operator *(const LptaMatrix &m) const;
-    LptaVector operator *(float f) const;
+	LptaVector operator *(float multiplier) const;
+	LptaVector operator /(float divisor) const;
     LptaVector operator +(const LptaVector &other) const;
     LptaVector operator -(const LptaVector &other) const;
 	LptaVector Cross(const LptaVector &other) const;

@@ -3,6 +3,8 @@
 
 #include "LptaNormalVector.h"
 
+class LptaAABB;
+
 class LptaPlane
 {
 public:
@@ -25,6 +27,7 @@ public:
 	LptaPlane::Location Classify(const COORDINATE &p) const;
 	
 	bool Intersects(const LptaPlane &other) const;
+	bool Intersects(const LptaAABB &aabb) const;
 private:
 	COORDINATE point;
 	LptaNormalVector normal;

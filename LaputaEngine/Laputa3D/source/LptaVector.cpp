@@ -7,6 +7,10 @@
 #error LptaVector only works with 4x4 matrices
 #endif
 
+// todo: should think about getting rid of this
+__declspec(align(16)) const float RSQRT_CONST[4] = { 3.0f, 3.0f, 3.0f, 3.0f };
+__declspec(align(16)) const float RSQRT_DIV[4] = { 2.0f, 2.0f, 2.0f, 2.0f };
+
 bool CheckSSECapability(void);
 
 bool LptaVector::sseCapable = CheckSSECapability();
@@ -94,7 +98,7 @@ bool LptaVector::IsNormal(void) const
 void LptaVector::Normalize(void)
 {
     
-    if (sseCapable) {
+   if (sseCapable) {
         VECTOR *vPtr = &vector;
         vector.w = 0.0f;
         _asm {
@@ -109,9 +113,20 @@ void LptaVector::Normalize(void)
             SHUFPS  XMM1, XMM1, 11h ; [w*w + y*y, z*z + x*x, w*w + y*y, z*z + x*x]
             ADDPS   XMM0, XMM1      ; [x*x + y*y + z*z + w*w x 4]
 
-            RSQRTPS XMM0, XMM0
-            MULPS   XMM0, XMM2
-            MOVUPS  [esi], XMM0
+            RSQRTPS XMM1, XMM0
+			; use the Newton-Raphson to refine approximation
+			MOVAPS  XMM3, RSQRT_CONST
+			MULPS	XMM0, XMM1
+			MULPS   XMM0, XMM1
+			SUBPS   XMM3, XMM0
+			MULPS   XMM3, XMM1
+			MOVAPS  XMM1, RSQRT_DIV
+			DIVPS   XMM3, XMM1
+
+			;MULPS   XMM0, XMM1
+
+            MULPS   XMM3, XMM2
+            MOVUPS  [esi], XMM3
         }
         // TODO figure out why
         vector.w = 1.0f;
@@ -214,9 +229,14 @@ LptaVector LptaVector::operator *(const LptaMatrix &m) const
     return result;
 }
 
-LptaVector LptaVector::operator *(float f) const
+LptaVector LptaVector::operator *(float multiplier) const
 {
-    return LptaVector(vector.x * f, vector.y * f, vector.z * f);
+	return LptaVector(vector.x * multiplier, vector.y * multiplier, vector.z * multiplier);
+}
+
+LptaVector LptaVector::operator /(float divisor) const
+{
+	return LptaVector(vector.x / divisor, vector.y / divisor, vector.z / divisor);
 }
 
 LptaVector LptaVector::operator +(const LptaVector &other) const
