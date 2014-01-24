@@ -30,5 +30,8 @@
     <ClCompile Include="Laputa3D\LptaNormalVector.cpp">
       <Filter>Laputa3D</Filter>
     </ClCompile>
+    <ClCompile Include="Laputa3D\LptaOBB.cpp">
+      <Filter>Laputa3D</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

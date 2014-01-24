@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="header\errors\InvalidDimension.h" />
     <ClInclude Include="header\errors\InvalidRotationAxis.h" />
     <ClInclude Include="header\errors\NonNormalVector.h" />
     <ClInclude Include="header\geometry\Shapes.h" />
@@ -19,16 +20,19 @@
     <ClInclude Include="header\LptaBoundingBox.h" />
     <ClInclude Include="header\LptaMatrix.h" />
     <ClInclude Include="header\LptaNormalVector.h" />
+    <ClInclude Include="header\LptaOBB.h" />
     <ClInclude Include="header\LptaPlane.h" />
     <ClInclude Include="header\LptaRay.h" />
     <ClInclude Include="header\LptaVector.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\errors\InvalidDimension.cpp" />
     <ClCompile Include="source\errors\InvalidRotationAxis.cpp" />
     <ClCompile Include="source\errors\NonNormalVector.cpp" />
     <ClCompile Include="source\LptaAABB.cpp" />
     <ClCompile Include="source\LptaMatrix.cpp" />
     <ClCompile Include="source\LptaNormalVector.cpp" />
+    <ClCompile Include="source\LptaOBB.cpp" />
     <ClCompile Include="source\LptaPlane.cpp" />
     <ClCompile Include="source\LptaRay.cpp" />
     <ClCompile Include="source\LptaVector.cpp" />
