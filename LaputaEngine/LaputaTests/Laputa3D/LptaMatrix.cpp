@@ -24,31 +24,28 @@ TEST(LptaMatrixTest, MakeIdentityMatrixNormalCase)
 
 TEST(LptaMatrixTest, MakeRotateYAxisMatrixNormalCase)
 {
-    // rotate cw from x axis to z axis
     LptaVector v(1.0f, 2.0f, 0.0f);
     LptaMatrix m = LptaMatrix::MakeRotateYAxisMatrix((float)M_PI_2);
     LptaVector rotated = v * m;
     ASSERT_NEAR(0.0f, rotated.GetX(), ACCEPTABLE_ERROR);
     ASSERT_NEAR(2.0f, rotated.GetY(), ACCEPTABLE_ERROR);
-    ASSERT_NEAR(1.0f, rotated.GetZ(), ACCEPTABLE_ERROR);
+    ASSERT_NEAR(-1.0f, rotated.GetZ(), ACCEPTABLE_ERROR);
 }
 
 TEST(LptaMatrixTest, MakeRotateXAxisMatrixNormalCase)
 {
-    // rotate ccw one quadrant
     LptaVector v(2.0f, 0.0f, -1.0f);
     LptaMatrix m = LptaMatrix::MakeRotateXAxisMatrix((float)M_PI_2);
     LptaVector rotated = v * m;
     ASSERT_NEAR(2.0f, rotated.GetX(), ACCEPTABLE_ERROR);
-    ASSERT_NEAR(-1.0f, rotated.GetY(), ACCEPTABLE_ERROR);
+    ASSERT_NEAR(1.0f, rotated.GetY(), ACCEPTABLE_ERROR);
     ASSERT_NEAR(0.0f, rotated.GetZ(), ACCEPTABLE_ERROR);
 }
 
 TEST(LptaMatrixTest, MakeRotateZAxisMatrixNormalCase)
 {
-    // rotate cw one quadrant
     LptaVector v(1.0f, 0.0f, 2.0f);
-    LptaMatrix m = LptaMatrix::MakeRotateZAxisMatrix((float)-M_PI_2);
+    LptaMatrix m = LptaMatrix::MakeRotateZAxisMatrix((float)M_PI_2);
     LptaVector rotated = v * m;
     ASSERT_NEAR(0.0f, rotated.GetX(), ACCEPTABLE_ERROR);
     ASSERT_NEAR(1.0f, rotated.GetY(), ACCEPTABLE_ERROR);
@@ -64,7 +61,7 @@ TEST(LptaMatrixTest, MakeRotationMatrixForNormalCase)
     LptaVector rotated = v * m;
     ASSERT_NEAR(0.0f, rotated.GetX(), ACCEPTABLE_ERROR);
     ASSERT_NEAR(2.0f, rotated.GetY(), ACCEPTABLE_ERROR);
-    ASSERT_NEAR(1.0f, rotated.GetZ(), ACCEPTABLE_ERROR);
+    ASSERT_NEAR(-1.0f, rotated.GetZ(), ACCEPTABLE_ERROR);
 
     // simulate x axis rotation
     axis = LptaVector(1.0f, 0.0f, 0.0f);
@@ -72,7 +69,7 @@ TEST(LptaMatrixTest, MakeRotationMatrixForNormalCase)
     m = LptaMatrix::MakeRotationMatrixFor(axis, (float)M_PI_2);
     rotated = v * m;
     ASSERT_NEAR(2.0f, rotated.GetX(), ACCEPTABLE_ERROR);
-    ASSERT_NEAR(-1.0f, rotated.GetY(), ACCEPTABLE_ERROR);
+    ASSERT_NEAR(1.0f, rotated.GetY(), ACCEPTABLE_ERROR);
     ASSERT_NEAR(0.0f, rotated.GetZ(), ACCEPTABLE_ERROR);
 
     // simulate z axis rotation
@@ -80,7 +77,7 @@ TEST(LptaMatrixTest, MakeRotationMatrixForNormalCase)
     v = LptaVector(0.0f, 1.0f, 2.0f);
     m = LptaMatrix::MakeRotationMatrixFor(axis, (float)M_PI_2);
     rotated = v * m;
-    ASSERT_NEAR(1.0f, rotated.GetX(), ACCEPTABLE_ERROR);
+    ASSERT_NEAR(-1.0f, rotated.GetX(), ACCEPTABLE_ERROR);
     ASSERT_NEAR(0.0f, rotated.GetY(), ACCEPTABLE_ERROR);
     ASSERT_NEAR(2.0f, rotated.GetZ(), ACCEPTABLE_ERROR);
 

@@ -145,7 +145,6 @@ TEST(LptaVectorTest, SubtractVectorsNormalCase)
     ASSERT_EQ(6.0f, v2.GetZ());
 }
 
-// todo: **** NOTE **** see notes in implementation file.
 TEST(LptaVectorTest, CrossVectorNormalCaseX)
 {
     LptaVector u(0.0f, 0.0f, 1.0f);

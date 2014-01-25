@@ -30,8 +30,8 @@ LptaMatrix LptaMatrix::MakeRotateXAxisMatrix(float rad)
     matrix.AssignAt(3, 3, 1.0f);
 
     matrix.AssignAt(1, 1, radCos);
-    matrix.AssignAt(1, 2, radSin);
-    matrix.AssignAt(2, 1, -radSin);
+    matrix.AssignAt(1, 2, -radSin);
+    matrix.AssignAt(2, 1, radSin);
     matrix.AssignAt(2, 2, radCos);
     return matrix;
 }
@@ -46,8 +46,8 @@ LptaMatrix LptaMatrix::MakeRotateYAxisMatrix(float rad)
     matrix.AssignAt(3, 3, 1.0f);
 
     matrix.AssignAt(0, 0, radCos);
-    matrix.AssignAt(0, 2, -radSin);
-    matrix.AssignAt(2, 0, radSin);
+    matrix.AssignAt(0, 2, radSin);
+    matrix.AssignAt(2, 0, -radSin);
     matrix.AssignAt(2, 2, radCos);
     return matrix;
 }
@@ -62,8 +62,8 @@ LptaMatrix LptaMatrix::MakeRotateZAxisMatrix(float rad)
     matrix.AssignAt(3, 3, 1.0f);
 
     matrix.AssignAt(0, 0, radCos);
-    matrix.AssignAt(0, 1, radSin);
-    matrix.AssignAt(1, 0, -radSin);
+    matrix.AssignAt(0, 1, -radSin);
+    matrix.AssignAt(1, 0, radSin);
     matrix.AssignAt(1, 1, radCos);
     return matrix;
 }
@@ -82,15 +82,15 @@ LptaMatrix LptaMatrix::MakeRotationMatrixFor(const LptaVector &v, float rad)
     matrix.AssignAt(3, 3, 1.0f);
 
     matrix.AssignAt(0, 0, radCos + pow(v.GetX(), 2) * cosDiff);
-    matrix.AssignAt(0, 1, v.GetX() * v.GetY() * cosDiff + v.GetZ() * radSin);
-    matrix.AssignAt(0, 2, v.GetX() * v.GetZ() * cosDiff - v.GetY() * radSin);
+    matrix.AssignAt(0, 1, v.GetX() * v.GetY() * cosDiff - v.GetZ() * radSin);
+    matrix.AssignAt(0, 2, v.GetX() * v.GetZ() * cosDiff + v.GetY() * radSin);
 
-    matrix.AssignAt(1, 0, v.GetY() * v.GetX() * cosDiff - v.GetZ() * radSin);
+    matrix.AssignAt(1, 0, v.GetY() * v.GetX() * cosDiff + v.GetZ() * radSin);
     matrix.AssignAt(1, 1, radCos + pow(v.GetY(), 2) * cosDiff);
-    matrix.AssignAt(1, 2, v.GetY() * v.GetZ() * cosDiff + v.GetX() * radSin);
+    matrix.AssignAt(1, 2, v.GetY() * v.GetZ() * cosDiff - v.GetX() * radSin);
 
-    matrix.AssignAt(2, 0, v.GetZ() * v.GetX() * cosDiff + v.GetY() * radSin);
-    matrix.AssignAt(2, 1, v.GetZ() * v.GetY() * cosDiff - v.GetX() * radSin);
+    matrix.AssignAt(2, 0, v.GetZ() * v.GetX() * cosDiff - v.GetY() * radSin);
+    matrix.AssignAt(2, 1, v.GetZ() * v.GetY() * cosDiff + v.GetX() * radSin);
     matrix.AssignAt(2, 2, radCos + pow(v.GetZ(), 2) * cosDiff);
     
     return matrix;

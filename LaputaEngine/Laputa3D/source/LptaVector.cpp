@@ -253,9 +253,6 @@ LptaVector LptaVector::operator -(const LptaVector &other) const
     return result;
 }
 
-// todo: **** Note **** this is in the right-hand rule coordinate system
-// while all the matrix stuff is in left-hand rule coordinate system.
-// Need to determine whether this is correct or keep everthing consistent.
 LptaVector LptaVector::Cross(const LptaVector &other) const
 {
     LptaVector result;
