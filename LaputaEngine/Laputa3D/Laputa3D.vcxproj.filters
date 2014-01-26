@@ -63,6 +63,9 @@
     <ClInclude Include="header\errors\InvalidDimension.h">
       <Filter>Header Files\Errors</Filter>
     </ClInclude>
+    <ClInclude Include="header\errors\MatrixInversionError.h">
+      <Filter>Header Files\Errors</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\LptaVector.cpp">
@@ -93,6 +96,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\errors\InvalidDimension.cpp">
+      <Filter>Source Files\Errors</Filter>
+    </ClCompile>
+    <ClCompile Include="source\errors\MatrixInversionError.cpp">
       <Filter>Source Files\Errors</Filter>
     </ClCompile>
   </ItemGroup>

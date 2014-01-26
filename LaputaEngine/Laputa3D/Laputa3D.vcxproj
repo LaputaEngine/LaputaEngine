@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="header\errors\InvalidDimension.h" />
     <ClInclude Include="header\errors\InvalidRotationAxis.h" />
+    <ClInclude Include="header\errors\MatrixInversionError.h" />
     <ClInclude Include="header\errors\NonNormalVector.h" />
     <ClInclude Include="header\geometry\Shapes.h" />
     <ClInclude Include="header\Lpta3D.h" />
@@ -28,6 +29,7 @@
   <ItemGroup>
     <ClCompile Include="source\errors\InvalidDimension.cpp" />
     <ClCompile Include="source\errors\InvalidRotationAxis.cpp" />
+    <ClCompile Include="source\errors\MatrixInversionError.cpp" />
     <ClCompile Include="source\errors\NonNormalVector.cpp" />
     <ClCompile Include="source\LptaAABB.cpp" />
     <ClCompile Include="source\LptaMatrix.cpp" />

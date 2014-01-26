@@ -25,8 +25,8 @@ public:
     // this is abstracted away using the inline method "AssignAt"
     typedef array<array<float, LPTA_MATRIX_COLUMNS>, LPTA_MATRIX_ROWS> MATRIX;
 protected:
+    LptaMatrix(void);
     inline void AssignAt(unsigned int row, unsigned int column, float value);
-
 public:
     ~LptaMatrix(void);
     
@@ -36,12 +36,17 @@ public:
     static LptaMatrix MakeRotateYAxisMatrix(float rad);
     static LptaMatrix MakeRotateZAxisMatrix(float rad);
     static LptaMatrix MakeRotationMatrixFor(const LptaVector &v, float rad);
+    static LptaMatrix MakeInverseFor(const LptaMatrix &m);
 
     inline const MATRIX & GetMatrix(void) const;
     inline float Get(unsigned int row, unsigned int column) const;
-private:
-    LptaMatrix(void);
+    inline float GetDx(void) const;
+    inline float GetDy(void) const;
+    inline float GetDz(void) const;
 
+    void SetTransform(float dx, float dy, float dz);
+    void ResetTransform(void);
+private:
     MATRIX m;
 };
 
@@ -57,6 +62,18 @@ void LptaMatrix::AssignAt(unsigned int row, unsigned int column, float value)
 const LptaMatrix::MATRIX & LptaMatrix::GetMatrix(void) const
 {
     return m;
+}
+float LptaMatrix::GetDx(void) const
+{
+    return Get(3, 0);
+}
+float LptaMatrix::GetDy(void) const
+{
+    return Get(3, 1);
+}
+float LptaMatrix::GetDz(void) const
+{
+    return Get(3, 2);
 }
 
 /**
