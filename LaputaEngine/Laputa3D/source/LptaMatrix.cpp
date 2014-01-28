@@ -178,7 +178,7 @@ void LptaMatrix::SetTransform(float dx, float dy, float dz)
     AssignAt(3, 2, dz);
 }
 
-void LptaMatrix::ResetTransform(void)
+void LptaMatrix::ClearTranslation(void)
 {
     SetTransform(0.0f, 0.0f, 0.0f);
 }

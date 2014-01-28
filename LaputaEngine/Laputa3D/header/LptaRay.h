@@ -12,6 +12,8 @@ public:
     LptaRay(const COORDINATE &origin, const LptaVector &direction);
     ~LptaRay(void);
 
+    LptaRay Transform(LptaMatrix objectMatrix) const;
+
     bool Intersects(const LPTA_TRIANGLE &triangle) const;
     bool Intersects(const LptaPlane &plane) const;
     bool Intersects(const LptaAABB &bBox) const;

@@ -45,7 +45,7 @@ public:
     inline float GetDz(void) const;
 
     void SetTransform(float dx, float dy, float dz);
-    void ResetTransform(void);
+    void ClearTranslation(void);
 private:
     MATRIX m;
 };

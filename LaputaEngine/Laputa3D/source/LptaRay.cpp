@@ -12,6 +12,8 @@
 
 #define NUM_DIMENSIONS 3
 
+// Transform(objectMatrix)
+
 // Intersects(triangle)
 inline bool IsOnSamePlane(float determinant);
 inline bool IsWithinTriangle(float barycentricCoordinate);
@@ -26,6 +28,21 @@ LptaRay::LptaRay(const COORDINATE &origin, const LptaVector &direction) :
 
 LptaRay::~LptaRay(void)
 {
+}
+
+LptaRay LptaRay::Transform(LptaMatrix objectMatrix) const
+{
+    COORDINATE origin = this->origin;
+    LptaVector direction = this->direction;
+
+    COORDINATE translation(objectMatrix.GetDx(), objectMatrix.GetDy(), objectMatrix.GetDz());
+    origin -= translation;
+    objectMatrix.ClearTranslation();
+    LptaMatrix inverse = LptaMatrix::MakeInverseFor(objectMatrix);
+
+    origin = origin * inverse;
+    direction = origin * inverse;
+    return LptaRay(origin, direction);
 }
 
 // uses the Moller and Tumbore algorithm
