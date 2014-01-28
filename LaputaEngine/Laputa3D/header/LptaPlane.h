@@ -2,7 +2,9 @@
 #define _LPTAPLANE_H_
 
 #include "LptaNormalVector.h"
+#include "geometry/Shapes.h"
 
+class LptaOBB;
 class LptaAABB;
 
 class LptaPlane
@@ -27,7 +29,9 @@ public:
     LptaPlane::Location Classify(const COORDINATE &p) const;
     
     bool Intersects(const LptaPlane &other) const;
+    bool Intersects(const LPTA_TRIANGLE &triangle) const;
     bool Intersects(const LptaAABB &aabb) const;
+    bool Intersects(const LptaOBB &obb) const;
 private:
     COORDINATE point;
     LptaNormalVector normal;

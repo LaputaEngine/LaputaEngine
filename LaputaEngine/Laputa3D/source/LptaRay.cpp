@@ -3,6 +3,7 @@
  */
 
 #include <algorithm>
+#include <limits>
 #include "Lpta3D.h"
 #include "LptaRay.h"
 
@@ -12,13 +13,18 @@
 
 #define NUM_DIMENSIONS 3
 
+// general
+inline bool IsParallel(float denominator);
+
 // Transform(objectMatrix)
+inline void Swap(int &a, int &b);
 
 // Intersects(triangle)
 inline bool IsOnSamePlane(float determinant);
 inline bool IsWithinTriangle(float barycentricCoordinate);
+
 // Intersects(plane)
-inline bool IsParallel(float denominator);
+
 // Intersects(aabb)
 
 LptaRay::LptaRay(const COORDINATE &origin, const LptaVector &direction) : 
@@ -174,4 +180,50 @@ bool LptaRay::Intersects(const LptaAABB &bBox) const
         return !INTERSECTS;
     }
     return INTERSECTS;
+}
+
+// uses the slabs algorithm by Moller and Haines
+bool LptaRay::Intersects(const LptaOBB &obb) const
+{
+    using std::numeric_limits;
+    float min = -numeric_limits<float>::infinity();
+    float max = numeric_limits<float>::infinity();
+    COORDINATE p = obb.GetCentre() - origin;
+    const OBB_AXES &axes = obb.GetAxes();
+
+    for (OBB_AXES::const_iterator axis = axes.begin(); axis != axes.end(); ++axis) {
+        float e = axis->direction * p;
+        float f = axis->direction * direction;
+
+        if (!IsParallel(f)) {
+            float div = 1 / f;
+            float t1 = (e + axis->extent) / 2;
+            float t2 = (e - axis->extent) / 2;
+            if (t1 > t2) {
+                Swap(*(int *)&t1, *(int *)&t2);
+            }
+            if (t1 > min) {
+                min = t1;
+            }
+            if (t2 < max) {
+                max = t2;
+            }
+            if (min > max) {
+                return !INTERSECTS;
+            }
+            if (max < 0) {
+                return !INTERSECTS;
+            }
+        }
+        else if ((-e - axis->extent) > 0 || (-e + axis->extent) < 0) {
+            return !INTERSECTS;
+        }
+    }
+    return INTERSECTS;
+}
+void Swap(int &a, int &b)
+{
+    a ^= b;
+    b = a ^ b;
+    a ^= b;
 }

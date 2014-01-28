@@ -3,7 +3,11 @@
 
 #include "Lpta3D.h"
 #include "LptaAABB.h"
+#include "LptaOBB.h"
 #include "LptaPlane.h"
+
+// Intersects(triangle)
+inline bool AllVerticesOnSameSide(const LptaPlane *const plane, const LPTA_TRIANGLE &triangle);
 
 // Intersects(plane)
 inline bool IsParallel(const LptaVector &crossProduct);
@@ -64,6 +68,16 @@ bool IsParallel(const LptaVector &crossProduct)
     // note that this is slower than LengthSquared, we me want to optimize
     // this part as the book suggests if needed.
     return crossProduct.Length() < LPTA_EPSILON;
+}
+
+bool LptaPlane::Intersects(const LPTA_TRIANGLE &triangle) const
+{
+    return !AllVerticesOnSameSide(this, triangle);
+}
+bool AllVerticesOnSameSide(const LptaPlane *const plane, const LPTA_TRIANGLE &triangle)
+{
+    return plane->Classify(triangle.vertices[0]) == plane->Classify(triangle.vertices[1]) &&
+        plane->Classify(triangle.vertices[1]) == plane->Classify(triangle.vertices[2]);
 }
 
 bool LptaPlane::Intersects(const LptaAABB &aabb) const

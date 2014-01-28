@@ -44,7 +44,8 @@ public:
     inline float GetDy(void) const;
     inline float GetDz(void) const;
 
-    void SetTransform(float dx, float dy, float dz);
+    LptaVector GetTranslation(void) const;
+    void SetTranslation(float dx, float dy, float dz);
     void ClearTranslation(void);
 private:
     MATRIX m;

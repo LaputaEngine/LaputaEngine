@@ -2,13 +2,16 @@
 #include "LptaOBB.h"
 using std::vector;
 
+typedef OBB_AXES::iterator OBB_AXIS;
+typedef OBB_AXES::const_iterator OBB_CONST_AXIS;
+
 // ConvertToAABB(void)
 typedef const vector<LptaVector> EXTENTS;
 inline void SetExtremesFor(LptaVector::DIMENSION dim, EXTENTS &extents, 
     COORDINATE &min, COORDINATE &max);
 
-LptaOBB::LptaOBB(const COORDINATE &coordinate, const OBB_AXES &axes) :
-    coordinate(coordinate), axes(axes)
+LptaOBB::LptaOBB(const COORDINATE &centre, const OBB_AXES &axes) :
+    centre(centre), axes(axes)
 {
 }
 
@@ -22,16 +25,16 @@ LptaAABB LptaOBB::ConvertToAABB(void) const
     COORDINATE max;
     
     vector<LptaVector> extentVectors;
-    for (OBB_AXES::const_iterator it = axes.begin(); it != axes.end(); ++it) {
-        extentVectors.push_back(it->ExtentVector());
+    for (OBB_CONST_AXIS axis = axes.begin(); axis != axes.end(); ++axis) {
+        extentVectors.push_back(axis->ExtentVector());
     }
 
     SetExtremesFor(LptaVector::X, extentVectors, min, max);
     SetExtremesFor(LptaVector::Y, extentVectors, min, max);
     SetExtremesFor(LptaVector::Z, extentVectors, min, max);
 
-    min += coordinate;
-    max += coordinate;
+    min += centre;
+    max += centre;
     return LptaAABB(min, max);
 }
 void SetExtremesFor(LptaVector::DIMENSION dim, EXTENTS &extents,
@@ -48,4 +51,20 @@ void SetExtremesFor(LptaVector::DIMENSION dim, EXTENTS &extents,
     }
     min.SetDimension(dim, -dimensionMax);
     max.SetDimension(dim, dimensionMax);
+}
+
+LptaOBB LptaOBB::Transform(LptaMatrix transform) const
+{
+    COORDINATE centre = this->centre;
+    COORDINATE translation = transform.GetTranslation();
+    transform.ClearTranslation();
+
+    OBB_AXES axes = this->axes;
+    for (OBB_AXIS axis = axes.begin(); axis != axes.end(); ++axis) {
+        axis->direction = LptaNormalVector::MakeFrom(axis->direction * transform);
+    }
+    centre = centre * transform;
+    centre += translation;
+
+    return LptaOBB(centre, axes);
 }

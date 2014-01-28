@@ -170,8 +170,12 @@ LptaMatrix::LptaMatrix(void)
     }
 }
 
+LptaVector LptaMatrix::GetTranslation(void) const
+{
+    return LptaVector(GetDx(), GetDy(), GetDz());
+}
 
-void LptaMatrix::SetTransform(float dx, float dy, float dz)
+void LptaMatrix::SetTranslation(float dx, float dy, float dz)
 {
     AssignAt(3, 0, dx);
     AssignAt(3, 1, dy);
@@ -180,5 +184,5 @@ void LptaMatrix::SetTransform(float dx, float dy, float dz)
 
 void LptaMatrix::ClearTranslation(void)
 {
-    SetTransform(0.0f, 0.0f, 0.0f);
+    SetTranslation(0.0f, 0.0f, 0.0f);
 }

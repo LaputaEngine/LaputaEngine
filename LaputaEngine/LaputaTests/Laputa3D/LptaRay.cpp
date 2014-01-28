@@ -91,3 +91,63 @@ TEST(LptaRayTest, IntersectsAABBNormalCase_NoIntersect)
     LptaAABB bb(COORDINATE(-1.0f, -1.0f, -1.0f), COORDINATE(1.0f, 1.0f, 1.0f));
     ASSERT_FALSE(ray.Intersects(bb));
 }
+
+TEST(LptaRayTest, IntersectsOBB_Intersects)
+{
+    OBB_AXES axes;
+    axes[0] = {
+        LptaNormalVector(1.0f, 0.0f, 0.0f),
+        1.0f,
+    };
+    axes[1] = {
+        LptaNormalVector(0.0f, 1.0f, 0.0f),
+        1.0f,
+    };
+    axes[2] = {
+        LptaNormalVector(0.0f, 0.0f, 1.0f),
+        1.0f,
+    };
+    LptaOBB obb(COORDINATE(0.0f, 0.0f, 0.0f), axes);
+    LptaRay ray(COORDINATE(-1.5f, 0.5f, -0.5f), LptaNormalVector::MakeFrom(0.2f, 1.0f, 0.2f));
+    ASSERT_TRUE(ray.Intersects(obb));
+}
+
+TEST(LptaRayTest, IntersectsOBB_NoIntersect)
+{
+    OBB_AXES axes;
+    axes[0] = {
+        LptaNormalVector(1.0f, 0.0f, 0.0f),
+        1.0f,
+    };
+    axes[1] = {
+        LptaNormalVector(0.0f, 1.0f, 0.0f),
+        1.0f,
+    };
+    axes[2] = {
+        LptaNormalVector(0.0f, 0.0f, 1.0f),
+        1.0f,
+    };
+    LptaOBB obb(COORDINATE(0.0f, 0.0f, 0.0f), axes);
+    LptaRay ray(COORDINATE(-1.5f, 10.5f, -0.5f), LptaNormalVector::MakeFrom(1.0f, 1.0f, 1.0f));
+    ASSERT_FALSE(ray.Intersects(obb));
+}
+
+TEST(LptaRayTest, IntersectsOBB_Parallel)
+{
+    OBB_AXES axes;
+    axes[0] = {
+        LptaNormalVector(1.0f, 0.0f, 0.0f),
+        1.0f,
+    };
+    axes[1] = {
+        LptaNormalVector(0.0f, 1.0f, 0.0f),
+        1.0f,
+    };
+    axes[2] = {
+        LptaNormalVector(0.0f, 0.0f, 1.0f),
+        1.0f,
+    };
+    LptaOBB obb(COORDINATE(0.0f, 0.0f, 0.0f), axes);
+    LptaRay ray(COORDINATE(-1.0f, 1.00001f, 0.0f), LptaNormalVector::MakeFrom(1.0f, 0.0f, 0.0f));
+    ASSERT_FALSE(ray.Intersects(obb));
+}

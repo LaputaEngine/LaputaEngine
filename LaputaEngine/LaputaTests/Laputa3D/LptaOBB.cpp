@@ -5,7 +5,7 @@
 
 TEST(LptaOBBTest, ConvertToAABBNormalCase_AlignedOriginConvert)
 {
-    COORDINATE coordinate(0, 0, 0);
+    COORDINATE centre(0, 0, 0);
     OBB_AXES axes;
     axes[0] = {
         LptaNormalVector(1.0f, 0.0f, 0.0f),
@@ -19,13 +19,13 @@ TEST(LptaOBBTest, ConvertToAABBNormalCase_AlignedOriginConvert)
         LptaNormalVector(0.0f, 0.0f, 1.0f),
         1.0f,
     };
-    LptaOBB obb(coordinate, axes);
+    LptaOBB obb(centre, axes);
     LptaAABB aabb = obb.ConvertToAABB();
     
-    COORDINATE centre = aabb.GetCentre();
-    ASSERT_EQ(0.0f, centre.GetX());
-    ASSERT_EQ(0.0f, centre.GetY());
-    ASSERT_EQ(0.0f, centre.GetZ());
+    COORDINATE obbCentre = aabb.GetCentre();
+    ASSERT_EQ(0.0f, obbCentre.GetX());
+    ASSERT_EQ(0.0f, obbCentre.GetY());
+    ASSERT_EQ(0.0f, obbCentre.GetZ());
     
     COORDINATE min = aabb.GetMin();
     ASSERT_EQ(-1.0f, min.GetX());
@@ -40,7 +40,7 @@ TEST(LptaOBBTest, ConvertToAABBNormalCase_AlignedOriginConvert)
 
 TEST(LptaOBBTest, ConvertToAABBNormalCase_AlignedConvert)
 {
-    COORDINATE coordinate(1, 0, 0);
+    COORDINATE centre(1, 0, 0);
     OBB_AXES axes;
     axes[0] = {
         LptaNormalVector(1.0f, 0.0f, 0.0f),
@@ -54,13 +54,13 @@ TEST(LptaOBBTest, ConvertToAABBNormalCase_AlignedConvert)
         LptaNormalVector(0.0f, 0.0f, 1.0f),
         1.0f,
     };
-    LptaOBB obb(coordinate, axes);
+    LptaOBB obb(centre, axes);
     LptaAABB aabb = obb.ConvertToAABB();
 
-    COORDINATE centre = aabb.GetCentre();
-    ASSERT_EQ(1.0f, centre.GetX());
-    ASSERT_EQ(0.0f, centre.GetY());
-    ASSERT_EQ(0.0f, centre.GetZ());
+    COORDINATE obbCentre = aabb.GetCentre();
+    ASSERT_EQ(1.0f, obbCentre.GetX());
+    ASSERT_EQ(0.0f, obbCentre.GetY());
+    ASSERT_EQ(0.0f, obbCentre.GetZ());
 
     COORDINATE min = aabb.GetMin();
     ASSERT_EQ(0.0f, min.GetX());

@@ -3,6 +3,7 @@
 
 #include <array>
 #include "LptaNormalVector.h"
+#include "geometry/Shapes.h"
 #include "LptaAABB.h"
 using std::array;
 
@@ -25,13 +26,25 @@ typedef array<ObbAxis, NUM_DIM> OBB_AXES;
 class LptaOBB
 {
 public:
-    LptaOBB(const COORDINATE &coordinate, const OBB_AXES &axes);
+    LptaOBB(const COORDINATE &centre, const OBB_AXES &axes);
     ~LptaOBB(void);
 
+    inline const COORDINATE &GetCentre(void) const;
+    inline const OBB_AXES &GetAxes(void) const;
+
     LptaAABB ConvertToAABB(void) const;
+    LptaOBB Transform(LptaMatrix transform) const;
 private:
     OBB_AXES axes;
-    COORDINATE coordinate;
+    COORDINATE centre;
 };
 
+const COORDINATE &LptaOBB::GetCentre(void) const
+{
+    return centre;
+}
+const OBB_AXES &LptaOBB::GetAxes(void) const
+{
+    return axes;
+}
 #endif
