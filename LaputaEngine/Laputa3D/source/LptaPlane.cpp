@@ -118,3 +118,14 @@ bool LptaPlane::Intersects(const LptaAABB &aabb) const
     }
     return false;
 }
+
+bool LptaPlane::Intersects(const LptaOBB &obb) const
+{
+    const OBB_AXES &axes = obb.GetAxes();
+    float radius = fabs(axes.at(0).extent * (normal * axes.at(1).direction)) +
+        fabs(axes.at(1).extent * (normal * axes.at(1).direction)) +
+        fabs(axes.at(2).extent * (normal * axes.at(2).direction));
+    
+    float distance = Distance(obb.GetCentre());
+    return distance <= radius;
+}

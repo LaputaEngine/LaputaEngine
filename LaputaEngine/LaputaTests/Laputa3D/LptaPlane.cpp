@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "LptaVector.h"
 #include "LptaAABB.h"
+#include "LptaObb.h"
 #include "LptaPlane.h"
 #include "geometry/Shapes.h"
 
@@ -60,4 +61,46 @@ TEST(LptaPlaneTest, IntersectsAABBNormalCase_NoIntersect)
         LptaNormalVector::MakeFrom(-1.0f, 1.0f, 0.0f));
 	LptaAABB aabb(COORDINATE(-1.0f, -1.0f, -1.0f), COORDINATE(1.0f, 1.0f, 1.0f));
 	ASSERT_FALSE(plane.Intersects(aabb));
+}
+
+TEST(LptaPlaneTest, IntersectsOBB_Intersects)
+{
+    LptaPlane plane(COORDINATE(0.0f, 0.0f, 0.0f),
+        LptaNormalVector::MakeFrom(1.0f, 1.0f, 0.0f));
+    OBB_AXES axes;
+    axes[0] = {
+        LptaNormalVector(1.0f, 0.0f, 0.0f),
+        1.0f,
+    };
+    axes[1] = {
+        LptaNormalVector(0.0f, 1.0f, 0.0f),
+        1.0f,
+    };
+    axes[2] = {
+        LptaNormalVector(0.0f, 0.0f, 1.0f),
+        1.0f,
+    };
+    LptaOBB obb(COORDINATE(1.0f, 1.0f, 0.0f), axes);
+    ASSERT_TRUE(plane.Intersects(obb));
+}
+
+TEST(LptaPlaneTest, IntersectOBB_NoIntersect)
+{
+    LptaPlane plane(COORDINATE(0.0f, 0.0f, 0.0f),
+        LptaNormalVector::MakeFrom(-1.0f, 1.0f, 0.0f));
+    OBB_AXES axes;
+    axes[0] = {
+        LptaNormalVector(1.0f, 0.0f, 0.0f),
+        1.0f,
+    };
+    axes[1] = {
+        LptaNormalVector(0.0f, 1.0f, 0.0f),
+        1.0f,
+    };
+    axes[2] = {
+        LptaNormalVector(0.0f, 0.0f, 1.0f),
+        1.0f,
+    };
+    LptaOBB obb(COORDINATE(-1.00005f, 1.0f, 0.0f), axes);
+    ASSERT_FALSE(plane.Intersects(obb));
 }
