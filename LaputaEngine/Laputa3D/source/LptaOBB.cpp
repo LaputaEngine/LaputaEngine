@@ -10,6 +10,14 @@ typedef const vector<LptaVector> EXTENTS;
 inline void SetExtremesFor(LptaVector::DIMENSION dim, EXTENTS &extents, 
     COORDINATE &min, COORDINATE &max);
 
+// Intersects(OBB)
+#define TEST_OBB_INTERSECT(R0, R1, R) \
+do { \
+    if (fabs(R) > R0 + R1) { \
+        return false; \
+    } \
+} while (0)
+
 LptaOBB::LptaOBB(const COORDINATE &centre, const OBB_AXES &axes) :
     centre(centre), axes(axes)
 {
@@ -67,4 +75,91 @@ LptaOBB LptaOBB::Transform(LptaMatrix transform) const
     centre += translation;
 
     return LptaOBB(centre, axes);
+}
+
+bool LptaOBB::Intersects(const LptaOBB &obb) const
+{
+    float c[3][3] = { 0 };
+    LptaVector d = obb.centre - this->centre;
+    for (unsigned int i = 0; i < 3; ++i) {
+        for (unsigned int j = 0; j < 3; ++j) {
+            c[i][j] = this->axes.at(i).direction * obb.axes.at(j).direction;
+        }
+    }
+    // first obb axes as separation
+    for (unsigned int i = 0; i < 3; ++i) {
+        TEST_OBB_INTERSECT(
+            axes.at(i).extent,
+            obb.axes.at(0).extent * fabs(c[i][0]) +
+                obb.axes.at(1).extent * fabs(c[i][1]) +
+                obb.axes.at(2).extent * fabs(c[i][2]),
+            axes.at(i).direction * d
+        );
+    }
+    // second obb axes as separation
+    for (unsigned int i = 1; i < 2; ++i) {
+        TEST_OBB_INTERSECT( 
+            axes.at(0).extent * fabs(c[0][i]) +
+                axes.at(1).extent * fabs(c[1][i]) +
+                axes.at(2).extent * fabs(c[2][i]),
+            obb.axes.at(i).extent,
+            obb.axes.at(i).direction * d
+        );
+    }
+    // cross product separation axes
+    // A0 x B0
+    TEST_OBB_INTERSECT(
+        axes.at(1).extent * c[2][0] + axes.at(2).extent * c[1][0],
+        obb.axes.at(1).extent * c[0][2] + obb.axes.at(2).extent * c[0][1],
+        axes.at(2).direction * c[1][0] * d - axes.at(1).direction * c[2][0] * d
+    );
+    // A0 x B1
+    TEST_OBB_INTERSECT(
+        axes.at(1).extent * c[2][1] + axes.at(2).extent * c[1][1],
+        obb.axes.at(0).extent * c[0][2] + obb.axes.at(2).extent * c[0][0],
+        axes.at(2).direction * c[1][1] * d - axes.at(1).direction * c[2][1] * d
+    );
+    // A0 x B2
+    TEST_OBB_INTERSECT(
+        axes.at(1).extent * c[2][2] + axes.at(2).extent * c[1][2],
+        obb.axes.at(0).extent * c[0][1] + obb.axes.at(1).extent * c[0][0],
+        axes.at(2).direction * c[1][2] * d - axes.at(1).direction * c[2][2] * d
+    );
+    // A1 x B0
+    TEST_OBB_INTERSECT(
+        axes.at(0).extent * c[2][0] + axes.at(2).extent * c[0][0],
+        obb.axes.at(1).extent * c[1][2] + obb.axes.at(2).extent * c[1][1],
+        axes.at(0).direction * c[2][0] * d - axes.at(2).direction * c[0][0] * d
+    );
+    // A1 x B1
+    TEST_OBB_INTERSECT(
+        axes.at(0).extent * c[2][1] + axes.at(2).extent * c[0][1],
+        obb.axes.at(0).extent * c[1][2] + obb.axes.at(2).extent * c[1][0],
+        axes.at(2).direction * c[1][0] * d - axes.at(0).direction * c[1][2] * d
+    );
+    // A1 x B2
+    TEST_OBB_INTERSECT(
+        axes.at(0).extent * c[2][2] + axes.at(2).extent * c[0][2],
+        obb.axes.at(0).extent * c[1][1] + obb.axes.at(1).extent * c[1][0],
+        axes.at(0).direction * c[2][2] * d - axes.at(2).direction * c[0][2] * d
+    );
+    // A2 x B0
+    TEST_OBB_INTERSECT(
+        axes.at(0).extent * c[1][0] + axes.at(1).extent * c[0][0],
+        obb.axes.at(1).extent * c[2][2] + obb.axes.at(2).extent * c[2][1],
+        axes.at(1).direction * c[0][0] * d - axes.at(0).direction * c[1][0] * d
+    );
+    // A2 x B1
+    TEST_OBB_INTERSECT(
+        axes.at(0).extent * c[1][1] + axes.at(1).extent * c[0][1],
+        obb.axes.at(0).extent * c[2][2] + obb.axes.at(2).extent * c[2][0],
+        axes.at(1).direction * c[0][1] * d - axes.at(0).direction * c[1][1] * d
+    );
+    // A2 x B2
+    TEST_OBB_INTERSECT(
+        axes.at(0).extent * c[1][2] + axes.at(1).extent * c[0][2],
+        obb.axes.at(0).extent * c[2][1] + obb.axes.at(1).extent * c[2][0],
+        axes.at(1).direction * c[0][2] * d - axes.at(0).direction * c[1][2] * d
+    );
+    return true;
 }

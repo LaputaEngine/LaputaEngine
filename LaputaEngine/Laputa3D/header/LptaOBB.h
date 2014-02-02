@@ -34,6 +34,9 @@ public:
 
     LptaAABB ConvertToAABB(void) const;
     LptaOBB Transform(LptaMatrix transform) const;
+
+    bool Intersects(const LPTA_TRIANGLE &triangle) const;
+    bool Intersects(const LptaOBB &obb) const;
 private:
     OBB_AXES axes;
     COORDINATE centre;
