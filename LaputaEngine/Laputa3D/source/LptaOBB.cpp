@@ -97,7 +97,7 @@ bool LptaOBB::Intersects(const LptaOBB &obb) const
         );
     }
     // second obb axes as separation
-    for (unsigned int i = 1; i < 2; ++i) {
+    for (unsigned int i = 0; i < 3; ++i) {
         TEST_OBB_INTERSECT( 
             axes.at(0).extent * fabs(c[0][i]) +
                 axes.at(1).extent * fabs(c[1][i]) +
@@ -109,56 +109,56 @@ bool LptaOBB::Intersects(const LptaOBB &obb) const
     // cross product separation axes
     // A0 x B0
     TEST_OBB_INTERSECT(
-        axes.at(1).extent * c[2][0] + axes.at(2).extent * c[1][0],
-        obb.axes.at(1).extent * c[0][2] + obb.axes.at(2).extent * c[0][1],
+        axes.at(1).extent * fabs(c[2][0]) + axes.at(2).extent * fabs(c[1][0]),
+        obb.axes.at(1).extent * fabs(c[0][2]) + obb.axes.at(2).extent * fabs(c[0][1]),
         axes.at(2).direction * c[1][0] * d - axes.at(1).direction * c[2][0] * d
     );
     // A0 x B1
     TEST_OBB_INTERSECT(
-        axes.at(1).extent * c[2][1] + axes.at(2).extent * c[1][1],
-        obb.axes.at(0).extent * c[0][2] + obb.axes.at(2).extent * c[0][0],
+        axes.at(1).extent * fabs(c[2][1]) + axes.at(2).extent * fabs(c[1][1]),
+        obb.axes.at(0).extent * fabs(c[0][2]) + obb.axes.at(2).extent * fabs(c[0][0]),
         axes.at(2).direction * c[1][1] * d - axes.at(1).direction * c[2][1] * d
     );
     // A0 x B2
     TEST_OBB_INTERSECT(
-        axes.at(1).extent * c[2][2] + axes.at(2).extent * c[1][2],
-        obb.axes.at(0).extent * c[0][1] + obb.axes.at(1).extent * c[0][0],
+        axes.at(1).extent * fabs(c[2][2]) + axes.at(2).extent * fabs(c[1][2]),
+        obb.axes.at(0).extent * fabs(c[0][1]) + obb.axes.at(1).extent * fabs(c[0][0]),
         axes.at(2).direction * c[1][2] * d - axes.at(1).direction * c[2][2] * d
     );
     // A1 x B0
     TEST_OBB_INTERSECT(
-        axes.at(0).extent * c[2][0] + axes.at(2).extent * c[0][0],
-        obb.axes.at(1).extent * c[1][2] + obb.axes.at(2).extent * c[1][1],
+        axes.at(0).extent * fabs(c[2][0]) + axes.at(2).extent * fabs(c[0][0]),
+        obb.axes.at(1).extent * fabs(c[1][2]) + obb.axes.at(2).extent * fabs(c[1][1]),
         axes.at(0).direction * c[2][0] * d - axes.at(2).direction * c[0][0] * d
     );
     // A1 x B1
     TEST_OBB_INTERSECT(
-        axes.at(0).extent * c[2][1] + axes.at(2).extent * c[0][1],
-        obb.axes.at(0).extent * c[1][2] + obb.axes.at(2).extent * c[1][0],
+        axes.at(0).extent * fabs(c[2][1]) + axes.at(2).extent * fabs(c[0][1]),
+        obb.axes.at(0).extent * fabs(c[1][2]) + obb.axes.at(2).extent * fabs(c[1][0]),
         axes.at(2).direction * c[1][0] * d - axes.at(0).direction * c[1][2] * d
     );
     // A1 x B2
     TEST_OBB_INTERSECT(
-        axes.at(0).extent * c[2][2] + axes.at(2).extent * c[0][2],
-        obb.axes.at(0).extent * c[1][1] + obb.axes.at(1).extent * c[1][0],
+        axes.at(0).extent * fabs(c[2][2]) + axes.at(2).extent * fabs(c[0][2]),
+        obb.axes.at(0).extent * fabs(c[1][1]) + obb.axes.at(1).extent * fabs(c[1][0]),
         axes.at(0).direction * c[2][2] * d - axes.at(2).direction * c[0][2] * d
     );
     // A2 x B0
     TEST_OBB_INTERSECT(
-        axes.at(0).extent * c[1][0] + axes.at(1).extent * c[0][0],
-        obb.axes.at(1).extent * c[2][2] + obb.axes.at(2).extent * c[2][1],
+        axes.at(0).extent * fabs(c[1][0]) + axes.at(1).extent * fabs(c[0][0]),
+        obb.axes.at(1).extent * fabs(c[2][2]) + obb.axes.at(2).extent * fabs(c[2][1]),
         axes.at(1).direction * c[0][0] * d - axes.at(0).direction * c[1][0] * d
     );
     // A2 x B1
     TEST_OBB_INTERSECT(
-        axes.at(0).extent * c[1][1] + axes.at(1).extent * c[0][1],
-        obb.axes.at(0).extent * c[2][2] + obb.axes.at(2).extent * c[2][0],
+        axes.at(0).extent * fabs(c[1][1]) + axes.at(1).extent * fabs(c[0][1]),
+        obb.axes.at(0).extent * fabs(c[2][2]) + obb.axes.at(2).extent * fabs(c[2][0]),
         axes.at(1).direction * c[0][1] * d - axes.at(0).direction * c[1][1] * d
     );
     // A2 x B2
     TEST_OBB_INTERSECT(
-        axes.at(0).extent * c[1][2] + axes.at(1).extent * c[0][2],
-        obb.axes.at(0).extent * c[2][1] + obb.axes.at(1).extent * c[2][0],
+        axes.at(0).extent * fabs(c[1][2]) + axes.at(1).extent * fabs(c[0][2]),
+        obb.axes.at(0).extent * fabs(c[2][1]) + obb.axes.at(1).extent * fabs(c[2][0]),
         axes.at(1).direction * c[0][2] * d - axes.at(0).direction * c[1][2] * d
     );
     return true;
