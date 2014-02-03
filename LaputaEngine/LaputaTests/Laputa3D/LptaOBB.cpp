@@ -2,6 +2,7 @@
 #include "LptaVector.h"
 #include "LptaOBB.h"
 #include "LptaAABB.h"
+#include "geometry/Shapes.h"
 
 LptaOBB CreateBasicCubeOBB(float x, float y, float z, float extent)
 {
@@ -150,4 +151,26 @@ TEST(LptaOBBTest, IntersectsOBB_NoIntersect)
     LptaOBB obb1 = CreateBasicCubeOBB(0.0f, 15.1422f, 0.0f, 1.0f);
     ASSERT_FALSE(obb0.Intersects(obb1));
     ASSERT_FALSE(obb1.Intersects(obb0));
+}
+
+TEST(LptaOBBTest, IntersectsOBB_IntersectsTriangle_AxisAligned)
+{
+    LptaOBB obb = CreateOriginBaicCubeOBB(1.0f);
+    LPTA_TRIANGLE triangle = {
+        COORDINATE(0.0f, 0.0f, 0.0f),
+        COORDINATE(10.0f, 10.0f, 10.0f),
+        COORDINATE(-10.0f, -5.0f, 3.0f)
+    };
+    ASSERT_TRUE(obb.Intersects(triangle));
+}
+
+TEST(LptaOBBTest, IntersectsTriangle_NoIntersect)
+{
+    LptaOBB obb = CreateOriginBaicCubeOBB(1.0f);
+    LPTA_TRIANGLE triangle = {
+        COORDINATE(1.0f, 1.0f, 0.0f),
+        COORDINATE(2.0f, 0.0f, 1.0f),
+        COORDINATE(20.0f, 0.0f, -1.0f)
+    };
+    ASSERT_FALSE(obb.Intersects(triangle));
 }
