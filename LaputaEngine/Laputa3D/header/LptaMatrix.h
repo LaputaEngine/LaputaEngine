@@ -10,6 +10,7 @@ using std::shared_ptr;
 #define LPTA_MATRIX_COLUMNS 4
 
 class LptaVector;
+class LptaQuat;
 
 class LptaMatrix
 {
@@ -32,6 +33,7 @@ public:
     
     static LptaMatrix MakeIdentityMatrix(void);
 
+    static LptaMatrix MakeFrom(const LptaQuat &quat);
     static LptaMatrix MakeRotateXAxisMatrix(float rad);
     static LptaMatrix MakeRotateYAxisMatrix(float rad);
     static LptaMatrix MakeRotateZAxisMatrix(float rad);

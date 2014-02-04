@@ -87,6 +87,7 @@
     <ClCompile Include="Laputa3D\LptaNormalVector.cpp" />
     <ClCompile Include="Laputa3D\LptaOBB.cpp" />
     <ClCompile Include="Laputa3D\LptaPlane.cpp" />
+    <ClCompile Include="Laputa3D\LptaQuat.cpp" />
     <ClCompile Include="Laputa3D\LptaRay.cpp" />
     <ClCompile Include="Laputa3D\LptaVector.cpp" />
     <ClCompile Include="TestRunner.cpp" />

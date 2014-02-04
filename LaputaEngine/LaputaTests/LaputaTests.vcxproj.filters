@@ -33,5 +33,8 @@
     <ClCompile Include="Laputa3D\LptaOBB.cpp">
       <Filter>Laputa3D</Filter>
     </ClCompile>
+    <ClCompile Include="Laputa3D\LptaQuat.cpp">
+      <Filter>Laputa3D</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

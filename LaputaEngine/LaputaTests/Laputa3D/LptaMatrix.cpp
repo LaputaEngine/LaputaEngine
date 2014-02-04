@@ -2,7 +2,9 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include "LptaVector.h"
+#include "LptaNormalVector.h"
 #include "LptaMatrix.h"
+#include "LptaQuat.h"
 #include "errors/InvalidRotationAxis.h"
 #include "errors/MatrixInversionError.h"
 
@@ -33,6 +35,23 @@ TEST(LptaMatrixTest, MakeIdentityMatrixNormalCase)
             else {
                 ASSERT_EQ(0.0f, m.Get(row, col));
             }
+        }
+    }
+}
+
+TEST(LptaMatrixTest, MakeFromQuaternion)
+{
+    LptaQuat quat(1, 1, 1, 1);
+    LptaMatrix matrix = LptaMatrix::MakeFrom(quat);
+    float expected[4][4] = {
+        { -3.0f, 0.0f, 4.0f, 0.0f },
+        { 4.0f, -3.0f, 0.0f, 0.0f },
+        { 0.0f, 4.0f, -3.0f, 0.0f },
+        { 0.0f, 0.0f, 0.0f, 1.0f }
+    };
+    for (unsigned int i = 0; i < 4; ++i) {
+        for (unsigned int j = 0; j < 4; ++j) {
+            ASSERT_EQ(expected[i][j], matrix.Get(i, j));
         }
     }
 }

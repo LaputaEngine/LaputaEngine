@@ -23,6 +23,7 @@
     <ClInclude Include="header\LptaNormalVector.h" />
     <ClInclude Include="header\LptaOBB.h" />
     <ClInclude Include="header\LptaPlane.h" />
+    <ClInclude Include="header\LptaQuat.h" />
     <ClInclude Include="header\LptaRay.h" />
     <ClInclude Include="header\LptaVector.h" />
   </ItemGroup>
@@ -36,6 +37,7 @@
     <ClCompile Include="source\LptaNormalVector.cpp" />
     <ClCompile Include="source\LptaOBB.cpp" />
     <ClCompile Include="source\LptaPlane.cpp" />
+    <ClCompile Include="source\LptaQuat.cpp" />
     <ClCompile Include="source\LptaRay.cpp" />
     <ClCompile Include="source\LptaVector.cpp" />
   </ItemGroup>

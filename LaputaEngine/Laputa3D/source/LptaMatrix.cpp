@@ -5,6 +5,7 @@
 #include <math.h>
 #include "LptaVector.h"
 #include "Lpta3D.h"
+#include "LptaQuat.h"
 #include "errors/InvalidRotationAxis.h"
 #include "errors/MatrixInversionError.h"
 #include "LptaMatrix.h"
@@ -25,6 +26,42 @@ LptaMatrix LptaMatrix::MakeIdentityMatrix(void)
     return matrix;
 }
 
+LptaMatrix LptaMatrix::MakeFrom(const LptaQuat &quat)
+{
+    LptaMatrix matrix;
+
+    float x2 = quat.GetX() + quat.GetX();
+    float y2 = quat.GetY() + quat.GetY();
+    float z2 = quat.GetZ() + quat.GetZ();
+
+    float xx2 = quat.GetX() * x2;
+    float xy2 = quat.GetX() * y2;
+    float xz2 = quat.GetX() * z2;
+
+    float yy2 = quat.GetY() * y2;
+    float yz2 = quat.GetY() * z2;
+    float zz2 = quat.GetZ() * z2;
+
+    float wx2 = quat.GetW() * x2;
+    float wy2 = quat.GetW() * y2;
+    float wz2 = quat.GetW() * z2;
+
+    matrix.AssignAt(0, 0, 1.0f - (yy2 + zz2));
+    matrix.AssignAt(0, 1, xy2 - wz2);
+    matrix.AssignAt(0, 2, xz2 + wy2);
+
+    matrix.AssignAt(1, 0, xy2 + wz2);
+    matrix.AssignAt(1, 1, 1.0f - (xx2 + zz2));
+    matrix.AssignAt(1, 2, yz2 - wx2);
+
+    matrix.AssignAt(2, 0, xz2 - wy2);
+    matrix.AssignAt(2, 1, yz2 + wx2);
+    matrix.AssignAt(2, 2, 1.0f - (xx2 + yy2));
+
+    matrix.AssignAt(3, 3, 1.0f);
+
+    return matrix;
+}
 
 LptaMatrix LptaMatrix::MakeRotateXAxisMatrix(float rad)
 {

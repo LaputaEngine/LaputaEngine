@@ -66,6 +66,9 @@
     <ClInclude Include="header\errors\MatrixInversionError.h">
       <Filter>Header Files\Errors</Filter>
     </ClInclude>
+    <ClInclude Include="header\LptaQuat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\LptaVector.cpp">
@@ -100,6 +103,9 @@
     </ClCompile>
     <ClCompile Include="source\errors\MatrixInversionError.cpp">
       <Filter>Source Files\Errors</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LptaQuat.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
