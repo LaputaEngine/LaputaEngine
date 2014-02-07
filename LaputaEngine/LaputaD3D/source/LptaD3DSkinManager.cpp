@@ -31,22 +31,14 @@ HRESULT LptaD3DSkinManager::AddSkin(const Lpta::LPTA_MATERIAL &material, unsigne
 HRESULT LptaD3DSkinManager::AddTexture(unsigned int skinId,
     const Lpta::LPTA_TEXTURE &texture, bool enableTransparency)
 {
-
+    // todo
+    return S_OK;
 }
 
 HRESULT LptaD3DSkinManager::AddTextureHeightmapAsBump(unsigned int skinId, const string &fileName)
 {
     //todo
     return S_OK;
-}
-
-bool LptaD3DSkinManager::MaterialsEqual(const Lpta::LPTA_MATERIAL &mat0, const Lpta::LPTA_MATERIAL &mat1)
-{
-    return ColorsEqual(mat0.ambient, mat1.ambient) &&
-        ColorsEqual(mat0.diffuse, mat1.diffuse) &&
-        ColorsEqual(mat0.emissive, mat1.emissive) &&
-        ColorsEqual(mat0.specular, mat1.specular) &&
-        mat0.specularPower == mat1.specularPower;
 }
 
 Lpta::LPTA_SKIN LptaD3DSkinManager::GetSkin(unsigned int skinId) const
@@ -62,14 +54,6 @@ Lpta::LPTA_MATERIAL LptaD3DSkinManager::GetMaterial(unsigned int materialId) con
 Lpta::LPTA_TEXTURE LptaD3DSkinManager::GetTexture(unsigned int textureId) const
 {
     return ValidTextureId(textureId) ? textures[textureId] : Lpta::LPTA_TEXTURE();
-}
-
-bool LptaD3DSkinManager::ColorsEqual(const Lpta::LPTA_COLOR &color0, const Lpta::LPTA_COLOR &color1)
-{
-    return color0.red == color1.red &&
-        color0.blue == color1.blue &&
-        color0.green == color1.green &&
-        color0.alpha == color1.alpha;
 }
 
 HRESULT LptaD3DSkinManager::CreateTexture(Lpta::LPTA_TEXTURE *texture, bool transparent)

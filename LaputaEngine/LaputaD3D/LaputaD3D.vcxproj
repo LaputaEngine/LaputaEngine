@@ -58,7 +58,14 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>$(OutputPath)\LaputaRenderer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>LIB.exe /OUT:$(OutputPath)\LaputaD3D_Static.lib $(IntDir)\*.obj </Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>builds a debug static library to test non-exported functions</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
