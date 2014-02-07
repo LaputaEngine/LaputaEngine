@@ -12,12 +12,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\LptaRenderer.cpp" />
+    <ClCompile Include="source\LptaSkinManagerImpl.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="header\Lpta.h" />
     <ClInclude Include="header\LptaRenderDevice.h" />
     <ClInclude Include="header\LptaRenderDeviceImpl.h" />
     <ClInclude Include="header\LptaRenderer.h" />
     <ClInclude Include="header\LptaRendererStatusCodes.h" />
+    <ClInclude Include="header\LptaSkinManager.h" />
+    <ClInclude Include="header\LptaSkinManagerImpl.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{CA46416F-C5FF-467E-9F90-0C14EA05CE30}</ProjectGuid>
