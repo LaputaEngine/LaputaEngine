@@ -42,6 +42,18 @@
     <ClCompile Include="source\resources\LptaD3DSkinManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\resources\LptaD3DTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\resources\errors\TextureD3DFailure.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\resources\errors\TextureError.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\resources\errors\TextureFileNotFound.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\LptaD3D.h">
@@ -60,6 +72,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="header\resources\LptaD3DSkinManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\resources\LptaD3DTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\resources\errors\TextureFileNotFound.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\resources\errors\TextureError.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\resources\errors\TextureD3DFailure.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

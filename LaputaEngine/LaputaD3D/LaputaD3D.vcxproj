@@ -91,14 +91,22 @@
     <ClCompile Include="source\LptaD3DUtils.cpp" />
     <ClCompile Include="source\LptaD3D_init.cpp" />
     <ClCompile Include="source\LptaD3D_main.cpp" />
+    <ClCompile Include="source\resources\errors\TextureD3DFailure.cpp" />
+    <ClCompile Include="source\resources\errors\TextureError.cpp" />
+    <ClCompile Include="source\resources\errors\TextureFileNotFound.cpp" />
     <ClCompile Include="source\resources\LptaD3DSkinManager.cpp" />
+    <ClCompile Include="source\resources\LptaD3DTexture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\adapter\AdapterInfo.h" />
     <ClInclude Include="header\LptaD3D.h" />
     <ClInclude Include="header\LptaD3DConfig.h" />
     <ClInclude Include="header\LptaD3DUtils.h" />
+    <ClInclude Include="header\resources\errors\TextureD3DFailure.h" />
+    <ClInclude Include="header\resources\errors\TextureError.h" />
+    <ClInclude Include="header\resources\errors\TextureFileNotFound.h" />
     <ClInclude Include="header\resources\LptaD3DSkinManager.h" />
+    <ClInclude Include="header\resources\LptaD3DTexture.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
