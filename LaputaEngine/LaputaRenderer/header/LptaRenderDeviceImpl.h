@@ -23,7 +23,7 @@ protected:
     FILE *logFile;
     bool isRunning;
 
-    unique_ptr<LptaSkinManager> skinManager;
+    unique_ptr<lpta::LptaSkinManager> skinManager;
 };
 
 #endif

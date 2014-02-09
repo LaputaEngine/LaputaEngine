@@ -6,6 +6,9 @@ using std::move;
 
 #pragma comment (lib, "d3d9.lib")
 
+namespace lpta_d3d
+{
+
 LptaD3D::LptaD3D(HINSTANCE dll)
 {
     this->dll = dll;
@@ -126,4 +129,6 @@ void LptaD3D::RunRenderer(void)
 {
     isRunning = true;
     isSceneRunning = false;
+}
+
 }

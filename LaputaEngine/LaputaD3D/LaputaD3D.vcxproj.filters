@@ -39,7 +39,7 @@
     <ClCompile Include="source\LptaD3DConfig_main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\LptaD3DSkinManager.cpp">
+    <ClCompile Include="source\resources\LptaD3DSkinManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,7 +59,7 @@
     <ClInclude Include="header\LptaD3DConfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\LptaD3DSkinManager.h">
+    <ClInclude Include="header\resources\LptaD3DSkinManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -10,20 +10,19 @@ using std::unique_ptr;
 
 namespace lpta_d3d
 {
-    const int MIN_WIDTH = 800;
-    const int MIN_HEIGHT = 600;
-    const int MIN_BITS = 16;
+const int MIN_WIDTH = 800;
+const int MIN_HEIGHT = 600;
+const int MIN_BITS = 16;
 
-    const D3DFORMAT RENDER_FORMAT = D3DFMT_X8R8G8B8;
+const D3DFORMAT RENDER_FORMAT = D3DFMT_X8R8G8B8;
 
-    const D3DDEVTYPE DEVICE_TYPES[] = {
-        D3DDEVTYPE_HAL,
-        D3DDEVTYPE_REF,
-    };
-    const int NUM_DEVICE_TYPES = sizeof(DEVICE_TYPES) / sizeof(D3DDEVTYPE);
+const D3DDEVTYPE DEVICE_TYPES[] = {
+    D3DDEVTYPE_HAL,
+    D3DDEVTYPE_REF,
+};
+const int NUM_DEVICE_TYPES = sizeof(DEVICE_TYPES) / sizeof(D3DDEVTYPE);
 
-    const D3DCOLOR DEFAULT_CLEAR_COLOR = D3DCOLOR_COLORVALUE(0.0f, 0.0f, 0.0f, 1.0f);
-}
+const D3DCOLOR DEFAULT_CLEAR_COLOR = D3DCOLOR_COLORVALUE(0.0f, 0.0f, 0.0f, 1.0f);
 
 class LptaD3D : public LptaRenderDeviceImpl
 {
@@ -55,5 +54,7 @@ private:
 
     void Log(char *, ...);
 };
+
+}
 
 #endif

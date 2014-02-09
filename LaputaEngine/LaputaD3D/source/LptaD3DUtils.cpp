@@ -4,7 +4,7 @@
 
 bool CompareFormats(const D3DDISPLAYMODE &first, const D3DDISPLAYMODE &second);
 
-unsigned int LptaD3DUtils::GetBitsFor(D3DFORMAT format)
+unsigned int lpta_d3d_utils::GetBitsFor(D3DFORMAT format)
 {
     switch (format) {
         case D3DFMT_A2B10G10R10: return 32;
@@ -22,7 +22,7 @@ unsigned int LptaD3DUtils::GetBitsFor(D3DFORMAT format)
     }
 }
 
-std::string LptaD3DUtils::GetTitleFor(D3DDEVTYPE deviceType)
+std::string lpta_d3d_utils::GetTitleFor(D3DDEVTYPE deviceType)
 {
     switch (deviceType) {
     case D3DDEVTYPE_HAL: return "DEVICE_TYPE_HAL";
@@ -32,7 +32,7 @@ std::string LptaD3DUtils::GetTitleFor(D3DDEVTYPE deviceType)
     }
 }
 
-std::wstring LptaD3DUtils::ToUnicode(const std::string &str)
+std::wstring lpta_d3d_utils::ToUnicode(const std::string &str)
 {
     std::wstringstream ss;
     ss << str.c_str();

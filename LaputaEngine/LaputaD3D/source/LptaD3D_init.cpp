@@ -8,7 +8,7 @@ using std::shared_ptr;
 extern "C" __declspec(dllexport) HRESULT CreateRenderDevice(HINSTANCE dll, LPTAFXRENDERER& pInterface)
 {
     if (!pInterface) {
-        pInterface = shared_ptr<LptaD3D>(new LptaD3D(dll));
+        pInterface = shared_ptr<lpta_d3d::LptaD3D>(new lpta_d3d::LptaD3D(dll));
         return LPTA_OK;
     }
 
@@ -24,6 +24,9 @@ extern "C" __declspec(dllexport)HRESULT ReleaseRenderDevice(LPTAFXRENDERER& pInt
     pInterface.reset();
     return LPTA_OK;
 }
+
+namespace lpta_d3d
+{
 
 HRESULT LptaD3D::Init(HWND hWnd, const vector<HWND> &childWnds, int minDepth, int minStencil, bool saveLog)
 {
@@ -66,4 +69,6 @@ HRESULT LptaD3D::Init(HWND hWnd, const vector<HWND> &childWnds, int minDepth, in
     }
     RunRenderer();
     return S_OK;
+}
+
 }
