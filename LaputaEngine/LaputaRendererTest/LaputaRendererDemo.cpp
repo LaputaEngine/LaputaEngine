@@ -5,6 +5,7 @@
 #define new DBG_NEW
 #include <Windows.h>
 #include "LptaRenderer.h"
+#include "LptaDeviceBuilder.h"
 #include <LptaVector.h>
 
 #pragma comment(lib, "LaputaRenderer.lib")
@@ -49,9 +50,10 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
         instance,
         NULL);
     LptaRenderer renderer(instance);
-    renderer.CreateDevice("Direct3D");
-    LPTAFXRENDERER device = renderer.GetDevice();
+    LPTA_DEVICE_BUILDER builder;
+    renderer.CreateDeviceBuilder("Direct3D", &builder);
     vector<HWND> renderWindows;
+    LPTA_DEVICE device;
 
     renderWindows.push_back(CreateWindowEx(
         WS_EX_CLIENTEDGE,
@@ -59,8 +61,8 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
         NULL,
         WS_CHILD | SS_BLACKRECT | WS_VISIBLE, 10, 10, 100, 100, hWnd, NULL, instance, NULL)
     );
+    builder->Make(hWnd, renderWindows, &device);
     device->SetClearColor(1.0f, 0.0f, 0.0f);
-    device->Init(hWnd, renderWindows, 16, 0, false);
     device->UseWindow(0);
     
     ShowWindow(hWnd, showArg);
@@ -80,7 +82,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
             device->EndRendering();
         }
     }
-    renderer.Release();
+    device.reset();
     return message.wParam;
 }
 

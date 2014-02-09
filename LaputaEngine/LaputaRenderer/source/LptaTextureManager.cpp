@@ -17,7 +17,7 @@ TEXTURE_PTR LptaTextureManager::CreateNullResource(LptaTexture::TEXTURE_ID id,
     return TEXTURE_PTR(new LptaTexture(
         id,
         "$$DEFAULT_TEXTURE$$",
-        LptaTexture::DATA(),
+        manager->GenerateDefaultData(),
         1.0f,
         LptaTexture::COLOR_KEYS()
     ));

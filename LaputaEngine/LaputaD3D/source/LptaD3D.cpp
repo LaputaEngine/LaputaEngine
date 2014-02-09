@@ -9,9 +9,9 @@ using std::move;
 namespace lpta_d3d
 {
 
-LptaD3D::LptaD3D(HINSTANCE dll)
+LptaD3D::LptaD3D(HINSTANCE dll, HWND hWnd, const vector<HWND> &childWnds) :
+    LptaRenderDeviceImpl(dll, hWnd, childWnds)
 {
-    this->dll = dll;
     this->isRunning = false;
     
     this->d3ddev = NULL;
@@ -19,16 +19,9 @@ LptaD3D::LptaD3D(HINSTANCE dll)
     for (unsigned int i = 0; i < MAX_3DHWND; ++i) {
         chain[i] = NULL;
     }
-    this->numWindows = 0;
     
-    this->d3d = Direct3DCreate9(D3D_SDK_VERSION);
     this->clearColor = lpta_d3d::DEFAULT_CLEAR_COLOR;
     this->isSceneRunning = false;
-    this->numWindows = 0;
-
-    this->config = LptaD3DConfig::GetConfig(this->d3d);
-
-    
 }
 
 LptaD3D::~LptaD3D(void)

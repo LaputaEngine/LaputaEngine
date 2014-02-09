@@ -90,7 +90,6 @@
     <ClCompile Include="Laputa3D\LptaQuat.cpp" />
     <ClCompile Include="Laputa3D\LptaRay.cpp" />
     <ClCompile Include="Laputa3D\LptaVector.cpp" />
-    <ClCompile Include="LaputaD3D\LptaD3DSkinManager.cpp" />
     <ClCompile Include="TestRunner.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

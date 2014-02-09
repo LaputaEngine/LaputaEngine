@@ -14,7 +14,6 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // Initialization/Release
     /////////////////////////////////////////////////////////////////
-    virtual HRESULT Init(HWND hWnd, const vector<HWND> &childWnds, int minDepth, int minStencil, bool saveLog) = 0;
     virtual void Release(void) = 0;
     virtual bool IsRunning(void) = 0;
 
@@ -28,13 +27,6 @@ public:
     virtual void SetClearColor(float r, float g, float b) = 0;
 };
 
-typedef std::shared_ptr<LptaRenderDevice> LPTAFXRENDERER;
-
-extern "C"
-{
-    typedef HRESULT(*CREATERENDERDEVICE) (HINSTANCE hDLL, const LPTAFXRENDERER& pInterface);
-    typedef HRESULT(*RELEASERENDERDEVICE) (const LPTAFXRENDERER& pInterface);
-}
-
+typedef std::shared_ptr<LptaRenderDevice> LPTA_DEVICE;
 
 #endif

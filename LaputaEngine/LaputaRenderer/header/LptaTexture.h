@@ -19,12 +19,14 @@ public:
     typedef ID TEXTURE_ID;
     typedef shared_ptr<void> DATA;
     typedef vector<LptaColor> COLOR_KEYS;
+
 public:
     LptaTexture(ID id, const string &filename, const DATA data, 
         float alpha, const COLOR_KEYS &colorKeys);
     ~LptaTexture(void);
 
     inline DATA GetData(void) const;
+
 private:
     string filename;
     DATA data;

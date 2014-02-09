@@ -11,10 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\LptaRenderDeviceImpl.cpp" />
     <ClCompile Include="source\LptaTextureManager.cpp" />
     <ClInclude Include="header\LptaMaterialManager.h" />
+    <ClInclude Include="header\LptaDeviceBuilder.h" />
     <ClInclude Include="header\LptaResource.h">
-      <FileType>CppCode</FileType>
+      <FileType>CppHeader</FileType>
     </ClInclude>
     <ClCompile Include="source\LptaMaterialManager.cpp" />
     <ClCompile Include="source\LptaResource.cpp" />

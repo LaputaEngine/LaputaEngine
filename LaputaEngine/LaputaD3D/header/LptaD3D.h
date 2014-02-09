@@ -2,11 +2,13 @@
 #define _LPTAD3D_H_
 
 #include <d3dx9.h>
+#include "LptaMaterialManager.h"
+#include "LptaSkinManager.h"
+#include "LptaMaterialManager.h"
+#include "resources/LptaD3DTextureManager.h"
 #include "LptaD3DConfig.h"
 #include "LptaRenderDeviceImpl.h"
 using std::unique_ptr;
-
-#define MAX_3DHWND 8
 
 namespace lpta_d3d
 {
@@ -24,14 +26,11 @@ const int NUM_DEVICE_TYPES = sizeof(DEVICE_TYPES) / sizeof(D3DDEVTYPE);
 
 const D3DCOLOR DEFAULT_CLEAR_COLOR = D3DCOLOR_COLORVALUE(0.0f, 0.0f, 0.0f, 1.0f);
 
-class LptaD3D : public LptaRenderDeviceImpl
+class LptaD3D : public lpta::LptaRenderDeviceImpl
 {
 public:
-    LptaD3D(HINSTANCE hDLL);
+    LptaD3D(HINSTANCE hDLL, HWND hWnd, const vector<HWND> &childWnds);
     ~LptaD3D(void);
-
-    HRESULT Init(HWND hWnd, const vector<HWND> &childWnds, int minDepth, int minStencil, bool saveLog);
-    BOOL CALLBACK DlgProc(HWND, UINT, WPARAM, LPARAM);
 
     void Release(void);
     bool IsRunning(void);
@@ -46,13 +45,14 @@ private:
 
     LPDIRECT3D9 d3d;
     LPDIRECT3DDEVICE9 d3ddev;
-    LPTA_D3D_CONFIG config;
     LPDIRECT3DSWAPCHAIN9 chain[MAX_3DHWND];
 
     D3DCOLOR clearColor;
     bool isSceneRunning;
 
     void Log(char *, ...);
+
+    friend class LptaD3DDeviceBuilder;
 };
 
 }

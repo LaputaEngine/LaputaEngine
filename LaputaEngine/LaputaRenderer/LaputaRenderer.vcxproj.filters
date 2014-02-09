@@ -42,6 +42,9 @@
     <ClCompile Include="source\LptaTextureManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\LptaRenderDeviceImpl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\LptaRenderer.h">
@@ -68,9 +71,6 @@
     <ClInclude Include="header\LptaTexture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\LptaResource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="header\LptaResourceManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -81,6 +81,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="header\LptaTextureManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\LptaResource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\LptaDeviceBuilder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
