@@ -6,6 +6,7 @@
 #include <Windows.h>
 #include "LptaStatusCodes.h"
 #include "LptaRenderDevice.h"
+#include "LptaDeviceBuilder.h"
 
 class LptaRenderer
 {
@@ -13,9 +14,7 @@ public:
     LptaRenderer(HINSTANCE hInst);
     ~LptaRenderer(void);
 
-    LPTA_RESULT CreateDevice(std::string api);
-    void Release(void);
-    LPTAFXRENDERER GetDevice(void);
+    LPTA_RESULT CreateDeviceBuilder(std::string api, LPTA_DEVICE_BUILDER *builder);
 
 private:
     std::shared_ptr<LptaRenderDevice> renderDevice;

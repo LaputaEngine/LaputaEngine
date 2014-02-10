@@ -7,6 +7,12 @@
     <Filter Include="Laputa3D">
       <UniqueIdentifier>{970e5d91-460b-410c-a77f-69632897e82b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LaputaRenderer">
+      <UniqueIdentifier>{07309653-a341-4b9e-b7f1-a438b929a483}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LaputaD3D">
+      <UniqueIdentifier>{b6a73057-d2e9-43a7-b4ea-d6ba7b5960e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TestRunner.cpp">
@@ -31,6 +37,9 @@
       <Filter>Laputa3D</Filter>
     </ClCompile>
     <ClCompile Include="Laputa3D\LptaOBB.cpp">
+      <Filter>Laputa3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Laputa3D\LptaQuat.cpp">
       <Filter>Laputa3D</Filter>
     </ClCompile>
   </ItemGroup>

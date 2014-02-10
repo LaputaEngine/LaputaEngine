@@ -2,24 +2,35 @@
 #include "LptaVector.h"
 #include "LptaOBB.h"
 #include "LptaAABB.h"
+#include "geometry/Shapes.h"
 
-TEST(LptaOBBTest, ConvertToAABBNormalCase_AlignedOriginConvert)
+LptaOBB CreateBasicCubeOBB(float x, float y, float z, float extent)
 {
-    COORDINATE centre(0, 0, 0);
+    COORDINATE centre(x, y, z);
     OBB_AXES axes;
     axes[0] = {
         LptaNormalVector(1.0f, 0.0f, 0.0f),
-        1.0f,
+        extent,
     };
     axes[1] = {
         LptaNormalVector(0.0f, 1.0f, 0.0f),
-        1.0f,
+        extent,
     };
     axes[2] = {
         LptaNormalVector(0.0f, 0.0f, 1.0f),
-        1.0f,
+        extent,
     };
-    LptaOBB obb(centre, axes);
+    return LptaOBB(centre, axes);
+}
+LptaOBB CreateOriginBaicCubeOBB(float extent)
+{
+    return CreateBasicCubeOBB(0.0f, 0.0f, 0.0f, extent);
+}
+
+TEST(LptaOBBTest, ConvertToAABBNormalCase_AlignedOriginConvert)
+{
+    
+    LptaOBB obb = CreateOriginBaicCubeOBB(1.0f);
     LptaAABB aabb = obb.ConvertToAABB();
     
     COORDINATE obbCentre = aabb.GetCentre();
@@ -40,21 +51,7 @@ TEST(LptaOBBTest, ConvertToAABBNormalCase_AlignedOriginConvert)
 
 TEST(LptaOBBTest, ConvertToAABBNormalCase_AlignedConvert)
 {
-    COORDINATE centre(1, 0, 0);
-    OBB_AXES axes;
-    axes[0] = {
-        LptaNormalVector(1.0f, 0.0f, 0.0f),
-        1.0f,
-    };
-    axes[1] = {
-        LptaNormalVector(0.0f, 1.0f, 0.0f),
-        1.0f,
-    };
-    axes[2] = {
-        LptaNormalVector(0.0f, 0.0f, 1.0f),
-        1.0f,
-    };
-    LptaOBB obb(centre, axes);
+    LptaOBB obb = CreateBasicCubeOBB(1, 0, 0, 1.0f);
     LptaAABB aabb = obb.ConvertToAABB();
 
     COORDINATE obbCentre = aabb.GetCentre();
@@ -76,4 +73,104 @@ TEST(LptaOBBTest, ConvertToAABBNormalCase_AlignedConvert)
 TEST(LptaOBBTest, ConvertToAABBNormalCase_RotatedOriginConvert)
 {
     // todo
+}
+
+TEST(LptaOBBTest, IntersectsOBB_Intersects_AxisAligned)
+{
+    LptaOBB obb0 = CreateOriginBaicCubeOBB(1.0f);
+    LptaOBB obb1 = CreateOriginBaicCubeOBB(1.0f);
+    ASSERT_TRUE(obb0.Intersects(obb1));
+    ASSERT_TRUE(obb1.Intersects(obb0));
+
+    LptaOBB obb2 = CreateBasicCubeOBB(0.0f, 2.0f, 0.0f, 1.0f);
+    ASSERT_TRUE(obb0.Intersects(obb2));
+    ASSERT_TRUE(obb2.Intersects(obb0));
+
+    LptaOBB obb3 = CreateBasicCubeOBB(2.0f, 2.0f, 2.0f, 1.0f);
+    ASSERT_TRUE(obb0.Intersects(obb3));
+    ASSERT_TRUE(obb3.Intersects(obb0));
+}
+
+TEST(LptaOBBTest, IntersectsOBB_Intersects)
+{
+    COORDINATE centre0(0, 0, 0);
+    OBB_AXES axes0;
+    axes0[0] = {
+        LptaNormalVector::MakeFrom(1.0f, 1.0f, 0.0f),
+        10.0f,
+    };
+    axes0[1] = {
+        LptaNormalVector::MakeFrom(1.0f, -1.0f, 0.0f),
+        10.0f,
+    };
+    axes0[2] = {
+        LptaNormalVector(0.0f, 0.0f, 1.0f),
+        10.0f,
+    };
+    LptaOBB obb0(centre0, axes0);
+
+    LptaOBB obb1 = CreateBasicCubeOBB(0.0f, 15.142f, 0.0f, 1.0f);
+    ASSERT_TRUE(obb0.Intersects(obb1));
+    ASSERT_TRUE(obb1.Intersects(obb0));
+}
+
+TEST(LptaOBBTest, IntersectsOBB_NoIntersect_AxisAligned)
+{
+    LptaOBB obb0 = CreateOriginBaicCubeOBB(1.0f);
+    LptaOBB obb1 = CreateBasicCubeOBB(0.0f, 3.0f, 0.0f, 1.0f);
+    ASSERT_FALSE(obb0.Intersects(obb1));
+    ASSERT_FALSE(obb1.Intersects(obb0));
+
+    LptaOBB obb2 = CreateBasicCubeOBB(0.0f, 2.0f, 0.0f, 0.0009f);
+    ASSERT_FALSE(obb0.Intersects(obb2));
+    ASSERT_FALSE(obb2.Intersects(obb0));
+
+    LptaOBB obb3 = CreateBasicCubeOBB(2.0f, 3.0f, 3.0f, 1.0f);
+    ASSERT_FALSE(obb0.Intersects(obb3));
+    ASSERT_FALSE(obb3.Intersects(obb0));
+}
+
+TEST(LptaOBBTest, IntersectsOBB_NoIntersect)
+{
+    COORDINATE centre0(0, 0, 0);
+    OBB_AXES axes0;
+    axes0[0] = {
+        LptaNormalVector::MakeFrom(1.0f, 1.0f, 0.0f),
+        10.0f,
+    };
+    axes0[1] = {
+        LptaNormalVector::MakeFrom(1.0f, -1.0f, 0.0f),
+        10.0f,
+    };
+    axes0[2] = {
+        LptaNormalVector(0.0f, 0.0f, 1.0f),
+        10.0f,
+    };
+    LptaOBB obb0(centre0, axes0);
+
+    LptaOBB obb1 = CreateBasicCubeOBB(0.0f, 15.1422f, 0.0f, 1.0f);
+    ASSERT_FALSE(obb0.Intersects(obb1));
+    ASSERT_FALSE(obb1.Intersects(obb0));
+}
+
+TEST(LptaOBBTest, IntersectsOBB_IntersectsTriangle_AxisAligned)
+{
+    LptaOBB obb = CreateOriginBaicCubeOBB(1.0f);
+    LPTA_TRIANGLE triangle = {
+        COORDINATE(0.0f, 0.0f, 0.0f),
+        COORDINATE(10.0f, 10.0f, 10.0f),
+        COORDINATE(-10.0f, -5.0f, 3.0f)
+    };
+    ASSERT_TRUE(obb.Intersects(triangle));
+}
+
+TEST(LptaOBBTest, IntersectsTriangle_NoIntersect)
+{
+    LptaOBB obb = CreateOriginBaicCubeOBB(1.0f);
+    LPTA_TRIANGLE triangle = {
+        COORDINATE(1.0f, 1.0f, 0.0f),
+        COORDINATE(2.0f, 0.0f, 1.0f),
+        COORDINATE(20.0f, 0.0f, -1.0f)
+    };
+    ASSERT_FALSE(obb.Intersects(triangle));
 }

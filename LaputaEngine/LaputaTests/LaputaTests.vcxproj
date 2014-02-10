@@ -52,12 +52,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\lib\gtest\include;$(SolutionDir)\Laputa3D\header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\lib\gtest\include;$(SolutionDir)\Laputa3D\header;$(SolutionDir)\LaputaRenderer\header;$(SolutionDir)\LaputaD3D\header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(SolutionDir)\..\lib\gtest\gtestd.lib;$(SolutionDir)\..\lib\gtest\gtest_maind.lib;$(OutputPath)\Laputa3D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)\..\lib\gtest\gtestd.lib;$(SolutionDir)\..\lib\gtest\gtest_maind.lib;$(OutputPath)\Laputa3D.lib;$(OutputPath)\LaputaRenderer.lib;$(OutputPath)\LaputaD3D_Static.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -87,6 +87,7 @@
     <ClCompile Include="Laputa3D\LptaNormalVector.cpp" />
     <ClCompile Include="Laputa3D\LptaOBB.cpp" />
     <ClCompile Include="Laputa3D\LptaPlane.cpp" />
+    <ClCompile Include="Laputa3D\LptaQuat.cpp" />
     <ClCompile Include="Laputa3D\LptaRay.cpp" />
     <ClCompile Include="Laputa3D\LptaVector.cpp" />
     <ClCompile Include="TestRunner.cpp" />

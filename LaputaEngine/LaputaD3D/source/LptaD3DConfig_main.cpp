@@ -5,6 +5,9 @@
 #include "resource.h"
 using std::vector;
 
+namespace lpta_d3d
+{
+
 void DiscoverAdapters(LptaD3DConfig *model, const LPDIRECT3D9 d3d, vector<AdapterInfo> &adapterInfos);
 void DiscoverDisplayModesFor(AdapterInfo &adapterInfo, LptaD3DConfig *model, const LPDIRECT3D9 d3d);
 bool ValidDisplayMode(const D3DDISPLAYMODE &displayMode);
@@ -75,7 +78,7 @@ bool ValidDisplayMode(const D3DDISPLAYMODE &displayMode)
 {
     return displayMode.Width >= lpta_d3d::MIN_WIDTH &&
         displayMode.Height >= lpta_d3d::MIN_HEIGHT &&
-        LptaD3DUtils::GetBitsFor(displayMode.Format) >= lpta_d3d::MIN_BITS;
+        lpta_d3d_utils::GetBitsFor(displayMode.Format) >= lpta_d3d::MIN_BITS;
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -94,4 +97,6 @@ UINT LptaD3DConfig::GetSelectedAdapter(void) const
 D3DDEVTYPE LptaD3DConfig::GetDeviceType(void) const
 {
     return deviceType;
+}
+
 }

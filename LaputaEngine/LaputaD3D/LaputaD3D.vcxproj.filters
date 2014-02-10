@@ -21,12 +21,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\LptaD3D_init.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\LptaD3D_main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\adapter\AdapterInfo.cpp">
       <Filter>Source Files\Adapter</Filter>
     </ClCompile>
@@ -37,6 +31,27 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\LptaD3DConfig_main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\resources\LptaD3DTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\resources\errors\TextureD3DFailure.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\resources\errors\TextureError.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\resources\errors\TextureFileNotFound.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\resources\LptaD3DTextureManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LptaD3DBuilder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LptaD3D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -54,6 +69,24 @@
       <Filter>Header Files\Adapter</Filter>
     </ClInclude>
     <ClInclude Include="header\LptaD3DConfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\resources\LptaD3DTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\resources\errors\TextureFileNotFound.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\resources\errors\TextureError.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\resources\errors\TextureD3DFailure.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\resources\LptaD3DTextureManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\LptaD3DDeviceBuilder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

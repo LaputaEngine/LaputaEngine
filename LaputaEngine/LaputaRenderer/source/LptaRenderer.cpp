@@ -11,14 +11,13 @@ LptaRenderer::LptaRenderer(HINSTANCE hInst)
 
 LptaRenderer::~LptaRenderer(void)
 {
-    Release();
     if (dllHandle) {
         FreeLibrary(dllHandle);
         dllHandle = NULL;
     }
 }
 
-LPTA_RESULT LptaRenderer::CreateDevice(std::string api)
+LPTA_RESULT LptaRenderer::CreateDeviceBuilder(std::string api, LPTA_DEVICE_BUILDER *builder)
 {
     if (api == "Direct3D") {
         dllHandle = LoadLibrary(L"LaputaD3D.dll");
@@ -36,12 +35,12 @@ LPTA_RESULT LptaRenderer::CreateDevice(std::string api)
         return LPTA_RDR_FAIL;
     }
     
-    CREATERENDERDEVICE _CreateRenderDevice = 0;
+    CREATEDEVICEBUILDER _CreateDeviceBuilder = 0;
     HRESULT hr;
 
-    _CreateRenderDevice = (CREATERENDERDEVICE)GetProcAddress(dllHandle, "CreateRenderDevice");
+    _CreateDeviceBuilder = (CREATEDEVICEBUILDER)GetProcAddress(dllHandle, "CreateDeviceBuilder");
     
-    if (!_CreateRenderDevice) {
+    if (!_CreateDeviceBuilder) {
         LPVOID errorMessage;
         FormatMessage(
             FORMAT_MESSAGE_ALLOCATE_BUFFER |
@@ -58,30 +57,11 @@ LPTA_RESULT LptaRenderer::CreateDevice(std::string api)
         return LPTA_RDR_FAIL;
     }
 
-    hr = _CreateRenderDevice(dllHandle, renderDevice);
+    hr = _CreateDeviceBuilder(dllHandle, builder);
     if (FAILED(hr)) {
         MessageBox(NULL, L"CreateRenderDevice() from lib failed.", L"LaputaEngine - error", MB_OK | MB_ICONERROR);
         renderDevice = NULL;
         return LPTA_RDR_FAIL;
     }
     return LPTA_OK;
-}
-
-LPTAFXRENDERER LptaRenderer::GetDevice(void)
-{
-    return renderDevice;
-}
-
-void LptaRenderer::Release(void)
-{
-    RELEASERENDERDEVICE _ReleaseRenderDevice = 0;
-    HRESULT hr;
-
-    if (dllHandle) {
-        _ReleaseRenderDevice = (RELEASERENDERDEVICE)GetProcAddress(dllHandle, "ReleaseRenderDevice");
-    }
-    if (renderDevice) {
-        hr = _ReleaseRenderDevice(renderDevice);
-        renderDevice = NULL;
-    }
 }

@@ -3,6 +3,9 @@
 #include "LptaD3D.h"
 #include "resource.h"
 
+namespace lpta_d3d
+{
+
 void PopulateAdapterSelections(vector<AdapterInfo> &adapterInfos, HWND comboBox);
 void PopulateDeviceTypeSelections(HWND comboBox);
 
@@ -39,7 +42,7 @@ void PopulateDeviceTypeSelections(HWND comboBox)
     SendMessage(comboBox, CB_RESETCONTENT, 0, 0);
     for (unsigned int i = 0; i < lpta_d3d::NUM_DEVICE_TYPES; i++) {
         D3DDEVTYPE deviceType = lpta_d3d::DEVICE_TYPES[i];
-        AddComboBoxItem(comboBox, LptaD3DUtils::GetTitleFor(deviceType), deviceType);
+        AddComboBoxItem(comboBox, lpta_d3d_utils::GetTitleFor(deviceType), deviceType);
     }
     SendMessage(comboBox, CB_SETCURSEL, 0, 0);
 }
@@ -124,7 +127,9 @@ HRESULT GetComboBoxSelection(HWND comboBox)
 
 void AddComboBoxItem(HWND comboBox, const string &title, LPARAM data)
 {
-    std::wstring wTitle = LptaD3DUtils::ToUnicode(title);
+    std::wstring wTitle = lpta_d3d_utils::ToUnicode(title);
     int itemIndex = (int)SendMessage(comboBox, CB_ADDSTRING, NULL, (LPARAM)wTitle.c_str());
     SendMessage(comboBox, CB_SETITEMDATA, (WPARAM)itemIndex, data);
+}
+
 }

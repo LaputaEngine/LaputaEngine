@@ -11,13 +11,34 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\LptaRenderDeviceImpl.cpp" />
+    <ClCompile Include="source\LptaTextureManager.cpp" />
+    <ClInclude Include="header\LptaMaterialManager.h" />
+    <ClInclude Include="header\LptaDeviceBuilder.h" />
+    <ClInclude Include="header\LptaResource.h">
+      <FileType>CppHeader</FileType>
+    </ClInclude>
+    <ClCompile Include="source\LptaMaterialManager.cpp" />
+    <ClCompile Include="source\LptaResource.cpp" />
+    <ClCompile Include="source\LptaColor.cpp" />
+    <ClCompile Include="source\LptaMaterial.cpp" />
     <ClCompile Include="source\LptaRenderer.cpp" />
+    <ClCompile Include="source\LptaSkin.cpp" />
+    <ClCompile Include="source\LptaSkinManager.cpp" />
+    <ClCompile Include="source\LptaTexture.cpp" />
+    <ClInclude Include="header\LptaTextureManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="header\LptaColor.h" />
+    <ClInclude Include="header\LptaMaterial.h" />
     <ClInclude Include="header\LptaRenderDevice.h" />
     <ClInclude Include="header\LptaRenderDeviceImpl.h" />
     <ClInclude Include="header\LptaRenderer.h" />
     <ClInclude Include="header\LptaRendererStatusCodes.h" />
+    <ClInclude Include="header\LptaResourceManager.h" />
+    <ClInclude Include="header\LptaSkin.h" />
+    <ClInclude Include="header\LptaSkinManager.h" />
+    <ClInclude Include="header\LptaTexture.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{CA46416F-C5FF-467E-9F90-0C14EA05CE30}</ProjectGuid>

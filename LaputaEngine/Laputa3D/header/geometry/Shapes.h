@@ -2,6 +2,11 @@
 #define _SHAPES_H_
 #include "LptaVector.h"
 
+namespace lpta_geometry
+{
+    const int TRIANGLE_SIDES = 3;
+}
+
 typedef struct 
 {
     COORDINATE vertices[3];
