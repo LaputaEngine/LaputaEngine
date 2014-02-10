@@ -9,7 +9,7 @@ extern "C" __declspec(dllexport) HRESULT CreateDeviceBuilder(HINSTANCE hDll,
 {
     try {
         if (!(*deviceBuilder)) {
-            *deviceBuilder = shared_ptr<lpta_d3d::LptaD3DDeviceBuilder>(
+            *deviceBuilder = unique_ptr<lpta_d3d::LptaD3DDeviceBuilder>(
                 new lpta_d3d::LptaD3DDeviceBuilder(hDll));
             return LPTA_OK;
         }
@@ -34,7 +34,7 @@ LptaD3DDeviceBuilder::~LptaD3DDeviceBuilder(void)
 
 HRESULT LptaD3DDeviceBuilder::Make(HWND hWnd, const vector<HWND> &childWnds, LPTA_DEVICE *device)
 {
-    std::shared_ptr<LptaD3D> d3dDevice = std::shared_ptr<LptaD3D>(new LptaD3D(hDll, hWnd, childWnds));
+    std::unique_ptr<LptaD3D> d3dDevice = std::unique_ptr<LptaD3D>(new LptaD3D(hDll, hWnd, childWnds));
     d3dDevice->d3d = Direct3DCreate9(D3D_SDK_VERSION);
     LPTA_D3D_CONFIG config = LptaD3DConfig::GetConfig(d3dDevice->d3d);
     config->ShowUserDialog(hDll, hWnd);
@@ -59,7 +59,7 @@ HRESULT LptaD3DDeviceBuilder::Make(HWND hWnd, const vector<HWND> &childWnds, LPT
     }
     d3dDevice->RunRenderer();
 
-    *device = d3dDevice;
+    *device = std::move(d3dDevice);
     return S_OK;
 }
 

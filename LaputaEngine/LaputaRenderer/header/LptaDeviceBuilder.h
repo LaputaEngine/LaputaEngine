@@ -5,7 +5,7 @@
 #include <vector>
 #include <Windows.h>
 #include "LptaRenderDevice.h"
-using std::shared_ptr;
+using std::unique_ptr;
 using std::vector;
 
 namespace lpta
@@ -19,7 +19,7 @@ public:
 
 }
 
-typedef shared_ptr<lpta::LptaDeviceBuilder> LPTA_DEVICE_BUILDER;
+typedef unique_ptr<lpta::LptaDeviceBuilder> LPTA_DEVICE_BUILDER;
 extern "C"
 {
     typedef HRESULT(*CREATEDEVICEBUILDER) (HINSTANCE hDLL, LPTA_DEVICE_BUILDER *deviceBuilder);

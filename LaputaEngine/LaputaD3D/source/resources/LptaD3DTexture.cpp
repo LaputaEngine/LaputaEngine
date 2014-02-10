@@ -1,10 +1,8 @@
-#include <memory>
 #include <d3d9.h>
 #include <cimage/CImg.h>
 #include "resources/errors/TextureD3DFailure.h"
 #include "resources/errors/TextureFileNotFound.h"
 #include "resources/LptaD3DTexture.h"
-using std::shared_ptr;
 
 namespace lpta_d3d
 {
@@ -37,13 +35,19 @@ LptaD3DTexture::LptaD3DTexture(LPDIRECT3DDEVICE9 d3ddev, ID id, const string &fi
 {
 }
 
+LptaD3DTexture::LptaD3DTexture(ID id, const string &name, LPDIRECT3DTEXTURE9 data, 
+    float alpha, const COLOR_KEYS &colorKeys) :
+    LptaTexture(id, name, data, alpha, colorKeys)
+{
+}
+
 LptaD3DTexture::~LptaD3DTexture(void)
 {
-    (std::static_pointer_cast<IDirect3DTexture9>(GetData()))->Release();
+    GetData()->Release();
 }
 
 #define TO_4_BYTE 4
-lpta::LptaTexture::DATA LptaD3DTexture::D3DLoadTextureFile(LPDIRECT3DDEVICE9 d3ddev, 
+LPDIRECT3DTEXTURE9 LptaD3DTexture::D3DLoadTextureFile(LPDIRECT3DDEVICE9 d3ddev, 
     const string &filename, bool alpha)
 {
     using namespace cimg_library;
@@ -75,7 +79,7 @@ lpta::LptaTexture::DATA LptaD3DTexture::D3DLoadTextureFile(LPDIRECT3DDEVICE9 d3d
             CopyCImgToD3DRect24Bit(image, d3dLockedRect);
         }
         textureData->UnlockRect(0);
-        return DATA(textureData);
+        return textureData;
     }
     catch (cimg_library::CImgIOException) {
         throw TextureFileNotFound(filename);

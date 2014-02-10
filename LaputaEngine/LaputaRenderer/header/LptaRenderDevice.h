@@ -27,6 +27,6 @@ public:
     virtual void SetClearColor(float r, float g, float b) = 0;
 };
 
-typedef std::shared_ptr<LptaRenderDevice> LPTA_DEVICE;
+typedef std::unique_ptr<LptaRenderDevice> LPTA_DEVICE;
 
 #endif

@@ -13,13 +13,13 @@ LptaSkinManager::~LptaSkinManager(void)
 {
 }
 
-SKIN_PTR LptaSkinManager::CreateNullResource(LptaSkin::SKIN_ID id, LptaSkinManager *const manager)
+LptaSkin LptaSkinManager::CreateNullResource(LptaSkin::SKIN_ID id, LptaSkinManager *const manager)
 {
-    return SKIN_PTR(new LptaSkin(
+    return LptaSkin(
         id,
-        manager->nullResource->GetId(),
+        manager->nullResource.GetId(),
         LptaSkin::SKIN_NON_TRANSPARENT
-    ));
+    );
 }
 
 }

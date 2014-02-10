@@ -10,31 +10,44 @@
 namespace lpta
 {
 using std::string;
-using std::shared_ptr;
+using std::unique_ptr;
 using std::vector;
 
+template <class T>
 class LptaTexture : public LptaResource
 {
 public:
     typedef ID TEXTURE_ID;
-    typedef shared_ptr<void> DATA;
     typedef vector<LptaColor> COLOR_KEYS;
 
 public:
-    LptaTexture(ID id, const string &filename, const DATA data, 
+    LptaTexture(ID id, const string &filename, const T &data, 
         float alpha, const COLOR_KEYS &colorKeys);
     ~LptaTexture(void);
 
-    inline DATA GetData(void) const;
+    inline const T &GetData(void) const;
 
 private:
     string filename;
-    DATA data;
+    T data;
     float alpha;
     COLOR_KEYS colorKeys;
 };
 
-LptaTexture::DATA LptaTexture::GetData(void) const
+template <class T>
+LptaTexture<T>::LptaTexture(ID id, const string &filename, const T &data, 
+        float alpha, const COLOR_KEYS &colorKeys) :
+        LptaResource(id), data(data), filename(filename), alpha(alpha), colorKeys(colorKeys)
+{
+}
+
+template <class T>
+LptaTexture<T>::~LptaTexture(void)
+{
+}
+
+template <class T>
+const T &LptaTexture<T>::GetData(void) const
 {
     return data;
 }

@@ -8,17 +8,13 @@
 namespace lpta
 {
 
-typedef std::shared_ptr<LptaMaterial> MATERIAL_PTR;
-
 class LptaMaterialManager : public LptaResourceManager<LptaMaterial, LptaMaterialManager>
 {
 public:
     LptaMaterialManager(void);
     virtual ~LptaMaterialManager(void);
 
-    virtual MATERIAL_PTR GetResource(LptaResource::ID id) const;
-
-    static MATERIAL_PTR CreateNullResource(LptaMaterial::MATERIAL_ID, 
+    static LptaMaterial CreateNullResource(LptaMaterial::MATERIAL_ID, 
         LptaMaterialManager *const manager);
 
 protected:

@@ -8,9 +8,8 @@
 namespace lpta
 {
 
-typedef std::shared_ptr<LptaTexture> TEXTURE_PTR;
-
-class LptaTextureManager : public LptaResourceManager<LptaTexture, LptaTextureManager>
+template <class T, class D>
+class LptaTextureManager : public LptaResourceManager<T, D>
 {
 protected:
     static const unsigned long DEFAULT_TEXTURE_COLOR = 0xFF7F00FF;
@@ -20,12 +19,17 @@ protected:
 public:
     LptaTextureManager(void);
     ~LptaTextureManager(void);
-
-    static TEXTURE_PTR CreateNullResource(LptaTexture::TEXTURE_ID, LptaTextureManager *const manager);
-
-protected:
-    virtual LptaTexture::DATA GenerateDefaultData(void) = 0;
 };
+
+template <class T, class D>
+LptaTextureManager<T, D>::LptaTextureManager(void)
+{
+}
+
+template <class T, class D>
+LptaTextureManager<T, D>::~LptaTextureManager(void)
+{
+}
 
 }
 

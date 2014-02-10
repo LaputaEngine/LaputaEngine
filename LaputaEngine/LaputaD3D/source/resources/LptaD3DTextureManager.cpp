@@ -1,11 +1,10 @@
 #include <d3d9.h>
+#include "resources/LptaD3DTexture.h"
 #include "resources/errors/TextureD3DFailure.h"
 #include "resources/LptaD3DTextureManager.h"
 
 namespace lpta_d3d
 {
-// GenerateDefaultData
-inline lpta::LptaTexture::DATA EmptyData(void);
 
 LptaD3DTextureManager::LptaD3DTextureManager(LPDIRECT3DDEVICE9 d3ddev) : d3ddev(d3ddev)
 {
@@ -15,7 +14,19 @@ LptaD3DTextureManager::~LptaD3DTextureManager(void)
 {
 }
 
-lpta::LptaTexture::DATA LptaD3DTextureManager::GenerateDefaultData(void)
+LptaD3DTexture LptaD3DTextureManager::CreateNullResource(LptaD3DTexture::TEXTURE_ID, 
+    LptaD3DTextureManager *const manager)
+{
+    return LptaD3DTexture(
+        manager->GetNextId(),
+        "$$DEFAULT$$",
+        manager->GenerateDefaultData(),
+        1.0f,
+        LptaD3DTexture::COLOR_KEYS()
+    );
+}
+
+LPDIRECT3DTEXTURE9 LptaD3DTextureManager::GenerateDefaultData(void)
 {
     LPDIRECT3DTEXTURE9 textureData = NULL;
     D3DLOCKED_RECT d3dLockedRect;
@@ -42,7 +53,7 @@ lpta::LptaTexture::DATA LptaD3DTextureManager::GenerateDefaultData(void)
         *pixel = DEFAULT_TEXTURE_COLOR;
     }
     textureData->UnlockRect(0);
-    return lpta::LptaTexture::DATA(textureData);
+    return textureData;
 }
 
 }

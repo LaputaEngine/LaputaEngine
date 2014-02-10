@@ -4,7 +4,6 @@
 #include <memory>
 #include <array>
 using std::array;
-using std::shared_ptr;
 
 #define LPTA_MATRIX_ROWS 4
 #define LPTA_MATRIX_COLUMNS 4

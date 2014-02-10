@@ -15,7 +15,7 @@ class LptaSkin : public LptaResource
 public:
     typedef ID SKIN_ID;
     static const unsigned int MAX_TEXTURES = 8;
-    typedef array<LptaTexture::ID, MAX_TEXTURES> TEXTURE_IDS;
+    typedef array<LptaResource::ID, MAX_TEXTURES> TEXTURE_IDS;
 
     static const bool SKIN_TRANSPARENT = true;
     static const bool SKIN_NON_TRANSPARENT = false;

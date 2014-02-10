@@ -16,17 +16,17 @@ LptaMaterialManager::~LptaMaterialManager(void)
 {
 }
 
-MATERIAL_PTR LptaMaterialManager::CreateNullResource(LptaMaterial::MATERIAL_ID id, 
+LptaMaterial LptaMaterialManager::CreateNullResource(LptaMaterial::MATERIAL_ID id, 
     LptaMaterialManager *const manager)
 {
-    return MATERIAL_PTR(new LptaMaterial(
+    return LptaMaterial(
         id,
         DEFAULT_COLOR,
         DEFAULT_COLOR,
         DEFAULT_COLOR,
         DEFAULT_COLOR,
         0.0f
-    ));
+    );
 }
 
 }

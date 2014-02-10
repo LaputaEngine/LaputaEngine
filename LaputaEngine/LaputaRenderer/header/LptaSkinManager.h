@@ -9,8 +9,6 @@
 namespace lpta
 {
 
-typedef std::shared_ptr<LptaSkin> SKIN_PTR;
-
 class LptaSkinManager : LptaResourceManager<LptaSkin, LptaSkinManager>
 {
 protected:
@@ -19,10 +17,10 @@ public:
     LptaSkinManager(const LptaMaterialManager &materialManager);
     virtual ~LptaSkinManager(void);
 
-    static SKIN_PTR CreateNullResource(LptaSkin::SKIN_ID id, LptaSkinManager *const manager);
+    static LptaSkin CreateNullResource(LptaSkin::SKIN_ID id, LptaSkinManager *const manager);
 
 private:
-    MATERIAL_PTR defaultMaterial;
+    LptaMaterial defaultMaterial;
 };
 
 }

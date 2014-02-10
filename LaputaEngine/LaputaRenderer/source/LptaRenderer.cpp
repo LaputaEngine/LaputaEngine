@@ -5,7 +5,6 @@
 LptaRenderer::LptaRenderer(HINSTANCE hInst)
 {
     this->hInst = hInst;
-    this->renderDevice = NULL;
     this->dllHandle = NULL;
 }
 
@@ -60,7 +59,6 @@ LPTA_RESULT LptaRenderer::CreateDeviceBuilder(std::string api, LPTA_DEVICE_BUILD
     hr = _CreateDeviceBuilder(dllHandle, builder);
     if (FAILED(hr)) {
         MessageBox(NULL, L"CreateRenderDevice() from lib failed.", L"LaputaEngine - error", MB_OK | MB_ICONERROR);
-        renderDevice = NULL;
         return LPTA_RDR_FAIL;
     }
     return LPTA_OK;
