@@ -8,8 +8,8 @@
 namespace lpta
 {
 
-template <class T, class D>
-class LptaTextureManager : public LptaResourceManager<T, D>
+class LptaTextureManager : 
+    public LptaResourceManager<LptaTexture, LptaTextureManager>
 {
 protected:
     static const unsigned long DEFAULT_TEXTURE_COLOR = 0xFF7F00FF;
@@ -19,17 +19,13 @@ protected:
 public:
     LptaTextureManager(void);
     ~LptaTextureManager(void);
+
+    static LptaTexture CreateNullResource(LptaTexture::TEXTURE_ID, LptaTextureManager *const manager);
+
+protected:
+    virtual LptaTexture::DATA GenerateDefaultData(void) = 0;
+
 };
-
-template <class T, class D>
-LptaTextureManager<T, D>::LptaTextureManager(void)
-{
-}
-
-template <class T, class D>
-LptaTextureManager<T, D>::~LptaTextureManager(void)
-{
-}
 
 }
 

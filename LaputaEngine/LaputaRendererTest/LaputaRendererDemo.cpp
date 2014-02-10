@@ -49,7 +49,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
         NULL,
         instance,
         NULL);
-    LptaRenderer renderer(instance);
+    lpta::LptaRenderer renderer(instance);
     LPTA_DEVICE_BUILDER builder;
     renderer.CreateDeviceBuilder("Direct3D", &builder);
     vector<HWND> renderWindows;

@@ -31,19 +31,19 @@ inline void CopyCImgToD3DRect32Bit(const cimg_library::CImg<unsigned char> &imag
 
 LptaD3DTexture::LptaD3DTexture(LPDIRECT3DDEVICE9 d3ddev, ID id, const string &filename, 
     float alpha, const COLOR_KEYS &colorKeys) : 
-    LptaTexture(id, filename, D3DLoadTextureFile(d3ddev, filename, alpha), alpha, colorKeys)
+    LptaTexture(id, filename, (DATA)D3DLoadTextureFile(d3ddev, filename, alpha), alpha, colorKeys)
 {
 }
 
 LptaD3DTexture::LptaD3DTexture(ID id, const string &name, LPDIRECT3DTEXTURE9 data, 
     float alpha, const COLOR_KEYS &colorKeys) :
-    LptaTexture(id, name, data, alpha, colorKeys)
+    LptaTexture(id, name, (DATA)data, alpha, colorKeys)
 {
 }
 
 LptaD3DTexture::~LptaD3DTexture(void)
 {
-    GetData()->Release();
+    ((LPDIRECT3DDEVICE9)GetData())->Release();
 }
 
 #define TO_4_BYTE 4

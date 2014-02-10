@@ -8,17 +8,14 @@
 namespace lpta_d3d
 {
     
-class LptaD3DTextureManager : 
-    public lpta::LptaTextureManager<LptaD3DTexture, LptaD3DTextureManager>
+class LptaD3DTextureManager : public lpta::LptaTextureManager
 {
 public:
     LptaD3DTextureManager(LPDIRECT3DDEVICE9 d3ddev);
     ~LptaD3DTextureManager(void);
 
-    static LptaD3DTexture CreateNullResource(LptaD3DTexture::TEXTURE_ID, 
-        LptaD3DTextureManager *const manager);
 protected:
-    LPDIRECT3DTEXTURE9 GenerateDefaultData(void);
+    virtual lpta::LptaTexture::DATA GenerateDefaultData(void);
 
 private:
     LPDIRECT3DDEVICE9 d3ddev;

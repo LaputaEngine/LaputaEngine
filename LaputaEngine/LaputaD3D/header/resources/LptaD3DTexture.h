@@ -9,7 +9,7 @@ using std::string;
 namespace lpta_d3d
 {
 
-class LptaD3DTexture : public lpta::LptaTexture<LPDIRECT3DTEXTURE9>
+class LptaD3DTexture : public lpta::LptaTexture
 {
 public:
     LptaD3DTexture(LPDIRECT3DDEVICE9 d3ddev, ID id, const string &filename, 

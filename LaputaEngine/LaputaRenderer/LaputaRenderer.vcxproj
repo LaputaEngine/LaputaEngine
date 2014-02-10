@@ -12,6 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\LptaRenderDeviceImpl.cpp" />
+    <ClCompile Include="source\LptaTexture.cpp" />
+    <ClCompile Include="source\LptaTextureManager.cpp" />
     <ClInclude Include="header\LptaMaterialManager.h" />
     <ClInclude Include="header\LptaDeviceBuilder.h" />
     <ClInclude Include="header\LptaResource.h">

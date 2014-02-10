@@ -14,19 +14,7 @@ LptaD3DTextureManager::~LptaD3DTextureManager(void)
 {
 }
 
-LptaD3DTexture LptaD3DTextureManager::CreateNullResource(LptaD3DTexture::TEXTURE_ID, 
-    LptaD3DTextureManager *const manager)
-{
-    return LptaD3DTexture(
-        manager->GetNextId(),
-        "$$DEFAULT$$",
-        manager->GenerateDefaultData(),
-        1.0f,
-        LptaD3DTexture::COLOR_KEYS()
-    );
-}
-
-LPDIRECT3DTEXTURE9 LptaD3DTextureManager::GenerateDefaultData(void)
+lpta::LptaTexture::DATA LptaD3DTextureManager::GenerateDefaultData(void)
 {
     LPDIRECT3DTEXTURE9 textureData = NULL;
     D3DLOCKED_RECT d3dLockedRect;
@@ -53,7 +41,7 @@ LPDIRECT3DTEXTURE9 LptaD3DTextureManager::GenerateDefaultData(void)
         *pixel = DEFAULT_TEXTURE_COLOR;
     }
     textureData->UnlockRect(0);
-    return textureData;
+    return (lpta::LptaTexture::DATA)textureData;
 }
 
 }

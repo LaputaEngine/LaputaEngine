@@ -2,6 +2,9 @@
 #include "LptaRendererStatusCodes.h"
 #include "LptaRenderer.h"
 
+namespace lpta
+{
+
 LptaRenderer::LptaRenderer(HINSTANCE hInst)
 {
     this->hInst = hInst;
@@ -62,4 +65,6 @@ LPTA_RESULT LptaRenderer::CreateDeviceBuilder(std::string api, LPTA_DEVICE_BUILD
         return LPTA_RDR_FAIL;
     }
     return LPTA_OK;
+}
+
 }
