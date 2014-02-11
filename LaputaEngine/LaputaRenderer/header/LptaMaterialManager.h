@@ -8,14 +8,19 @@
 namespace lpta
 {
 
-class LptaMaterialManager : public LptaResourceManager<LptaMaterial, LptaMaterialManager>
+class LptaMaterialManager : public LptaResourceManager<LptaMaterial>
 {
 public:
     LptaMaterialManager(void);
     virtual ~LptaMaterialManager(void);
 
-    static LptaMaterial CreateNullResource(LptaMaterial::MATERIAL_ID, 
-        LptaMaterialManager *const manager);
+    LptaMaterial CreateNullResource(void);
+
+    LptaMaterial::MATERIAL_ID AddOrRetrieveMaterial(const LptaColor &diffuse, 
+        const LptaColor &ambient, 
+        const LptaColor &specular, 
+        const LptaColor &emissive, 
+        float specularPower);
 
 protected:
     static const LptaColor DEFAULT_COLOR;

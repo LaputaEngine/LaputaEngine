@@ -18,4 +18,13 @@ LptaMaterial::~LptaMaterial(void)
 {
 }
 
+bool LptaMaterial::operator ==(const LptaMaterial &other) const
+{
+    return ambient == other.ambient &&
+        diffuse == other.diffuse &&
+        specular == other.specular &&
+        emissive == other.emissive &&
+        specularPower == other.specularPower;
+}
+
 }

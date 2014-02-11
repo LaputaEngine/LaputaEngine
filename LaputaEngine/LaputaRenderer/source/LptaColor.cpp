@@ -22,4 +22,12 @@ LptaColor::~LptaColor(void)
 {
 }
 
+bool LptaColor::operator ==(const LptaColor &other) const
+{
+    return GetAlpha() == other.GetAlpha() &&
+        GetRed() == other.GetRed() &&
+        GetGreen() == other.GetGreen() &&
+        GetBlue() == other.GetBlue();
+}
+
 }

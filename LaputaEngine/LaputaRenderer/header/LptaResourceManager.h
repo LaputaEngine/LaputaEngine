@@ -1,89 +1,103 @@
 #ifndef _LPTARESOURCEMANAGER_H_
 #define _LPTARESOURCEMANAGER_H_
 
-#include <memory>
-#include <vector>
+#include <map>
 #include "LptaResource.h"
+#include "errors/ImproperResourceManager.h"
 
 namespace lpta
 {
 
-template <class T, class D>
+template <class T>
 class LptaResourceManager
 {
+protected:
+    typedef std::map<LptaResource::ID, T> RESOURCES;
+
 public:
+    /*!!! must call SetNullResource !!!!*/
     LptaResourceManager(void);
     virtual ~LptaResourceManager(void);
 
-    virtual const T &GetNullResource(void) const;
-
-    virtual bool AddResource(const T &resource);
-    virtual const T &GetResource(LptaResource::ID id) const;
+    virtual const T &RetrieveNullResource(void) const;
+    virtual const T &RetrieveResource(LptaResource::ID id) const;
 
 protected:
-    T nullResource;
-    std::vector<T> resources;
+    virtual void SetNullResource(T resource);
 
+    virtual bool AddResource(const T &resource);
+    virtual bool UpdateResource(const T& updated);
     LptaResource::ID GetNextId(void);
 
+    LptaResource::ID nullResourceId;
+    RESOURCES resources;
+    
 private:
     LptaResource::ID nextId = LptaResource::STARTING_ID;
+
+    typedef std::pair<LptaResource::ID, T> KEY_VALUE_PAIR;
+    typedef std::pair<typename RESOURCES::iterator, bool> INSERT_RESULT;
 };
 
-// AddResource(RESOURCE_PTR)
 template <class T>
-inline bool KeyAlreadyExists(const std::vector<T> &resources, LptaResource::ID id);
-
-template <class T, class D>
-LptaResourceManager<T, D>::LptaResourceManager(void) :
-    nullResource(D::CreateNullResource(GetNextId(), dynamic_cast<D*>(this)))
+LptaResourceManager<T>::LptaResourceManager(void)
 {
 }
 
-template <class T, class D>
-LptaResourceManager<T, D>::~LptaResourceManager(void)
+template <class T>
+LptaResourceManager<T>::~LptaResourceManager(void)
 {
 }
 
-template <class T, class D>
-const T &LptaResourceManager<T, D>::GetNullResource(void) const
+template <class T>
+const T &LptaResourceManager<T>::RetrieveNullResource(void) const
 {
-    return nullResource;
-}
-
-template <class T, class D>
-bool LptaResourceManager<T, D>::AddResource(const T &resource)
-{
-    if (KeyAlreadyExists<T>(resources, resource.GetId())) {
-        return false;
+    try {
+        return resources.at(nullResourceId);
     }
-    resources.push_back(resource);
-    return true;
+    catch (std::out_of_range) {
+        throw ImproperResourceManager();
+    }
 }
+
 template <class T>
-bool KeyAlreadyExists(const std::vector<T> &resources, LptaResource::ID id)
+void LptaResourceManager<T>::SetNullResource(T resource)
 {
-    for (std::vector<T>::const_iterator r = resources.begin(); r != resources.end(); ++r) {
-        if (r->GetId() == id) {
-            return true;
-        }
+    AddResource(resource);
+    nullResourceId = resource.GetId();
+}
+
+template <class T>
+bool LptaResourceManager<T>::AddResource(const T &resource)
+{
+
+    INSERT_RESULT result = resources.insert(KEY_VALUE_PAIR(resource.GetId(), resource));
+    return result.second;
+}
+
+template <class T>
+const T &LptaResourceManager<T>::RetrieveResource(LptaResource::ID id) const
+{
+    try {
+        return resources.at(id);
+    }
+    catch (std::out_of_range) {
+        return RetrieveNullResource();
+    }
+}
+
+template <class T>
+bool LptaResourceManager<T>::UpdateResource(const T& updated)
+{
+    if (updated.GetId() != nullResourceId && resources.count(updated.GetId()) > 0) {
+        resources.at(updated.GetId()) = updated;
+        return true;
     }
     return false;
 }
 
-template <class T, class D>
-const T &LptaResourceManager<T, D>::GetResource(LptaResource::ID id) const
-{
-    for (std::vector<T>::const_iterator r = resources.begin(); r != resources.end(); ++r) {
-        if (r->GetId() == id) {
-            return *r;
-        }
-    }
-    return GetNullResource();
-}
-
-template <class T, class D>
-LptaResource::ID LptaResourceManager<T, D>::GetNextId(void)
+template <class T>
+LptaResource::ID LptaResourceManager<T>::GetNextId(void)
 {
     return nextId++;
 }

@@ -1,4 +1,5 @@
 #include <d3d9.h>
+#include "LptaTexture.h"
 #include "resources/LptaD3DTexture.h"
 #include "resources/errors/TextureD3DFailure.h"
 #include "resources/LptaD3DTextureManager.h"
@@ -8,10 +9,26 @@ namespace lpta_d3d
 
 LptaD3DTextureManager::LptaD3DTextureManager(LPDIRECT3DDEVICE9 d3ddev) : d3ddev(d3ddev)
 {
+    SetNullResource(CreateNullResource());
 }
 
 LptaD3DTextureManager::~LptaD3DTextureManager(void)
 {
+}
+
+LptaD3DTexture::TEXTURE_ID LptaD3DTextureManager::AddorRetrieveTexture(const std::string &filename, 
+    bool transparent, bool alpha,
+    const LptaD3DTexture::COLOR_KEYS &colorKeys)
+{
+    for (RESOURCES::const_iterator it = resources.begin(); it != resources.end(); ++it) {
+        const lpta::LptaTexture &texture = it->second;
+        if (texture.GetFilename() == filename) {
+            return texture.GetId();
+        }
+    }
+    LptaD3DTexture d3dTexture(d3ddev, GetNextId(), filename, alpha, colorKeys);
+    AddResource(d3dTexture);
+    return d3dTexture.GetId();
 }
 
 lpta::LptaTexture::DATA LptaD3DTextureManager::GenerateDefaultData(void)

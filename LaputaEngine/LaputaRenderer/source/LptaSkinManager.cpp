@@ -5,7 +5,7 @@ namespace lpta
 {
 
 LptaSkinManager::LptaSkinManager(const LptaMaterialManager &materialManager) : 
-    defaultMaterial(materialManager.GetNullResource())
+    defaultMaterial(materialManager.RetrieveNullResource())
 {
 }
 
@@ -13,13 +13,20 @@ LptaSkinManager::~LptaSkinManager(void)
 {
 }
 
-LptaSkin LptaSkinManager::CreateNullResource(LptaSkin::SKIN_ID id, LptaSkinManager *const manager)
+LptaSkin LptaSkinManager::CreateNullResource(void)
 {
     return LptaSkin(
-        id,
-        manager->nullResource.GetId(),
+        GetNextId(),
+        defaultMaterial.GetId(),
         LptaSkin::SKIN_NON_TRANSPARENT
     );
+}
+
+LptaSkin::SKIN_ID LptaSkinManager::AddSkin(LptaMaterial::MATERIAL_ID materialId, bool transparent)
+{
+    LptaSkin skin(GetNextId(), materialId, transparent);
+    AddResource(skin);
+    return skin.GetId();
 }
 
 }

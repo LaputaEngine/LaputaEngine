@@ -89,5 +89,8 @@
     <ClInclude Include="header\LptaDeviceBuilder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="header\errors\ImproperResourceManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

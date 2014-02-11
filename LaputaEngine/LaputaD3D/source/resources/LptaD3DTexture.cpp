@@ -1,4 +1,5 @@
 #include <d3d9.h>
+#define cimg_display 0
 #include <cimage/CImg.h>
 #include "resources/errors/TextureD3DFailure.h"
 #include "resources/errors/TextureFileNotFound.h"
@@ -53,7 +54,7 @@ LPDIRECT3DTEXTURE9 LptaD3DTexture::D3DLoadTextureFile(LPDIRECT3DDEVICE9 d3ddev,
     using namespace cimg_library;
     try {
         CImg<unsigned char> image(filename.c_str());
-        D3DFORMAT format = alpha ? D3DFMT_A8R8G8B8 : D3DFMT_R8G8B8;
+        D3DFORMAT format = D3DFMT_A8R8G8B8;
         LPDIRECT3DTEXTURE9 textureData = NULL;
         D3DLOCKED_RECT d3dLockedRect;
         HRESULT result = d3ddev->CreateTexture(
@@ -62,7 +63,7 @@ LPDIRECT3DTEXTURE9 LptaD3DTexture::D3DLoadTextureFile(LPDIRECT3DDEVICE9 d3ddev,
             format,
             D3DPOOL_MANAGED,
             &textureData,
-            NULL
+            0
         );
         if (FAILED(result)) {
             throw TextureD3DFailure("could not allocate memory for texture");
@@ -72,12 +73,8 @@ LPDIRECT3DTEXTURE9 LptaD3DTexture::D3DLoadTextureFile(LPDIRECT3DDEVICE9 d3ddev,
             textureData->Release();
             throw TextureD3DFailure("could not lock image buffer for copy");
         }
-        if (alpha) {
-            CopyCImgToD3DRect32Bit(image, d3dLockedRect);
-        }
-        else {
-            CopyCImgToD3DRect24Bit(image, d3dLockedRect);
-        }
+
+        CopyCImgToD3DRect32Bit(image, d3dLockedRect);
         textureData->UnlockRect(0);
         return textureData;
     }
@@ -106,7 +103,7 @@ void CopyCImgToD3DRect32Bit(const cimg_library::CImg<unsigned char> &image,
     D3DLOCKED_RECT d3dLockedRect)
 {
     bool hasAlphaChannel = image.spectrum() > ALPHA_CHANNEL;
-    unsigned int colorsPerLine = d3dLockedRect.Pitch >> 1;
+    unsigned int colorsPerLine = d3dLockedRect.Pitch >> 2;
     Color32Bit *buffer = static_cast<Color32Bit*>(d3dLockedRect.pBits);
     for (int y = 0; y < image.height(); ++y) {
         for (int x = 0; x < image.width(); ++x) {

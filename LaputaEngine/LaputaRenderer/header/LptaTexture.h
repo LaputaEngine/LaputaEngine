@@ -25,6 +25,7 @@ public:
 
     inline const DATA &GetData(void) const;
 
+    const string &GetFilename(void) const;
 private:
     string filename;
     DATA data;

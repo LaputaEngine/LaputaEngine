@@ -13,4 +13,9 @@ LptaTexture::~LptaTexture(void)
 {
 }
 
+const string &LptaTexture::GetFilename(void) const
+{
+    return filename;
+}
+
 }

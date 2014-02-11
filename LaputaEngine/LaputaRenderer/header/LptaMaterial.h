@@ -27,6 +27,9 @@ public:
     inline const LptaColor &GetSpecular(void) const;
     inline const LptaColor &GetEmissive(void) const;
     inline float GetSpecularPower(void) const;
+
+    bool operator==(const LptaMaterial &other) const;
+    virtual int foo(void) {return 1;}
 private:
     LptaColor diffuse;
     LptaColor ambient;

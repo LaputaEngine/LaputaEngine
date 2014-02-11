@@ -11,13 +11,12 @@ LptaTextureManager::~LptaTextureManager(void)
 {
 }
 
-LptaTexture LptaTextureManager::CreateNullResource(LptaTexture::TEXTURE_ID id, 
-    LptaTextureManager *const manager)
+LptaTexture LptaTextureManager::CreateNullResource(void)
 {
     return LptaTexture(
-        id,
+        GetNextId(),
         "$$DEFAULT_TEXTURE$$",
-        manager->GenerateDefaultData(),
+        this->GenerateDefaultData(),
         1.0f,
         LptaTexture::COLOR_KEYS()
     );

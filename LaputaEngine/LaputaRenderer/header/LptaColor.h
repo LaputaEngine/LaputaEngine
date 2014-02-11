@@ -22,6 +22,8 @@ public:
     inline float GetGreen(void) const;
     inline float GetBlue(void) const;
     inline float GetAlpha(void) const;
+
+    bool operator ==(const LptaColor &other) const;
 private:
     float channels[4];
 };

@@ -1,7 +1,7 @@
 #ifndef _LPTATEXTUREMANAGER_H_
 #define _LPTATEXTUREMANAGER_H_
 
-#include <memory>
+#include <string>
 #include "LptaTexture.h"
 #include "LptaResourceManager.h"
 
@@ -9,7 +9,7 @@ namespace lpta
 {
 
 class LptaTextureManager : 
-    public LptaResourceManager<LptaTexture, LptaTextureManager>
+    public LptaResourceManager<LptaTexture>
 {
 protected:
     static const unsigned long DEFAULT_TEXTURE_COLOR = 0xFF7F00FF;
@@ -20,7 +20,10 @@ public:
     LptaTextureManager(void);
     ~LptaTextureManager(void);
 
-    static LptaTexture CreateNullResource(LptaTexture::TEXTURE_ID, LptaTextureManager *const manager);
+    LptaTexture CreateNullResource(void);
+
+    virtual LptaTexture::TEXTURE_ID AddorRetrieveTexture(const std::string &filename, bool transparent, bool alpha,
+        const LptaTexture::COLOR_KEYS &colorKeys) = 0;
 
 protected:
     virtual LptaTexture::DATA GenerateDefaultData(void) = 0;

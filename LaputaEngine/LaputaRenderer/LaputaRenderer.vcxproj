@@ -14,6 +14,7 @@
     <ClCompile Include="source\LptaRenderDeviceImpl.cpp" />
     <ClCompile Include="source\LptaTexture.cpp" />
     <ClCompile Include="source\LptaTextureManager.cpp" />
+    <ClInclude Include="header\errors\ImproperResourceManager.h" />
     <ClInclude Include="header\LptaMaterialManager.h" />
     <ClInclude Include="header\LptaDeviceBuilder.h" />
     <ClInclude Include="header\LptaResource.h">
@@ -81,6 +82,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)\LaputaGeneral\header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

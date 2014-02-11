@@ -9,7 +9,7 @@
 namespace lpta
 {
 
-class LptaSkinManager : LptaResourceManager<LptaSkin, LptaSkinManager>
+class LptaSkinManager : LptaResourceManager<LptaSkin>
 {
 protected:
 
@@ -17,8 +17,9 @@ public:
     LptaSkinManager(const LptaMaterialManager &materialManager);
     virtual ~LptaSkinManager(void);
 
-    static LptaSkin CreateNullResource(LptaSkin::SKIN_ID id, LptaSkinManager *const manager);
+    LptaSkin CreateNullResource(void);
 
+    LptaSkin::SKIN_ID AddSkin(LptaMaterial::MATERIAL_ID materialId, bool transparent);
 private:
     LptaMaterial defaultMaterial;
 };
