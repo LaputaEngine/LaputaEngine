@@ -18,8 +18,12 @@ public:
         float alpha, const COLOR_KEYS &colorKeys);
     ~LptaD3DTexture(void);
 
-private:
+    void SetTransparency(float alpha) const;
+protected:
     static LPDIRECT3DTEXTURE9 D3DLoadTextureFile(LPDIRECT3DDEVICE9 d3ddev, const string &filename, bool alpha);
+
+    void SetAlphaKey(const lpta::LptaColor &colorKey) const;
+    
 };
 
 }

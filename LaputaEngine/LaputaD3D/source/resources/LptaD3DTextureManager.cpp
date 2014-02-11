@@ -17,7 +17,7 @@ LptaD3DTextureManager::~LptaD3DTextureManager(void)
 }
 
 LptaD3DTexture::TEXTURE_ID LptaD3DTextureManager::AddorRetrieveTexture(const std::string &filename, 
-    bool transparent, bool alpha,
+    bool transparent, float alpha,
     const LptaD3DTexture::COLOR_KEYS &colorKeys)
 {
     for (RESOURCES::const_iterator it = resources.begin(); it != resources.end(); ++it) {

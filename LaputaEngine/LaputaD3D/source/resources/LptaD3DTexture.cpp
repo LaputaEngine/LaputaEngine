@@ -30,6 +30,31 @@ inline void CopyCImgToD3DRect24Bit(const cimg_library::CImg<unsigned char> &imag
 inline void CopyCImgToD3DRect32Bit(const cimg_library::CImg<unsigned char> &image, 
     D3DLOCKED_RECT d3dLockedRect);
 
+// general
+#define MAX_ARGB 255
+inline Color32Bit FloatToColor(float a, float r, float g, float b)
+{
+    Color32Bit color = {
+        (unsigned char)(MAX_ARGB * a),
+        (unsigned char)(MAX_ARGB * r),
+        (unsigned char)(MAX_ARGB * g),
+        (unsigned char)(MAX_ARGB * b)
+    };
+    return color;
+}
+inline bool EqualRGB(const lpta::LptaColor &color, const Color32Bit &colorStruct)
+{
+    return color.GetRed() == colorStruct.r &&
+        color.GetGreen() == colorStruct.g &&
+        color.GetBlue() == colorStruct.b;
+}
+inline bool LesserAlpha(const lpta::LptaColor &color, const Color32Bit &colorStruct) {
+    return (MAX_ARGB * color.GetAlpha()) < colorStruct.a;
+}
+inline bool LesserAlpha(float alpha, const Color32Bit &colorStruct) {
+    return (MAX_ARGB * alpha) < colorStruct.a;
+}
+
 LptaD3DTexture::LptaD3DTexture(LPDIRECT3DDEVICE9 d3ddev, ID id, const string &filename, 
     float alpha, const COLOR_KEYS &colorKeys) : 
     LptaTexture(id, filename, (DATA)D3DLoadTextureFile(d3ddev, filename, alpha), alpha, colorKeys)
@@ -108,7 +133,7 @@ void CopyCImgToD3DRect32Bit(const cimg_library::CImg<unsigned char> &image,
     for (int y = 0; y < image.height(); ++y) {
         for (int x = 0; x < image.width(); ++x) {
             Color32Bit color = {
-                hasAlphaChannel? image(x, y, ALPHA_CHANNEL) : 0x00,
+                hasAlphaChannel? image(x, y, ALPHA_CHANNEL) : 0xFF,
                 image(x, y, RED_CHANNEL),
                 image(x, y, GREEN_CHANNEL),
                 image(x, y, BLUE_CHANNEL),
@@ -116,6 +141,52 @@ void CopyCImgToD3DRect32Bit(const cimg_library::CImg<unsigned char> &image,
             buffer[(y * colorsPerLine) + x] = color;
         }
     }
+}
+
+void LptaD3DTexture::SetAlphaKey(const lpta::LptaColor &colorKey) const
+{
+    LPDIRECT3DTEXTURE9 texture = static_cast<LPDIRECT3DTEXTURE9>(this->GetData());
+    D3DSURFACE_DESC d3dDesc;
+    D3DLOCKED_RECT d3dLockedRect;
+    texture->GetLevelDesc(0, &d3dDesc);
+    if (FAILED(texture->LockRect(0, &d3dLockedRect, NULL, 0))) {
+        throw TextureD3DFailure("could not lock image buffer to set color keys");
+    }
+    Color32Bit *buffer = static_cast<Color32Bit*>(d3dLockedRect.pBits);
+    for (unsigned int y = 0; y < d3dDesc.Height; ++y) {
+        for (unsigned int x = 0; x < d3dDesc.Width; ++x) {
+            unsigned int pixelIndex = (y * d3dDesc.Width) + x;
+            Color32Bit pixelColor = buffer[pixelIndex];
+            if (EqualRGB(colorKey, pixelColor) && LesserAlpha(colorKey, pixelColor)) {
+                pixelColor.a = (unsigned char)(MAX_ARGB * colorKey.GetAlpha());
+                buffer[pixelIndex] = pixelColor;
+            }
+        }
+    }
+    texture->UnlockRect(0);
+}
+
+void LptaD3DTexture::SetTransparency(float alpha) const
+{
+    LPDIRECT3DTEXTURE9 texture = static_cast<LPDIRECT3DTEXTURE9>(this->GetData());
+    D3DSURFACE_DESC d3dDesc;
+    D3DLOCKED_RECT d3dLockedRect;
+    texture->GetLevelDesc(0, &d3dDesc);
+    if (FAILED(texture->LockRect(0, &d3dLockedRect, NULL, 0))) {
+        throw TextureD3DFailure("could not lock image buffer to set alpha");
+    }
+    Color32Bit *buffer = static_cast<Color32Bit*>(d3dLockedRect.pBits);
+    for (unsigned int y = 0; y < d3dDesc.Height; ++y) {
+        for (unsigned int x = 0; x < d3dDesc.Width; ++x) {
+            unsigned int pixelIndex = (y * d3dDesc.Width) + x;
+            Color32Bit pixelColor = buffer[pixelIndex];
+            if (LesserAlpha(alpha, pixelColor)) {
+                pixelColor.a = (unsigned char)(MAX_ARGB * alpha);
+                buffer[pixelIndex] = pixelColor;
+            }
+        }
+    }
+    texture->UnlockRect(0);
 }
 
 }

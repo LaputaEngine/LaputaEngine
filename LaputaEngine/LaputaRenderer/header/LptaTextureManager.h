@@ -22,7 +22,7 @@ public:
 
     LptaTexture CreateNullResource(void);
 
-    virtual LptaTexture::TEXTURE_ID AddorRetrieveTexture(const std::string &filename, bool transparent, bool alpha,
+    virtual LptaTexture::TEXTURE_ID AddorRetrieveTexture(const std::string &filename, bool transparent, float alpha,
         const LptaTexture::COLOR_KEYS &colorKeys) = 0;
 
 protected:
