@@ -3,6 +3,9 @@
 
 #include "LptaVector.h"
 
+namespace lpta_3d
+{
+
 class LptaNormalVector : public LptaVector
 {
 public:
@@ -41,5 +44,6 @@ LptaNormalVector LptaNormalVector::MakeZAlignedVector(VECTOR_DIRECTION direction
     return LptaNormalVector(0.0f, 0.0f, direction == POSITIVE ? 1.0f : -1.0f);
 }
 
+}
 
 #endif

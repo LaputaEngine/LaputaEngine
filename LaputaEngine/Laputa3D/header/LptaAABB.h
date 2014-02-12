@@ -5,34 +5,39 @@
 #include "LptaVector.h"
 #include "LptaBoundingBox.h"
 
+namespace lpta_3d
+{
+
 class LptaAABB
 {
 public:
-    LptaAABB(const COORDINATE &min, const COORDINATE &max);
+    LptaAABB(const POINT &min, const POINT &max);
     const LptaBBPlanes GetPlanes(void) const;
 
-    inline const COORDINATE &GetMin(void) const;
-    inline const COORDINATE &GetMax(void) const;
-    inline const COORDINATE &GetCentre(void) const;
+    inline const POINT &GetMin(void) const;
+    inline const POINT &GetMax(void) const;
+    inline const POINT &GetCentre(void) const;
 private:
-    const COORDINATE min; // near bottom left
-    const COORDINATE max; // far top right
-    const COORDINATE centre;
+    const POINT min; // near bottom left
+    const POINT max; // far top right
+    const POINT centre;
 };
 
-const COORDINATE &LptaAABB::GetMin(void) const
+const POINT &LptaAABB::GetMin(void) const
 {
     return min;
 }
 
-const COORDINATE &LptaAABB::GetMax(void) const
+const POINT &LptaAABB::GetMax(void) const
 {
     return max;
 }
 
-const COORDINATE &LptaAABB::GetCentre(void) const
+const POINT &LptaAABB::GetCentre(void) const
 {
     return centre;
+}
+
 }
 
 #endif

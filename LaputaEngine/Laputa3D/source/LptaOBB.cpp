@@ -3,13 +3,16 @@
 #include "LptaOBB.h"
 using std::vector;
 
+namespace lpta_3d
+{
+
 typedef OBB_AXES::iterator OBB_AXIS;
 typedef OBB_AXES::const_iterator OBB_CONST_AXIS;
 
 // ConvertToAABB(void)
 typedef const vector<LptaVector> EXTENTS;
 inline void SetExtremesFor(LptaVector::DIMENSION dim, EXTENTS &extents, 
-    COORDINATE &min, COORDINATE &max);
+    POINT &min, POINT &max);
 
 // Intersects(Triangle)
 #define TRIANGLE_EDGES 3
@@ -30,7 +33,7 @@ inline void ProjectTriangleToVector(const LPTA_TRIANGLE &triangle, const LptaVec
 {
     *triangleMin = std::numeric_limits<float>::max();
     *triangleMax = std::numeric_limits<float>::min();
-    for (unsigned int i = 0; i < lpta_geometry::TRIANGLE_SIDES; ++i) {
+    for (unsigned int i = 0; i < geometry::TRIANGLE_SIDES; ++i) {
         float projection = vector * triangle.vertices[i];
         *triangleMin = fmin(*triangleMin, projection);
         *triangleMax = fmax(*triangleMax, projection);
@@ -51,7 +54,7 @@ do { \
     } \
 } while (0)
 
-LptaOBB::LptaOBB(const COORDINATE &centre, const OBB_AXES &axes) :
+LptaOBB::LptaOBB(const POINT &centre, const OBB_AXES &axes) :
     centre(centre), axes(axes)
 {
 }
@@ -62,8 +65,8 @@ LptaOBB::~LptaOBB(void)
 
 LptaAABB LptaOBB::ConvertToAABB(void) const
 {
-    COORDINATE min;
-    COORDINATE max;
+    POINT min;
+    POINT max;
     
     vector<LptaVector> extentVectors;
     for (OBB_CONST_AXIS axis = axes.begin(); axis != axes.end(); ++axis) {
@@ -79,7 +82,7 @@ LptaAABB LptaOBB::ConvertToAABB(void) const
     return LptaAABB(min, max);
 }
 void SetExtremesFor(LptaVector::DIMENSION dim, EXTENTS &extents,
-    COORDINATE &min, COORDINATE &max)
+    POINT &min, POINT &max)
 {
     if (extents.size() == 0) {
         return;
@@ -96,8 +99,8 @@ void SetExtremesFor(LptaVector::DIMENSION dim, EXTENTS &extents,
 
 LptaOBB LptaOBB::Transform(LptaMatrix transform) const
 {
-    COORDINATE centre = this->centre;
-    COORDINATE translation = transform.GetTranslation();
+    POINT centre = this->centre;
+    POINT translation = transform.GetTranslation();
     transform.ClearTranslation();
 
     OBB_AXES axes = this->axes;
@@ -238,4 +241,6 @@ bool LptaOBB::Intersects(const LptaOBB &obb) const
         axes.at(1).direction * c[0][2] * d - axes.at(0).direction * c[1][2] * d
     );
     return true;
+}
+
 }

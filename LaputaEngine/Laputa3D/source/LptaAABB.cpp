@@ -2,7 +2,10 @@
 #include "LptaNormalVector.h"
 #include "LptaAABB.h"
 
-LptaAABB::LptaAABB(const COORDINATE &min, const COORDINATE &max) : 
+namespace lpta_3d
+{
+
+LptaAABB::LptaAABB(const POINT &min, const POINT &max) : 
     min(min), max(max), centre((min + max) / 2)
 {
 }
@@ -23,4 +26,6 @@ const LptaBBPlanes LptaAABB::GetPlanes(void) const
     result[result.BOTTOM] =
         LptaPlane(min, LptaNormalVector::MakeYAlignedVector(LptaVector::NEGATIVE));
     return result;
+}
+
 }

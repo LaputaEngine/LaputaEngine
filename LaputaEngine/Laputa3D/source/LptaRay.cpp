@@ -13,6 +13,9 @@
 
 #define NUM_DIMENSIONS 3
 
+namespace lpta_3d
+{
+
 // general
 inline bool IsParallel(float denominator);
 
@@ -27,7 +30,7 @@ inline bool IsWithinTriangle(float barycentricCoordinate);
 
 // Intersects(aabb)
 
-LptaRay::LptaRay(const COORDINATE &origin, const LptaVector &direction) : 
+LptaRay::LptaRay(const POINT &origin, const LptaVector &direction) : 
     origin(origin), direction(direction)
 {
 }
@@ -38,10 +41,10 @@ LptaRay::~LptaRay(void)
 
 LptaRay LptaRay::Transform(LptaMatrix objectMatrix) const
 {
-    COORDINATE origin = this->origin;
+    POINT origin = this->origin;
     LptaVector direction = this->direction;
 
-    COORDINATE translation(objectMatrix.GetDx(), objectMatrix.GetDy(), objectMatrix.GetDz());
+    POINT translation(objectMatrix.GetDx(), objectMatrix.GetDy(), objectMatrix.GetDz());
     origin -= translation;
     objectMatrix.ClearTranslation();
     LptaMatrix inverse = LptaMatrix::MakeInverseFor(objectMatrix);
@@ -54,8 +57,8 @@ LptaRay LptaRay::Transform(LptaMatrix objectMatrix) const
 // uses the Moller and Tumbore algorithm
 bool LptaRay::Intersects(const LPTA_TRIANGLE &triangle) const
 {
-    COORDINATE edge1 = triangle.vertices[1] - triangle.vertices[0];
-    COORDINATE edge2 = triangle.vertices[2] - triangle.vertices[0];
+    POINT edge1 = triangle.vertices[1] - triangle.vertices[0];
+    POINT edge2 = triangle.vertices[2] - triangle.vertices[0];
     LptaVector p = direction.Cross(edge2);
     float determinant = edge1 * p;
 
@@ -109,10 +112,10 @@ inline bool IsParallel(float denominator)
 bool LptaRay::Intersects(const LptaAABB &bBox) const
 {
     bool isInside = true;
-    COORDINATE intersectCoord;
+    POINT intersectCoord;
     LptaVector maxT(-1.0f, -1.0f, -1.0f);
-    const COORDINATE &bMin = bBox.GetMin();
-    const COORDINATE &bMax = bBox.GetMax();
+    const POINT &bMin = bBox.GetMin();
+    const POINT &bMax = bBox.GetMax();
     // x
     if (origin.GetX() < bMin.GetX()) {
         isInside = false;
@@ -188,7 +191,7 @@ bool LptaRay::Intersects(const LptaOBB &obb) const
     using std::numeric_limits;
     float min = -numeric_limits<float>::infinity();
     float max = numeric_limits<float>::infinity();
-    COORDINATE p = obb.GetCentre() - origin;
+    POINT p = obb.GetCentre() - origin;
     const OBB_AXES &axes = obb.GetAxes();
 
     for (OBB_AXES::const_iterator axis = axes.begin(); axis != axes.end(); ++axis) {
@@ -226,4 +229,6 @@ void Swap(int &a, int &b)
     a ^= b;
     b = a ^ b;
     a ^= b;
+}
+
 }

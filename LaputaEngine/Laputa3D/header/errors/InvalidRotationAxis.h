@@ -4,10 +4,15 @@
 #include <stdexcept>
 #include "LptaVector.h"
 
+namespace lpta_3d
+{
+
 class InvalidRotationAxis : public std::domain_error
 {
 public:
     InvalidRotationAxis(const LptaVector &axis);
 };
+
+}
 
 #endif

@@ -3,6 +3,9 @@
 
 #include "LptaPlane.h"
 
+namespace lpta_3d
+{
+
 struct LptaBBPlanes
 {
     LptaPlane planes[6];
@@ -21,5 +24,7 @@ struct LptaBBPlanes
         return planes[face];
     }
 };
+
+}
 
 #endif

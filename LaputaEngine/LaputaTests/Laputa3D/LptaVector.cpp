@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "LptaVector.h"
+using namespace lpta_3d;
 
 class LptaVectorNoSSETest : public ::testing::Test, LptaVector
 {

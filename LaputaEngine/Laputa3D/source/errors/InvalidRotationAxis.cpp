@@ -2,6 +2,9 @@
 #include <string>
 using std::to_string;
 
+namespace lpta_3d
+{
+
 InvalidRotationAxis::InvalidRotationAxis(const LptaVector &axis) : 
     domain_error(
         "the rotation axis [" + 
@@ -11,4 +14,6 @@ InvalidRotationAxis::InvalidRotationAxis(const LptaVector &axis) :
         "]' is not normal and cannot be used as a rotation axis"
     )
 {
+}
+
 }

@@ -4,6 +4,9 @@
 #include "LptaMatrix.h"
 #include "LptaQuat.h"
 
+namespace lpta_3d
+{
+
 LptaQuat::LptaQuat(void) : LptaQuat(1.0f, 0.0f, 0.0f, 0.0f)
 {
 }
@@ -57,4 +60,6 @@ void LptaQuat::operator *=(const LptaQuat &other)
     this->x = _x;
     this->y = _y;
     this->z = _z;
+}
+
 }

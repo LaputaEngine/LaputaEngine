@@ -12,6 +12,9 @@ namespace
     static const int NUM_DIM = 3;
 }
 
+namespace lpta_3d
+{
+
 struct ObbAxis
 {
     LptaNormalVector direction;
@@ -26,10 +29,10 @@ typedef array<ObbAxis, NUM_DIM> OBB_AXES;
 class LptaOBB
 {
 public:
-    LptaOBB(const COORDINATE &centre, const OBB_AXES &axes);
+    LptaOBB(const POINT &centre, const OBB_AXES &axes);
     ~LptaOBB(void);
 
-    inline const COORDINATE &GetCentre(void) const;
+    inline const POINT &GetCentre(void) const;
     inline const OBB_AXES &GetAxes(void) const;
 
     LptaAABB ConvertToAABB(void) const;
@@ -39,10 +42,10 @@ public:
     bool Intersects(const LptaOBB &obb) const;
 private:
     OBB_AXES axes;
-    COORDINATE centre;
+    POINT centre;
 };
 
-const COORDINATE &LptaOBB::GetCentre(void) const
+const POINT &LptaOBB::GetCentre(void) const
 {
     return centre;
 }
@@ -50,4 +53,7 @@ const OBB_AXES &LptaOBB::GetAxes(void) const
 {
     return axes;
 }
+
+}
+
 #endif

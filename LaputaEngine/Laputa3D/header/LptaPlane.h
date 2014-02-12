@@ -4,6 +4,9 @@
 #include "LptaNormalVector.h"
 #include "geometry/Shapes.h"
 
+namespace lpta_3d
+{
+
 class LptaOBB;
 class LptaAABB;
 
@@ -18,27 +21,27 @@ public:
     };
 public:
     LptaPlane(void);
-    LptaPlane(const COORDINATE &point, const LptaNormalVector &normal);
-    LptaPlane(const COORDINATE &point, const LptaNormalVector &normal, float distanceToOrigin);
+    LptaPlane(const POINT &point, const LptaNormalVector &normal);
+    LptaPlane(const POINT &point, const LptaNormalVector &normal, float distanceToOrigin);
     ~LptaPlane(void);
 
-    inline const COORDINATE &GetPoint(void) const;
+    inline const POINT &GetPoint(void) const;
     inline const LptaVector &GetNormal(void) const;
 
-    float Distance(const COORDINATE &p) const;
-    LptaPlane::Location Classify(const COORDINATE &p) const;
+    float Distance(const POINT &p) const;
+    LptaPlane::Location Classify(const POINT &p) const;
     
     bool Intersects(const LptaPlane &other) const;
     bool Intersects(const LPTA_TRIANGLE &triangle) const;
     bool Intersects(const LptaAABB &aabb) const;
     bool Intersects(const LptaOBB &obb) const;
 private:
-    COORDINATE point;
+    POINT point;
     LptaNormalVector normal;
     float distanceToOrigin;
 };
 
-const COORDINATE &LptaPlane::GetPoint(void) const
+const POINT &LptaPlane::GetPoint(void) const
 {
     return point;
 }
@@ -46,6 +49,8 @@ const COORDINATE &LptaPlane::GetPoint(void) const
 const LptaVector &LptaPlane::GetNormal(void) const
 {
     return normal;
+}
+
 }
 
 #endif

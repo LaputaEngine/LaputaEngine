@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "LptaQuat.h"
+using namespace lpta_3d;
 
 TEST(LptaQuatTest, LptaQuatMultiply)
 {

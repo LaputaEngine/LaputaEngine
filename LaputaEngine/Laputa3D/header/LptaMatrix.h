@@ -8,6 +8,9 @@ using std::array;
 #define LPTA_MATRIX_ROWS 4
 #define LPTA_MATRIX_COLUMNS 4
 
+namespace lpta_3d
+{
+
 class LptaVector;
 class LptaQuat;
 
@@ -85,6 +88,8 @@ float LptaMatrix::GetDz(void) const
 float LptaMatrix::Get(unsigned int row, unsigned int column) const
 {
     return m.at(column).at(row);
+}
+
 }
 
 #endif

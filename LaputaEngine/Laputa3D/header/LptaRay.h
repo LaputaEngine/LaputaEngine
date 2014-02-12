@@ -7,10 +7,13 @@
 #include "LptaOBB.h"
 #include "geometry/Shapes.h"
 
+namespace lpta_3d
+{
+
 class LptaRay
 {
 public:
-    LptaRay(const COORDINATE &origin, const LptaVector &direction);
+    LptaRay(const POINT &origin, const LptaVector &direction);
     ~LptaRay(void);
 
     LptaRay Transform(LptaMatrix objectMatrix) const;
@@ -20,8 +23,10 @@ public:
     bool Intersects(const LptaAABB &bBox) const;
     bool Intersects(const LptaOBB &obb) const;
 private:
-    const COORDINATE origin;
+    const POINT origin;
     const LptaVector direction;
 };
+
+}
 
 #endif

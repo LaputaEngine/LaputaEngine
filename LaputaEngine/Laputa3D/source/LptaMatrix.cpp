@@ -12,6 +12,9 @@
 
 #define SKIP_ZEROING true
 
+namespace lpta_3d
+{
+
 LptaMatrix::~LptaMatrix(void)
 {
 }
@@ -222,4 +225,6 @@ void LptaMatrix::SetTranslation(float dx, float dy, float dz)
 void LptaMatrix::ClearTranslation(void)
 {
     SetTranslation(0.0f, 0.0f, 0.0f);
+}
+
 }

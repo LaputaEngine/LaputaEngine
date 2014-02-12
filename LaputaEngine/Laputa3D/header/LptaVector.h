@@ -15,6 +15,9 @@ namespace
     } VECTOR;
 }
 
+namespace lpta_3d
+{
+
 class LptaVector
 {
 protected:
@@ -68,7 +71,7 @@ private:
     typedef struct VECTOR_TYPE VECTOR;
     VECTOR vector;
 };
-typedef LptaVector COORDINATE;
+typedef LptaVector POINT;
 
 
 float LptaVector::GetDimension(DIMENSION dim) const
@@ -124,6 +127,8 @@ void LptaVector::SetY(float y)
 void LptaVector::SetZ(float z)
 {
     vector.z = z;
+}
+
 }
 
 #endif

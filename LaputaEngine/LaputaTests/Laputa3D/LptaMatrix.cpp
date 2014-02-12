@@ -7,6 +7,7 @@
 #include "LptaQuat.h"
 #include "errors/InvalidRotationAxis.h"
 #include "errors/MatrixInversionError.h"
+using namespace lpta_3d;
 
 #define ACCEPTABLE_ERROR 1e-5f
 

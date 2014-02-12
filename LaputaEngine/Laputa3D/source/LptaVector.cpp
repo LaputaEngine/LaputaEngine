@@ -7,6 +7,9 @@
 #error LptaVector only works with 4x4 matrices
 #endif
 
+namespace lpta_3d
+{
+
 // todo: should think about getting rid of this
 __declspec(align(16)) const float RSQRT_CONST[4] = { 3.0f, 3.0f, 3.0f, 3.0f };
 __declspec(align(16)) const float RSQRT_DIV[4] = { 2.0f, 2.0f, 2.0f, 2.0f };
@@ -291,4 +294,6 @@ LptaVector LptaVector::Cross(const LptaVector &other) const
         v.z = (GetX() * other.GetY()) - (GetY() * other.GetX());
     }
     return result;
+}
+
 }

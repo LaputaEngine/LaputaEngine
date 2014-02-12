@@ -6,23 +6,26 @@
 #include "LptaOBB.h"
 #include "LptaPlane.h"
 
+namespace lpta_3d
+{
+
 // Intersects(triangle)
 inline bool AllVerticesOnSameSide(const LptaPlane *const plane, const LPTA_TRIANGLE &triangle);
 
 // Intersects(plane)
 inline bool IsParallel(const LptaVector &crossProduct);
 
-LptaPlane::LptaPlane(void) : LptaPlane(COORDINATE(0.0f, 0.0f, 0.0f), 
+LptaPlane::LptaPlane(void) : LptaPlane(POINT(0.0f, 0.0f, 0.0f), 
     LptaNormalVector::MakeXAlignedVector(LptaVector::POSITIVE))
 {
 }
 
-LptaPlane::LptaPlane(const COORDINATE &point, const LptaNormalVector &normal) : 
+LptaPlane::LptaPlane(const POINT &point, const LptaNormalVector &normal) : 
     LptaPlane(point, normal, -(normal * point))
 {
 }
 
-LptaPlane::LptaPlane(const COORDINATE &point, 
+LptaPlane::LptaPlane(const POINT &point, 
     const LptaNormalVector &normal, 
     float distanceToOrigin)
 {
@@ -36,12 +39,12 @@ LptaPlane::~LptaPlane(void)
 {
 }
 
-float LptaPlane::Distance(const COORDINATE &p) const
+float LptaPlane::Distance(const POINT &p) const
 {
     return fabs((normal * p) - distanceToOrigin);
 }
 
-LptaPlane::Location LptaPlane::Classify(const COORDINATE &p) const
+LptaPlane::Location LptaPlane::Classify(const POINT &p) const
 {
     float signedDistance = (p * normal) + distanceToOrigin;
     if (signedDistance < -LPTA_EPSILON) {
@@ -128,4 +131,6 @@ bool LptaPlane::Intersects(const LptaOBB &obb) const
     
     float distance = Distance(obb.GetCentre());
     return distance <= radius;
+}
+
 }

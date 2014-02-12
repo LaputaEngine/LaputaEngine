@@ -1,6 +1,9 @@
 #ifndef _LPTAQUAT_H_
 #define _LPTAQUAT_H_
 
+namespace lpta_3d
+{
+
 class LptaMatrix;
 
 class LptaQuat
@@ -45,6 +48,8 @@ float LptaQuat::GetY(void) const
 float LptaQuat::GetZ(void) const
 {
     return z;
+}
+
 }
 
 #endif
