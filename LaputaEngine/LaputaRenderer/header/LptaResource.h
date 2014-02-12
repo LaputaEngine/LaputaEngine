@@ -9,8 +9,9 @@ namespace lpta
 class LptaResource
 {
 public:
-    typedef unsigned int ID;
+    typedef unsigned long long ID;
     static const ID STARTING_ID;
+    static const ID INVALID_ID;
 public:
     LptaResource(ID id);
     virtual ~LptaResource(void);

@@ -29,7 +29,7 @@ protected:
     virtual bool UpdateResource(const T& updated);
     LptaResource::ID GetNextId(void);
 
-    LptaResource::ID nullResourceId;
+    LptaResource::ID nullResourceId = LptaResource::INVALID_ID;
     RESOURCES resources;
     
 private:
