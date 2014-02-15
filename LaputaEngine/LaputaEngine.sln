@@ -16,7 +16,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LaputaD3D", "LaputaD3D\Lapu
 		{9F682FC7-AA12-4CE4-9951-F1F6E160CBF2} = {9F682FC7-AA12-4CE4-9951-F1F6E160CBF2}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LaputaRendererTest", "LaputaRendererTest\LaputaRendererTest.vcxproj", "{5722E2D8-64C5-4952-AFBF-16AF6EF98976}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LaputaRendererDemo", "LaputaRendererTest\LaputaRendererTest.vcxproj", "{5722E2D8-64C5-4952-AFBF-16AF6EF98976}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F9C9E922-8AAD-41E2-A1DA-31C72149A649} = {F9C9E922-8AAD-41E2-A1DA-31C72149A649}
 		{93517340-9C10-4E16-A841-1F0F867E9204} = {93517340-9C10-4E16-A841-1F0F867E9204}
@@ -36,6 +36,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LaputaTests", "LaputaTests\
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Laputa3D", "Laputa3D\Laputa3D.vcxproj", "{F9C9E922-8AAD-41E2-A1DA-31C72149A649}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demos", "Demos", "{7EE070BC-385E-44A7-9D4A-F326859E2278}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -74,5 +76,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5722E2D8-64C5-4952-AFBF-16AF6EF98976} = {7EE070BC-385E-44A7-9D4A-F326859E2278}
 	EndGlobalSection
 EndGlobal
