@@ -32,7 +32,7 @@ LptaD3DDeviceBuilder::~LptaD3DDeviceBuilder(void)
 {
 }
 
-HRESULT LptaD3DDeviceBuilder::Make(HWND hWnd, const vector<HWND> &childWnds, LPTA_DEVICE *device)
+HRESULT LptaD3DDeviceBuilder::Make(HWND hWnd, const vector<HWND> &childWnds, lpta::LPTA_DEVICE *device)
 {
     std::unique_ptr<LptaD3D> d3dDevice = std::unique_ptr<LptaD3D>(new LptaD3D(hDll, hWnd, childWnds));
     d3dDevice->d3d = Direct3DCreate9(D3D_SDK_VERSION);

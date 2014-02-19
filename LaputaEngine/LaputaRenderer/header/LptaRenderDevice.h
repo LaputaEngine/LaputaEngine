@@ -5,8 +5,41 @@
 #include <Windows.h>
 using std::vector;
 
+namespace lpta_3d
+{
+
+class LptaVector;
+typedef LptaVector POINT;
+class LptaPlane;
+
+}
+
+namespace lpta
+{
+
+class LptaViewport;
+
+typedef struct CLIPPING_PLANES_TYPE
+{
+    float planeNear;
+    float planeFar;
+} CLIPPING_PLANES;
+
+typedef enum RENDER_MODE_TYPE
+{
+    MODE_PERSPECTIVE,
+    MODE_2D,
+    MODE_ORTHOGONAL,
+} RENDER_MODE;
+
+typedef unsigned int RENDER_STAGE;
+
+
 class LptaRenderDevice
 {
+public:
+    static const unsigned int MAX_STAGES = 4;
+
 public:
     LptaRenderDevice(void) {};
     virtual ~LptaRenderDevice(void) {};
@@ -25,8 +58,36 @@ public:
     virtual void EndRendering(void) = 0;
     virtual HRESULT Clear(bool clearPixel, bool clearDepth, bool clearStencil) = 0;
     virtual void SetClearColor(float r, float g, float b) = 0;
+
+    ///////////////////////////////////////////////////////////////////////////
+    // World View Orientation
+    /////////////////////////////////////////////////////////////////
+    virtual HRESULT SetView3D(const lpta_3d::LptaVector &right, const lpta_3d::LptaVector &up, 
+        const lpta_3d::LptaVector &dir, 
+        const lpta_3d::POINT &point) = 0;
+    virtual HRESULT SetViewLookAt(const lpta_3d::POINT &point, const lpta_3d::POINT &subject, 
+        const lpta_3d::LptaVector &wolrdUp) = 0;
+    virtual void SetClippingPlanes(float planeNear, float planeFar) = 0;
+
+    virtual HRESULT GetFrustum(lpta_3d::LptaPlane *plane) = 0;
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Internal State Mutator
+    /////////////////////////////////////////////////////////////////
+    virtual HRESULT SetMode(RENDER_MODE mode) = 0;
+    virtual HRESULT SetStage(RENDER_STAGE stage) = 0;
+    virtual HRESULT InitStage(float fov, const LptaViewport &viewport, RENDER_STAGE stage) = 0;
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Conversions
+    /////////////////////////////////////////////////////////////////
+    virtual void Transform2DTo3D(const lpta_3d::POINT &point2D, 
+        lpta_3d::POINT *point3D, lpta_3d::LptaVector *direction3D) = 0;
+    virtual lpta_3d::POINT Transform3DTo2D(const lpta_3d::POINT &point3D) = 0;
 };
 
 typedef std::unique_ptr<LptaRenderDevice> LPTA_DEVICE;
+
+}
 
 #endif

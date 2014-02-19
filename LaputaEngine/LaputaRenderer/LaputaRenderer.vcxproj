@@ -14,6 +14,7 @@
     <ClCompile Include="source\LptaRenderDeviceImpl.cpp" />
     <ClCompile Include="source\LptaTexture.cpp" />
     <ClCompile Include="source\LptaTextureManager.cpp" />
+    <ClCompile Include="source\LptaViewport.cpp" />
     <ClInclude Include="header\errors\ImproperResourceManager.h" />
     <ClInclude Include="header\LptaMaterialManager.h" />
     <ClInclude Include="header\LptaDeviceBuilder.h" />
@@ -28,6 +29,7 @@
     <ClCompile Include="source\LptaSkin.cpp" />
     <ClCompile Include="source\LptaSkinManager.cpp" />
     <ClInclude Include="header\LptaTextureManager.h" />
+    <ClInclude Include="header\LptaViewport.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\LptaColor.h" />

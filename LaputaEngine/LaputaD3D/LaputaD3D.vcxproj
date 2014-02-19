@@ -91,6 +91,7 @@
     <ClCompile Include="source\LptaD3DConfig_dlg.cpp" />
     <ClCompile Include="source\LptaD3DUtils.cpp" />
     <ClCompile Include="source\LptaD3D.cpp" />
+    <ClCompile Include="source\LptaD3DVertexCache.cpp" />
     <ClCompile Include="source\resources\errors\TextureD3DFailure.cpp" />
     <ClCompile Include="source\resources\errors\TextureError.cpp" />
     <ClCompile Include="source\resources\errors\TextureFileNotFound.cpp" />
@@ -103,6 +104,7 @@
     <ClInclude Include="header\LptaD3DDeviceBuilder.h" />
     <ClInclude Include="header\LptaD3DConfig.h" />
     <ClInclude Include="header\LptaD3DUtils.h" />
+    <ClInclude Include="header\LptaD3DVertexCache.h" />
     <ClInclude Include="header\resources\errors\TextureD3DFailure.h" />
     <ClInclude Include="header\resources\errors\TextureError.h" />
     <ClInclude Include="header\resources\errors\TextureFileNotFound.h" />

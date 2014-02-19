@@ -1,8 +1,10 @@
 #ifndef _LPTARENDERDEVICEIMPL_H_
 #define _LPTARENDERDEVICEIMPL_H_
 
+#include <array>
 #include <string>
 #include <memory>
+#include "LptaViewport.h"
 #include "LptaRenderDevice.h"
 #include "LptaSkinManager.h"
 using std::unique_ptr;
@@ -31,6 +33,12 @@ protected:
     bool isRunning;
 
     unique_ptr<lpta::LptaSkinManager> skinManager;
+
+private:
+    RENDER_MODE mode;
+    CLIPPING_PLANES clippingPlanes;
+    std::array<LptaViewport, MAX_STAGES> viewports;
+    RENDER_STAGE stage;
 };
 
 }

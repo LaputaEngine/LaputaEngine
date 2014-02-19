@@ -15,7 +15,7 @@ public:
     LptaD3DDeviceBuilder(HINSTANCE hDll);
     ~LptaD3DDeviceBuilder(void);
 
-    virtual HRESULT Make(HWND hWnd, const vector<HWND> &childWnds, LPTA_DEVICE *device);
+    virtual HRESULT Make(HWND hWnd, const vector<HWND> &childWnds, lpta::LPTA_DEVICE *device);
 private:
     HINSTANCE hDll;
 

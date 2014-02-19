@@ -53,7 +53,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
     LPTA_DEVICE_BUILDER builder;
     renderer.CreateDeviceBuilder("Direct3D", &builder);
     vector<HWND> renderWindows;
-    LPTA_DEVICE device;
+    lpta::LPTA_DEVICE device;
 
     renderWindows.push_back(CreateWindowEx(
         WS_EX_CLIENTEDGE,

@@ -50,6 +50,15 @@ private:
     D3DCOLOR clearColor;
     bool isSceneRunning;
 
+    D3DMATRIX view2D;
+    D3DMATRIX view3D;
+    D3DMATRIX projection2D;
+    std::array<D3DMATRIX, MAX_STAGES> perspectives;
+    std::array<D3DMATRIX, MAX_STAGES> orthogonals;
+    D3DMATRIX world;
+    D3DMATRIX view3DProjection;
+    D3DMATRIX worldViewProjection;
+
     void Log(char *, ...);
 
     friend class LptaD3DDeviceBuilder;
