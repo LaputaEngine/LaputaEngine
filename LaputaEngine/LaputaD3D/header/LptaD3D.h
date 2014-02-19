@@ -32,6 +32,9 @@ public:
     LptaD3D(HINSTANCE hDLL, HWND hWnd, const vector<HWND> &childWnds);
     ~LptaD3D(void);
 
+    ///////////////////////////////////////////////////////////////////////////
+    // Rendering
+    /////////////////////////////////////////////////////////////////
     void Release(void);
     bool IsRunning(void);
     HRESULT BeginRendering(bool clearPixel, bool clearDepth, bool clearStencil);
@@ -40,7 +43,21 @@ public:
     void SetClearColor(float r, float g, float b);
     HRESULT UseWindow(UINT nWindow);
 
+    ///////////////////////////////////////////////////////////////////////////
+    // World View Orientation
+    /////////////////////////////////////////////////////////////////
+    virtual HRESULT SetView3D(const lpta_3d::LptaVector &right, const lpta_3d::LptaVector &up, 
+        const lpta_3d::LptaVector &dir, 
+        const lpta_3d::POINT &point);
+    virtual HRESULT SetViewLookAt(const lpta_3d::POINT &point, const lpta_3d::POINT &subject, 
+        const lpta_3d::LptaVector &worldUp);
+    virtual void SetClippingPlanes(float planeNear, float planeFar);
+
+    virtual HRESULT GetFrustum(lpta_3d::LptaPlane *plane);
+
 private:
+    void CalcViewProjection(void);
+    void CalcWorldViewProjection(void);
     void RunRenderer(void);
 
     LPDIRECT3D9 d3d;
@@ -49,6 +66,7 @@ private:
 
     D3DCOLOR clearColor;
     bool isSceneRunning;
+    bool isUsingShader;
 
     D3DMATRIX view2D;
     D3DMATRIX view3D;

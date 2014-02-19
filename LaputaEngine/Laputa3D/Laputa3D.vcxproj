@@ -19,6 +19,7 @@
     <ClInclude Include="header\Lpta3D.h" />
     <ClInclude Include="header\LptaAABB.h" />
     <ClInclude Include="header\LptaBoundingBox.h" />
+    <ClInclude Include="header\LptaFrustum.h" />
     <ClInclude Include="header\LptaMatrix.h" />
     <ClInclude Include="header\LptaNormalVector.h" />
     <ClInclude Include="header\LptaOBB.h" />
@@ -33,6 +34,7 @@
     <ClCompile Include="source\errors\MatrixInversionError.cpp" />
     <ClCompile Include="source\errors\NonNormalVector.cpp" />
     <ClCompile Include="source\LptaAABB.cpp" />
+    <ClCompile Include="source\LptaFrustum.cpp" />
     <ClCompile Include="source\LptaMatrix.cpp" />
     <ClCompile Include="source\LptaNormalVector.cpp" />
     <ClCompile Include="source\LptaOBB.cpp" />

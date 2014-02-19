@@ -1,6 +1,11 @@
 #include "resource.h"
 #include "LptaD3D.h"
 #include "LptaD3DConfig.h"
+#include "Lpta3D.h"
+#include "LptaVector.h"
+#include "LptaNormalVector.h"
+using lpta_3d::LptaVector;
+using lpta_3d::LptaNormalVector;
 using std::unique_ptr;
 using std::move;
 
@@ -8,6 +13,9 @@ using std::move;
 
 namespace lpta_d3d
 {
+
+// SetViewLookAt
+inline bool IsValidVector(const LptaVector &vector);
 
 LptaD3D::LptaD3D(HINSTANCE dll, HWND hWnd, const vector<HWND> &childWnds) :
     LptaRenderDeviceImpl(dll, hWnd, childWnds)
@@ -29,6 +37,9 @@ LptaD3D::~LptaD3D(void)
     Release();
 }
 
+///////////////////////////////////////////////////////////////////////////
+// Rendering
+/////////////////////////////////////////////////////////////////
 void LptaD3D::Release(void)
 {
     if (NULL != d3ddev) {
@@ -116,6 +127,85 @@ HRESULT LptaD3D::UseWindow(UINT windowIndex)
     d3ddev->SetRenderTarget(0, surf);
     surf->Release();
     return S_OK;
+}
+
+///////////////////////////////////////////////////////////////////////////
+// World View Orientation
+/////////////////////////////////////////////////////////////////
+HRESULT LptaD3D::SetView3D(const lpta_3d::LptaVector &right, const lpta_3d::LptaVector &up, 
+    const lpta_3d::LptaVector &dir, 
+    const lpta_3d::POINT &point)
+{
+    if (!IsRunning()) {
+        return E_FAIL;
+    }
+    D3DMATRIX m = {
+        right.GetX(),  up.GetX(),  dir.GetX(),  0.0f,
+        right.GetY(),  up.GetY(),  dir.GetY(),  0.0f,
+        right.GetZ(),  up.GetZ(),  dir.GetZ(),  0.0f,
+        right * point, up * point, dir * point, 1.0f,
+    };
+    view3D = m;
+
+    if (!isUsingShader) {
+        HRESULT result = d3ddev->SetTransform(D3DTS_VIEW, &view3D);
+        if (FAILED(result)) {
+            return result;
+        }
+    }
+
+    CalcViewProjection();
+    CalcWorldViewProjection();
+}
+
+HRESULT LptaD3D::SetViewLookAt(const lpta_3d::POINT &point, const lpta_3d::POINT &subject, 
+    const lpta_3d::LptaVector &worldUp)
+{
+    LptaVector dir = subject - point;
+    LptaNormalVector normalizedDir = LptaNormalVector::MakeFrom(dir);
+
+    LptaVector up;
+    {
+        float cosAngle = worldUp * normalizedDir;
+        LptaVector temp = normalizedDir * cosAngle;
+        up = worldUp - temp;
+    }
+    if (!IsValidVector(up)) {
+        LptaVector temp = normalizedDir * normalizedDir.GetY();
+        up = LptaVector(0.0f, 1.0f, 0.0f) - temp;
+        if (!IsValidVector(up)) {
+            LptaVector temp = normalizedDir * normalizedDir.GetZ();
+            up = LptaVector(0.0f, 0.0f, 1.0f) - temp;
+            if (!IsValidVector(up)) {
+                return E_FAIL;
+            }
+        }
+    }
+    LptaNormalVector normalizedUp = LptaNormalVector::MakeFrom(up);
+    LptaVector right = normalizedUp.Cross(normalizedDir);
+    return SetView3D(right, normalizedUp, normalizedDir, point);
+}
+bool IsValidVector(const LptaVector& vector)
+{
+    return fabs(vector.Length()) >= LPTA_EPSILON;
+}
+
+void LptaD3D::SetClippingPlanes(float planeNear, float planeFar)
+{
+
+}
+
+HRESULT LptaD3D::GetFrustum(lpta_3d::LptaPlane *plane)
+{
+    return S_OK;
+}
+
+void LptaD3D::CalcViewProjection(void)
+{
+}
+
+void LptaD3D::CalcWorldViewProjection(void)
+{
 }
 
 void LptaD3D::RunRenderer(void)

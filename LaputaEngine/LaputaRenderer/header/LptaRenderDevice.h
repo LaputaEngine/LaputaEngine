@@ -66,7 +66,7 @@ public:
         const lpta_3d::LptaVector &dir, 
         const lpta_3d::POINT &point) = 0;
     virtual HRESULT SetViewLookAt(const lpta_3d::POINT &point, const lpta_3d::POINT &subject, 
-        const lpta_3d::LptaVector &wolrdUp) = 0;
+        const lpta_3d::LptaVector &worldUp) = 0;
     virtual void SetClippingPlanes(float planeNear, float planeFar) = 0;
 
     virtual HRESULT GetFrustum(lpta_3d::LptaPlane *plane) = 0;
@@ -74,16 +74,16 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // Internal State Mutator
     /////////////////////////////////////////////////////////////////
-    virtual HRESULT SetMode(RENDER_MODE mode) = 0;
-    virtual HRESULT SetStage(RENDER_STAGE stage) = 0;
-    virtual HRESULT InitStage(float fov, const LptaViewport &viewport, RENDER_STAGE stage) = 0;
+    //virtual HRESULT SetMode(RENDER_MODE mode) = 0;
+    //virtual HRESULT SetStage(RENDER_STAGE stage) = 0;
+    //virtual HRESULT InitStage(float fov, const LptaViewport &viewport, RENDER_STAGE stage) = 0;
 
     ///////////////////////////////////////////////////////////////////////////
     // Conversions
     /////////////////////////////////////////////////////////////////
-    virtual void Transform2DTo3D(const lpta_3d::POINT &point2D, 
-        lpta_3d::POINT *point3D, lpta_3d::LptaVector *direction3D) = 0;
-    virtual lpta_3d::POINT Transform3DTo2D(const lpta_3d::POINT &point3D) = 0;
+    //virtual void Transform2DTo3D(const lpta_3d::POINT &point2D, 
+    //    lpta_3d::POINT *point3D, lpta_3d::LptaVector *direction3D) = 0;
+    //virtual lpta_3d::POINT Transform3DTo2D(const lpta_3d::POINT &point3D) = 0;
 };
 
 typedef std::unique_ptr<LptaRenderDevice> LPTA_DEVICE;

@@ -69,6 +69,9 @@
     <ClInclude Include="header\LptaQuat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="header\LptaFrustum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\LptaVector.cpp">
@@ -105,6 +108,9 @@
       <Filter>Source Files\Errors</Filter>
     </ClCompile>
     <ClCompile Include="source\LptaQuat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LptaFrustum.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
