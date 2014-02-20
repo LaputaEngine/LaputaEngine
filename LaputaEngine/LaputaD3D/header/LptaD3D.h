@@ -56,6 +56,9 @@ public:
     virtual HRESULT GetFrustum(lpta_3d::LptaFrustum *frustum);
 
 private:
+    void Adjust2D(void);
+    void AdjustProj2D(void);
+    void AdjustView2D(void);
     void CalcViewProjection(void);
     void CalcWorldViewProjection(void);
     void RunRenderer(void);
@@ -70,7 +73,7 @@ private:
 
     D3DMATRIX view2D;
     D3DMATRIX view3D;
-    D3DMATRIX projection2D;
+    D3DMATRIX proj2D;
     std::array<D3DMATRIX, MAX_STAGES> perspectives;
     std::array<D3DMATRIX, MAX_STAGES> orthogonals;
     D3DMATRIX world;

@@ -35,6 +35,8 @@ typedef enum RENDER_MODE_TYPE
 
 typedef unsigned int RENDER_STAGE;
 
+const float CLIPPING_PLANE_MIN = 0.01f;
+const float CLIPPING_PLANE_MAX = 1.0f;
 
 class LptaRenderDevice
 {

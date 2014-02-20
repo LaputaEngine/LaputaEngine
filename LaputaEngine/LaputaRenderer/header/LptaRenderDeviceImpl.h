@@ -34,7 +34,6 @@ protected:
 
     unique_ptr<lpta::LptaSkinManager> skinManager;
 
-private:
     RENDER_MODE mode;
     CLIPPING_PLANES clippingPlanes;
     std::array<LptaViewport, MAX_STAGES> viewports;

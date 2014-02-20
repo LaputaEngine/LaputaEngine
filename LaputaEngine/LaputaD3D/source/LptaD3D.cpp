@@ -203,7 +203,30 @@ bool IsValidVector(const LptaVector& vector)
 
 void LptaD3D::SetClippingPlanes(float planeNear, float planeFar)
 {
+    lpta::CLIPPING_PLANES clipPlanes = {
+        fmax(planeNear, lpta::CLIPPING_PLANE_MIN),
+        fmin(planeFar, lpta::CLIPPING_PLANE_MAX)
+    };
+    if (clipPlanes.planeNear >= clipPlanes.planeFar) {
+        return;
+    }
+    this->clippingPlanes = clipPlanes;
 
+    Adjust2D();
+
+    float Q = 1.0f / (clippingPlanes.planeFar - clippingPlanes.planeNear);
+    float X = -Q * clippingPlanes.planeNear;
+    for (D3DMATRIX &m : orthogonals) {
+        m._33 = Q;
+        m._43 = X;
+    }
+
+    Q *= clippingPlanes.planeFar;
+    X = -Q * clippingPlanes.planeNear;
+    for (D3DMATRIX &m : perspectives) {
+        m._33 = Q;
+        m._43 = X;
+    }
 }
 
 HRESULT LptaD3D::GetFrustum(lpta_3d::LptaFrustum *frustum)
@@ -217,62 +240,92 @@ HRESULT LptaD3D::GetFrustum(lpta_3d::LptaFrustum *frustum)
 }
 lpta_3d::LptaPlane LeftFrustumPlane(const D3DMATRIX &viewProj)
 {
-    return lpta_3d::LptaPlane(LptaNormalVector::MakeFrom(
+    LptaVector direction(
         -(viewProj._14 + viewProj._11),
         -(viewProj._24 + viewProj._21),
-        -(viewProj._34 + viewProj._31)),
-        -(viewProj._44 + viewProj._41)
-    );
+        -(viewProj._34 + viewProj._31));
+    float distance = -(viewProj._44 + viewProj._41) / direction.Length();
+    return lpta_3d::LptaPlane(LptaNormalVector::MakeFrom(direction), distance);
 }
 lpta_3d::LptaPlane RightFrustumPlane(const D3DMATRIX &viewProj)
 {
-    return lpta_3d::LptaPlane(LptaNormalVector::MakeFrom(
+    LptaVector direction(
         -(viewProj._14 - viewProj._11),
         -(viewProj._24 - viewProj._21),
-        -(viewProj._34 - viewProj._31)),
-        -(viewProj._44 - viewProj._41)
-    );
+        -(viewProj._34 - viewProj._31));
+    float distance = -(viewProj._44 - viewProj._41) / direction.Length();
+    return lpta_3d::LptaPlane(LptaNormalVector::MakeFrom(direction), distance);
 }
 lpta_3d::LptaPlane TopFrustumPlane(const D3DMATRIX &viewProj)
 {
-    return lpta_3d::LptaPlane(LptaNormalVector::MakeFrom(
+    LptaVector direction(
         -(viewProj._14 - viewProj._12),
         -(viewProj._24 - viewProj._22),
-        -(viewProj._34 - viewProj._32)),
-        -(viewProj._44 - viewProj._42)
-    );
+        -(viewProj._34 - viewProj._32));
+    float distance = -(viewProj._44 - viewProj._42) / direction.Length();
+    return lpta_3d::LptaPlane(LptaNormalVector::MakeFrom(direction), distance);
 }
 lpta_3d::LptaPlane BottomFrustumPlane(const D3DMATRIX &viewProj)
 {
-    return lpta_3d::LptaPlane(LptaNormalVector::MakeFrom(
+    LptaVector direction(
         -(viewProj._14 + viewProj._12),
         -(viewProj._24 + viewProj._22),
-        -(viewProj._34 + viewProj._32)),
-        -(viewProj._44 + viewProj._42)
-    );
+        -(viewProj._34 + viewProj._32));
+    float distance = -(viewProj._44 + viewProj._42);
+    return lpta_3d::LptaPlane(LptaNormalVector::MakeFrom(direction), distance);
 }
 lpta_3d::LptaPlane NearFrustumPlane(const D3DMATRIX &viewProj)
 {
-    return lpta_3d::LptaPlane(LptaNormalVector::MakeFrom(
+    LptaVector direction(
         -viewProj._13,
         -viewProj._23,
-        -viewProj._33),
-        -viewProj._43
-    );
+        -viewProj._33);
+    float distance = -viewProj._43 / direction.Length();
+    return lpta_3d::LptaPlane(LptaNormalVector::MakeFrom(direction), distance);
 }
 lpta_3d::LptaPlane FarFrustumPlane(const D3DMATRIX &viewProj)
 {
-    return lpta_3d::LptaPlane(LptaNormalVector::MakeFrom(
+    LptaVector direction(
         -(viewProj._14 - viewProj._13),
         -(viewProj._24 - viewProj._23),
-        -(viewProj._34 - viewProj._33)),
-        -(viewProj._44 - viewProj._43)
-    );
+        -(viewProj._34 - viewProj._33));
+    float distance = -(viewProj._44 - viewProj._43) / direction.Length();
+    return lpta_3d::LptaPlane(LptaNormalVector::MakeFrom(direction), distance);
 }
 
+void LptaD3D::Adjust2D(void)
+{
+    AdjustProj2D();
+    AdjustView2D();
+}
+void LptaD3D::AdjustProj2D(void)
+{
+    memset(&proj2D, 0, sizeof(D3DMATRIX));
+    float clippingPlaneDist = clippingPlanes.planeFar - clippingPlanes.planeNear;
+    proj2D._11 = 2.0f / (float)this->screenWidth;
+    proj2D._22 = 2.0f / (float)this->screenHeight;
+    proj2D._33 = 1.0f / (clippingPlaneDist);
+    proj2D._43 = -clippingPlanes.planeFar * (1.0f / clippingPlaneDist);
+    proj2D._44 = 1.0f;
+}
+void LptaD3D::AdjustView2D(void)
+{
+    memset(&view2D, 0, sizeof(D3DMATRIX));
+    view2D._11 = view2D._33 = view2D._44 = 1.0f;
+
+    float tx = (float)(-((int)screenWidth) + screenWidth * 0.5);
+    float ty = screenWidth - screenHeight * 0.5f;
+    float tz = clippingPlanes.planeNear + 0.1f;
+
+    view2D._22 = -1.0f;
+    view2D._41 = tx;
+    view2D._42 = ty;
+    view2D._43 = tz;
+}
 
 void LptaD3D::CalcViewProjection(void)
 {
+
 }
 
 void LptaD3D::CalcWorldViewProjection(void)
