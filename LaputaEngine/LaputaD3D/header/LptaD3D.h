@@ -53,7 +53,7 @@ public:
         const lpta_3d::LptaVector &worldUp);
     virtual void SetClippingPlanes(float planeNear, float planeFar);
 
-    virtual HRESULT GetFrustum(lpta_3d::LptaPlane *plane);
+    virtual HRESULT GetFrustum(lpta_3d::LptaFrustum *frustum);
 
 private:
     void CalcViewProjection(void);

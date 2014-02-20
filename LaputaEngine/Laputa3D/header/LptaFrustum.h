@@ -11,14 +11,15 @@ class LptaFrustum
 public:
     static const unsigned int NUM_FACES = 6;
     typedef unsigned int FACE;
-    static const FACE LEFT = 0;
-    static const FACE RIGHT = 1;
-    static const FACE TOP = 2;
-    static const FACE BOTTOM = 3;
-    static const FACE NEAR = 4;
-    static const FACE FAR = 5;
+    static const FACE LEFT_FACE = 0;
+    static const FACE RIGHT_FACE = 1;
+    static const FACE TOP_FACE = 2;
+    static const FACE BOTTOM_FACE = 3;
+    static const FACE NEAR_FACE = 4;
+    static const FACE FAR_FACE = 5;
 
 public:
+    LptaFrustum(void);
     LptaFrustum(const LptaPlane &left, const LptaPlane &right, 
         const LptaPlane &top, const LptaPlane &bottom,
         const LptaPlane &near, const LptaPlane &far);

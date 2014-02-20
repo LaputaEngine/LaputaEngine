@@ -20,6 +20,11 @@ LptaPlane::LptaPlane(void) : LptaPlane(POINT(0.0f, 0.0f, 0.0f),
 {
 }
 
+LptaPlane::LptaPlane(const LptaNormalVector &normal, float distanceToOrigin) :
+    LptaPlane(normal * distanceToOrigin, normal, distanceToOrigin)
+{
+}
+
 LptaPlane::LptaPlane(const POINT &point, const LptaNormalVector &normal) : 
     LptaPlane(point, normal, -(normal * point))
 {

@@ -11,6 +11,7 @@ namespace lpta_3d
 class LptaVector;
 typedef LptaVector POINT;
 class LptaPlane;
+class LptaFrustum;
 
 }
 
@@ -69,7 +70,7 @@ public:
         const lpta_3d::LptaVector &worldUp) = 0;
     virtual void SetClippingPlanes(float planeNear, float planeFar) = 0;
 
-    virtual HRESULT GetFrustum(lpta_3d::LptaPlane *plane) = 0;
+    virtual HRESULT GetFrustum(lpta_3d::LptaFrustum *furstum) = 0;
 
     ///////////////////////////////////////////////////////////////////////////
     // Internal State Mutator

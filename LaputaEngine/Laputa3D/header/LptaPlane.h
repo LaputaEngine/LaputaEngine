@@ -21,6 +21,7 @@ public:
     };
 public:
     LptaPlane(void);
+    LptaPlane(const LptaNormalVector &normal, float distanceToOrigin);
     LptaPlane(const POINT &point, const LptaNormalVector &normal);
     LptaPlane(const POINT &point, const LptaNormalVector &normal, float distanceToOrigin);
     ~LptaPlane(void);

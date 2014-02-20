@@ -4,6 +4,8 @@
 #include "Lpta3D.h"
 #include "LptaVector.h"
 #include "LptaNormalVector.h"
+#include "LptaPlane.h"
+#include "LptaFrustum.h"
 using lpta_3d::LptaVector;
 using lpta_3d::LptaNormalVector;
 using std::unique_ptr;
@@ -16,6 +18,14 @@ namespace lpta_d3d
 
 // SetViewLookAt
 inline bool IsValidVector(const LptaVector &vector);
+
+// GetFrustum
+inline lpta_3d::LptaPlane LeftFrustumPlane(const D3DMATRIX &viewProj);
+inline lpta_3d::LptaPlane RightFrustumPlane(const D3DMATRIX &viewProj);
+inline lpta_3d::LptaPlane TopFrustumPlane(const D3DMATRIX &viewProj);
+inline lpta_3d::LptaPlane BottomFrustumPlane(const D3DMATRIX &viewProj);
+inline lpta_3d::LptaPlane NearFrustumPlane(const D3DMATRIX &viewProj);
+inline lpta_3d::LptaPlane FarFrustumPlane(const D3DMATRIX &viewProj);
 
 LptaD3D::LptaD3D(HINSTANCE dll, HWND hWnd, const vector<HWND> &childWnds) :
     LptaRenderDeviceImpl(dll, hWnd, childWnds)
@@ -156,6 +166,7 @@ HRESULT LptaD3D::SetView3D(const lpta_3d::LptaVector &right, const lpta_3d::Lpta
 
     CalcViewProjection();
     CalcWorldViewProjection();
+    return S_OK;
 }
 
 HRESULT LptaD3D::SetViewLookAt(const lpta_3d::POINT &point, const lpta_3d::POINT &subject, 
@@ -195,10 +206,70 @@ void LptaD3D::SetClippingPlanes(float planeNear, float planeFar)
 
 }
 
-HRESULT LptaD3D::GetFrustum(lpta_3d::LptaPlane *plane)
+HRESULT LptaD3D::GetFrustum(lpta_3d::LptaFrustum *frustum)
 {
+    *frustum = lpta_3d::LptaFrustum(
+        LeftFrustumPlane(view3DProjection), RightFrustumPlane(view3DProjection),
+        TopFrustumPlane(view3DProjection), BottomFrustumPlane(view3DProjection),
+        NearFrustumPlane(view3DProjection), FarFrustumPlane(view3DProjection)
+    );
     return S_OK;
 }
+lpta_3d::LptaPlane LeftFrustumPlane(const D3DMATRIX &viewProj)
+{
+    return lpta_3d::LptaPlane(LptaNormalVector::MakeFrom(
+        -(viewProj._14 + viewProj._11),
+        -(viewProj._24 + viewProj._21),
+        -(viewProj._34 + viewProj._31)),
+        -(viewProj._44 + viewProj._41)
+    );
+}
+lpta_3d::LptaPlane RightFrustumPlane(const D3DMATRIX &viewProj)
+{
+    return lpta_3d::LptaPlane(LptaNormalVector::MakeFrom(
+        -(viewProj._14 - viewProj._11),
+        -(viewProj._24 - viewProj._21),
+        -(viewProj._34 - viewProj._31)),
+        -(viewProj._44 - viewProj._41)
+    );
+}
+lpta_3d::LptaPlane TopFrustumPlane(const D3DMATRIX &viewProj)
+{
+    return lpta_3d::LptaPlane(LptaNormalVector::MakeFrom(
+        -(viewProj._14 - viewProj._12),
+        -(viewProj._24 - viewProj._22),
+        -(viewProj._34 - viewProj._32)),
+        -(viewProj._44 - viewProj._42)
+    );
+}
+lpta_3d::LptaPlane BottomFrustumPlane(const D3DMATRIX &viewProj)
+{
+    return lpta_3d::LptaPlane(LptaNormalVector::MakeFrom(
+        -(viewProj._14 + viewProj._12),
+        -(viewProj._24 + viewProj._22),
+        -(viewProj._34 + viewProj._32)),
+        -(viewProj._44 + viewProj._42)
+    );
+}
+lpta_3d::LptaPlane NearFrustumPlane(const D3DMATRIX &viewProj)
+{
+    return lpta_3d::LptaPlane(LptaNormalVector::MakeFrom(
+        -viewProj._13,
+        -viewProj._23,
+        -viewProj._33),
+        -viewProj._43
+    );
+}
+lpta_3d::LptaPlane FarFrustumPlane(const D3DMATRIX &viewProj)
+{
+    return lpta_3d::LptaPlane(LptaNormalVector::MakeFrom(
+        -(viewProj._14 - viewProj._13),
+        -(viewProj._24 - viewProj._23),
+        -(viewProj._34 - viewProj._33)),
+        -(viewProj._44 - viewProj._43)
+    );
+}
+
 
 void LptaD3D::CalcViewProjection(void)
 {
