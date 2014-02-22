@@ -59,6 +59,8 @@ private:
     void Adjust2D(void);
     void AdjustProj2D(void);
     void AdjustView2D(void);
+    // todo: cleanup, this is unlike the others, refactor once we know more of where it's used
+    HRESULT CalcPerspViewProjection(float fov, float aspectRatio, D3DMATRIX *m);
     void CalcViewProjection(void);
     void CalcWorldViewProjection(void);
     void RunRenderer(void);
@@ -71,14 +73,14 @@ private:
     bool isSceneRunning;
     bool isUsingShader;
 
-    D3DMATRIX view2D;
-    D3DMATRIX view3D;
-    D3DMATRIX proj2D;
-    std::array<D3DMATRIX, MAX_STAGES> perspectives;
-    std::array<D3DMATRIX, MAX_STAGES> orthogonals;
-    D3DMATRIX world;
-    D3DMATRIX view3DProjection;
-    D3DMATRIX worldViewProjection;
+    D3DXMATRIX view2D;
+    D3DXMATRIX view3D;
+    D3DXMATRIX proj2D;
+    std::array<D3DXMATRIX, MAX_STAGES> perspectives;
+    std::array<D3DXMATRIX, MAX_STAGES> orthogonals;
+    D3DXMATRIX world;
+    D3DXMATRIX viewProj;
+    D3DXMATRIX worldViewProjection;
 
     void Log(char *, ...);
 

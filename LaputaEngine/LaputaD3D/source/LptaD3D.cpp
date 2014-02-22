@@ -27,6 +27,10 @@ inline lpta_3d::LptaPlane BottomFrustumPlane(const D3DMATRIX &viewProj);
 inline lpta_3d::LptaPlane NearFrustumPlane(const D3DMATRIX &viewProj);
 inline lpta_3d::LptaPlane FarFrustumPlane(const D3DMATRIX &viewProj);
 
+// CalcWorldViewProj
+inline void SetWorldViewProj(D3DXMATRIX *out, 
+    const D3DXMATRIX &world, const D3DXMATRIX &view, const D3DXMATRIX &proj);
+
 LptaD3D::LptaD3D(HINSTANCE dll, HWND hWnd, const vector<HWND> &childWnds) :
     LptaRenderDeviceImpl(dll, hWnd, childWnds)
 {
@@ -232,9 +236,9 @@ void LptaD3D::SetClippingPlanes(float planeNear, float planeFar)
 HRESULT LptaD3D::GetFrustum(lpta_3d::LptaFrustum *frustum)
 {
     *frustum = lpta_3d::LptaFrustum(
-        LeftFrustumPlane(view3DProjection), RightFrustumPlane(view3DProjection),
-        TopFrustumPlane(view3DProjection), BottomFrustumPlane(view3DProjection),
-        NearFrustumPlane(view3DProjection), FarFrustumPlane(view3DProjection)
+        LeftFrustumPlane(viewProj), RightFrustumPlane(viewProj),
+        TopFrustumPlane(viewProj), BottomFrustumPlane(viewProj),
+        NearFrustumPlane(viewProj), FarFrustumPlane(viewProj)
     );
     return S_OK;
 }
@@ -323,13 +327,70 @@ void LptaD3D::AdjustView2D(void)
     view2D._43 = tz;
 }
 
+HRESULT LptaD3D::CalcPerspViewProjection(float fov, float aspectRatio, D3DMATRIX *m)
+{
+    if (fabs(clippingPlanes.planeFar - clippingPlanes.planeNear) < lpta::CLIPPING_PLANE_MIN) {
+        return E_FAIL;
+    }
+    float sinFov = sinf(fov / 2);
+    if (sinFov < lpta::CLIPPING_PLANE_MIN) {
+        return E_FAIL;
+    }float cosFov = cosf(fov / 2);
+
+    float w = aspectRatio * (cosFov / sinFov);
+    float h = 1.0f * (cosFov / sinFov);
+    float Q = clippingPlanes.planeFar / (clippingPlanes.planeFar - clippingPlanes.planeNear);
+
+    memset(m, 0, sizeof(D3DMATRIX));
+    m->_11 = w;
+    m->_22 = h;
+    m->_33 = Q;
+    m->_34 = 1.0f;
+    m->_43 = -Q * clippingPlanes.planeNear;
+    return S_OK;
+}
+
 void LptaD3D::CalcViewProjection(void)
 {
-
+    switch (mode) {
+    case lpta::MODE_2D:
+        D3DXMatrixMultiply(&viewProj, &proj2D, &view2D);
+        break;
+    case lpta::MODE_PERSPECTIVE:
+        D3DXMatrixMultiply(&viewProj, &perspectives.at(stage), &view3D);
+        break;
+    case lpta::MODE_ORTHOGONAL:
+        D3DXMatrixMultiply(&viewProj, &orthogonals.at(stage), &view3D);
+        break;
+    default:
+        // log error
+        ;
+    }
 }
 
 void LptaD3D::CalcWorldViewProjection(void)
 {
+    switch (mode) {
+    case lpta::MODE_2D:
+        SetWorldViewProj(&worldViewProjection, world, view2D, proj2D);
+        break;
+    case lpta::MODE_PERSPECTIVE:
+        SetWorldViewProj(&worldViewProjection, world, view3D, perspectives.at(stage));
+        break;
+    case lpta::MODE_ORTHOGONAL:
+        SetWorldViewProj(&worldViewProjection, world, view3D, orthogonals.at(stage));
+        break;
+    default:
+        // log error
+        ;
+    }
+}
+inline void SetWorldViewProj(D3DXMATRIX *out, 
+    const D3DXMATRIX &world, const D3DXMATRIX &view, const D3DXMATRIX &proj)
+{
+    // out = (world * view) * proj
+    D3DXMatrixMultiply(out, &world, &view);
+    D3DXMatrixMultiply(out, out, &proj);
 }
 
 void LptaD3D::RunRenderer(void)
