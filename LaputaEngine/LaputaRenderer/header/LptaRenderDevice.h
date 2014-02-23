@@ -12,6 +12,7 @@ class LptaVector;
 typedef LptaVector POINT;
 class LptaPlane;
 class LptaFrustum;
+class LptaRay;
 
 }
 
@@ -79,15 +80,13 @@ public:
     /////////////////////////////////////////////////////////////////
     virtual HRESULT SetMode2D(void) = 0;
     virtual HRESULT SetMode3D(RENDER_STAGE stage, RENDER_MODE mode) = 0;
-    //virtual HRESULT SetStage(RENDER_STAGE stage) = 0;
-    //virtual HRESULT InitStage(float fov, const LptaViewport &viewport, RENDER_STAGE stage) = 0;
+    virtual HRESULT InitStage(float fov, const LptaViewport &viewport, RENDER_STAGE stage) = 0;
 
     ///////////////////////////////////////////////////////////////////////////
     // Conversions
     /////////////////////////////////////////////////////////////////
-    //virtual void Transform2DTo3D(const lpta_3d::POINT &point2D, 
-    //    lpta_3d::POINT *point3D, lpta_3d::LptaVector *direction3D) = 0;
-    //virtual lpta_3d::POINT Transform3DTo2D(const lpta_3d::POINT &point3D) = 0;
+    virtual lpta_3d::LptaRay Transform2DTo3D(const lpta_3d::POINT &point2D) = 0;
+    virtual lpta_3d::POINT Transform3DTo2D(const lpta_3d::POINT &point3D) = 0;
 };
 
 typedef std::unique_ptr<LptaRenderDevice> LPTA_DEVICE;

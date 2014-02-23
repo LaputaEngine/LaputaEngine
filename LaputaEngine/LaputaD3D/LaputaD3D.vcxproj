@@ -58,7 +58,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(DXSDK_DIR)\lib\$(PlatformTarget)\d3dx9.lib;$(OutputPath)\LaputaRenderer.lib;$(OutputPath)\Laputa3D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(DXSDK_DIR)\lib\$(PlatformTarget)\d3dx9.lib;$(DXSDK_DIR)\lib\$(PlatformTarget)\d3d9.lib;$(OutputPath)\LaputaRenderer.lib;$(OutputPath)\Laputa3D.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>LIB.exe /OUT:$(OutputPath)\LaputaD3D_Static.lib $(IntDir)\*.obj </Command>

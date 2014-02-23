@@ -60,6 +60,14 @@ public:
     /////////////////////////////////////////////////////////////////
     virtual HRESULT SetMode2D(void);
     virtual HRESULT SetMode3D(lpta::RENDER_STAGE stage, lpta::RENDER_MODE mode);
+    virtual HRESULT InitStage(float fov, const lpta::LptaViewport &viewport, 
+        lpta::RENDER_STAGE stage);
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Conversions
+    /////////////////////////////////////////////////////////////////
+    virtual lpta_3d::LptaRay Transform2DTo3D(const lpta_3d::POINT &point2D);
+    virtual lpta_3d::POINT Transform3DTo2D(const lpta_3d::POINT &point3D);
 
 private:
     // SetMode Helper
@@ -70,7 +78,7 @@ private:
     void AdjustProj2D(void);
     void AdjustView2D(void);
     // todo: cleanup, this is unlike the others, refactor once we know more of where it's used
-    HRESULT CalcPerspViewProjection(float fov, float aspectRatio, D3DMATRIX *m);
+    HRESULT CalcPerspProjection(float fov, float aspectRatio, D3DXMATRIX *m);
     void CalcViewProjection(void);
     void CalcWorldViewProjection(void);
     void RunRenderer(void);

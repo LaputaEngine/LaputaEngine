@@ -6,12 +6,11 @@
 #include "LptaNormalVector.h"
 #include "LptaPlane.h"
 #include "LptaFrustum.h"
+#include "LptaRay.h"
 using lpta_3d::LptaVector;
 using lpta_3d::LptaNormalVector;
 using std::unique_ptr;
 using std::move;
-
-#pragma comment (lib, "d3d9.lib")
 
 namespace lpta_d3d
 {
@@ -20,12 +19,12 @@ namespace lpta_d3d
 inline bool IsValidVector(const LptaVector &vector);
 
 // GetFrustum
-inline lpta_3d::LptaPlane LeftFrustumPlane(const D3DMATRIX &viewProj);
-inline lpta_3d::LptaPlane RightFrustumPlane(const D3DMATRIX &viewProj);
-inline lpta_3d::LptaPlane TopFrustumPlane(const D3DMATRIX &viewProj);
-inline lpta_3d::LptaPlane BottomFrustumPlane(const D3DMATRIX &viewProj);
-inline lpta_3d::LptaPlane NearFrustumPlane(const D3DMATRIX &viewProj);
-inline lpta_3d::LptaPlane FarFrustumPlane(const D3DMATRIX &viewProj);
+inline lpta_3d::LptaPlane LeftFrustumPlane(const D3DXMATRIX &viewProj);
+inline lpta_3d::LptaPlane RightFrustumPlane(const D3DXMATRIX &viewProj);
+inline lpta_3d::LptaPlane TopFrustumPlane(const D3DXMATRIX &viewProj);
+inline lpta_3d::LptaPlane BottomFrustumPlane(const D3DXMATRIX &viewProj);
+inline lpta_3d::LptaPlane NearFrustumPlane(const D3DXMATRIX &viewProj);
+inline lpta_3d::LptaPlane FarFrustumPlane(const D3DXMATRIX &viewProj);
 
 // SetMode
 inline bool IsValidStage(unsigned int numStages, lpta::RENDER_STAGE stage);
@@ -156,7 +155,7 @@ HRESULT LptaD3D::SetView3D(const lpta_3d::LptaVector &right, const lpta_3d::Lpta
     if (!IsRunning()) {
         return E_FAIL;
     }
-    D3DMATRIX m = {
+    D3DXMATRIX m = {
         right.GetX(),  up.GetX(),  dir.GetX(),  0.0f,
         right.GetY(),  up.GetY(),  dir.GetY(),  0.0f,
         right.GetZ(),  up.GetZ(),  dir.GetZ(),  0.0f,
@@ -223,14 +222,14 @@ void LptaD3D::SetClippingPlanes(float planeNear, float planeFar)
 
     float Q = 1.0f / (clippingPlanes.planeFar - clippingPlanes.planeNear);
     float X = -Q * clippingPlanes.planeNear;
-    for (D3DMATRIX &m : orthogonals) {
+    for (D3DXMATRIX &m : orthogonals) {
         m._33 = Q;
         m._43 = X;
     }
 
     Q *= clippingPlanes.planeFar;
     X = -Q * clippingPlanes.planeNear;
-    for (D3DMATRIX &m : perspectives) {
+    for (D3DXMATRIX &m : perspectives) {
         m._33 = Q;
         m._43 = X;
     }
@@ -245,7 +244,7 @@ HRESULT LptaD3D::GetFrustum(lpta_3d::LptaFrustum *frustum)
     );
     return S_OK;
 }
-lpta_3d::LptaPlane LeftFrustumPlane(const D3DMATRIX &viewProj)
+lpta_3d::LptaPlane LeftFrustumPlane(const D3DXMATRIX &viewProj)
 {
     LptaVector direction(
         -(viewProj._14 + viewProj._11),
@@ -254,7 +253,7 @@ lpta_3d::LptaPlane LeftFrustumPlane(const D3DMATRIX &viewProj)
     float distance = -(viewProj._44 + viewProj._41) / direction.Length();
     return lpta_3d::LptaPlane(LptaNormalVector::MakeFrom(direction), distance);
 }
-lpta_3d::LptaPlane RightFrustumPlane(const D3DMATRIX &viewProj)
+lpta_3d::LptaPlane RightFrustumPlane(const D3DXMATRIX &viewProj)
 {
     LptaVector direction(
         -(viewProj._14 - viewProj._11),
@@ -263,7 +262,7 @@ lpta_3d::LptaPlane RightFrustumPlane(const D3DMATRIX &viewProj)
     float distance = -(viewProj._44 - viewProj._41) / direction.Length();
     return lpta_3d::LptaPlane(LptaNormalVector::MakeFrom(direction), distance);
 }
-lpta_3d::LptaPlane TopFrustumPlane(const D3DMATRIX &viewProj)
+lpta_3d::LptaPlane TopFrustumPlane(const D3DXMATRIX &viewProj)
 {
     LptaVector direction(
         -(viewProj._14 - viewProj._12),
@@ -272,7 +271,7 @@ lpta_3d::LptaPlane TopFrustumPlane(const D3DMATRIX &viewProj)
     float distance = -(viewProj._44 - viewProj._42) / direction.Length();
     return lpta_3d::LptaPlane(LptaNormalVector::MakeFrom(direction), distance);
 }
-lpta_3d::LptaPlane BottomFrustumPlane(const D3DMATRIX &viewProj)
+lpta_3d::LptaPlane BottomFrustumPlane(const D3DXMATRIX &viewProj)
 {
     LptaVector direction(
         -(viewProj._14 + viewProj._12),
@@ -281,7 +280,7 @@ lpta_3d::LptaPlane BottomFrustumPlane(const D3DMATRIX &viewProj)
     float distance = -(viewProj._44 + viewProj._42);
     return lpta_3d::LptaPlane(LptaNormalVector::MakeFrom(direction), distance);
 }
-lpta_3d::LptaPlane NearFrustumPlane(const D3DMATRIX &viewProj)
+lpta_3d::LptaPlane NearFrustumPlane(const D3DXMATRIX &viewProj)
 {
     LptaVector direction(
         -viewProj._13,
@@ -290,7 +289,7 @@ lpta_3d::LptaPlane NearFrustumPlane(const D3DMATRIX &viewProj)
     float distance = -viewProj._43 / direction.Length();
     return lpta_3d::LptaPlane(LptaNormalVector::MakeFrom(direction), distance);
 }
-lpta_3d::LptaPlane FarFrustumPlane(const D3DMATRIX &viewProj)
+lpta_3d::LptaPlane FarFrustumPlane(const D3DXMATRIX &viewProj)
 {
     LptaVector direction(
         -(viewProj._14 - viewProj._13),
@@ -309,6 +308,8 @@ HRESULT LptaD3D::SetMode2D(void)
         return E_FAIL;
     }
     this->mode = lpta::MODE_2D;
+
+    // todo: flush vcache
 
     D3DVIEWPORT9 d3dvp;
     d3dvp.X = 0;
@@ -339,6 +340,8 @@ HRESULT LptaD3D::SetMode3D(lpta::RENDER_STAGE stage, lpta::RENDER_MODE mode)
     }
     this->stage = stage;
 
+    // todo: flush vcache
+
     D3DVIEWPORT9 d3dvp;
     d3dvp.X = viewports.at(stage).GetPoint().x;
     d3dvp.Y = viewports.at(stage).GetPoint().y;
@@ -367,10 +370,100 @@ HRESULT LptaD3D::SetMode3D(lpta::RENDER_STAGE stage, lpta::RENDER_MODE mode)
     }
     CalcViewProjection();
     CalcWorldViewProjection();
+    return S_OK;
 }
 bool IsValidStage(unsigned int numStages, lpta::RENDER_STAGE stage)
 {
     return 0 <= stage && stage < numStages;
+}
+
+HRESULT LptaD3D::InitStage(float fov, const lpta::LptaViewport &viewport, lpta::RENDER_STAGE stage)
+{
+    if (!IsValidStage(MAX_STAGES, stage)) {
+        return E_FAIL;
+    }
+    float aspectRatio = (float)viewports.at(stage).GetDimension().height / 
+        viewports.at(stage).GetDimension().width;
+    viewports.at(stage) = viewport;
+
+    if (FAILED(this->CalcPerspProjection(fov, aspectRatio, &perspectives.at(stage)))) {
+        return E_FAIL;
+    }
+
+    memset(&orthogonals.at(stage), 0, sizeof(D3DXMATRIX));
+    orthogonals.at(stage)._11 = 2.0f / viewports.at(stage).GetDimension().width;
+    orthogonals.at(stage)._22 = 2.0f / viewports.at(stage).GetDimension().height;
+    orthogonals.at(stage)._33 = 1.0f / (clippingPlanes.planeFar - clippingPlanes.planeFar);
+    orthogonals.at(stage)._43 = -clippingPlanes.planeNear * orthogonals.at(stage)._33;
+    orthogonals.at(stage)._44 = 1.0f;
+    return S_OK;
+}
+
+///////////////////////////////////////////////////////////////////////////
+// Conversions
+/////////////////////////////////////////////////////////////////
+lpta_3d::LptaRay LptaD3D::Transform2DTo3D(const lpta_3d::POINT &point2D)
+{
+    unsigned int width;
+    unsigned int height;
+    D3DXMATRIX *view;
+    if (lpta::MODE_2D == mode) {
+        width = screenWidth;
+        height = screenHeight;
+        view = &view2D;
+    }
+    else {
+        width = viewports.at(stage).GetDimension().width;
+        height = viewports.at(stage).GetDimension().height;
+        view = &view3D;
+    }
+    float scaledX = (((point2D.GetX() * 2.0f) / screenWidth) - 1.0f) / perspectives.at(stage)._11;
+    float scaledY = (((point2D.GetY() * 2.0f) / screenHeight) - 1.0f) / perspectives.at(stage)._22;
+    float scaledZ = 1.0f;
+    D3DXMATRIX inverseView;
+    D3DXMatrixInverse(&inverseView, NULL, view);
+
+    float dirX = (scaledX * inverseView._11) + (scaledY * inverseView._21) +
+        (scaledZ * inverseView._31);
+    float dirY = (scaledX * inverseView._12) + (scaledY * inverseView._22) +
+        (scaledZ * inverseView._32);
+    float dirZ = (scaledX * inverseView._13) + (scaledY * inverseView._23) +
+        (scaledZ * inverseView._33);
+
+    lpta_3d::POINT origin(view->_41, view->_42, view->_43);
+    return lpta_3d::LptaRay(origin, LptaNormalVector::MakeFrom(dirX, dirY, dirZ));
+}
+
+lpta_3d::POINT LptaD3D::Transform3DTo2D(const lpta_3d::POINT &point3D)
+{
+    unsigned int width;
+    unsigned int height;
+    if (lpta::MODE_2D == mode) {
+        width = screenWidth;
+        height = screenHeight;
+    }
+    else {
+        const lpta::VIEWPORT_DIM &dim = viewports.at(stage).GetDimension();
+        width = dim.width;
+        height = dim.height;
+    }
+
+    float clipX = static_cast<float>(width / 2);
+    float clipY = static_cast<float>(height / 2);
+
+    float projX = (viewProj._11 * point3D.GetX()) + (viewProj._21 * point3D.GetY()) +
+        (viewProj._31 * point3D.GetZ()) + viewProj._41;
+    float projY = (viewProj._12 * point3D.GetX()) + (viewProj._22 * point3D.GetY()) +
+        (viewProj._32 * point3D.GetZ()) + viewProj._42;
+    float projW = (viewProj._14 * point3D.GetX()) + (viewProj._24 * point3D.GetY()) +
+        (viewProj._34 * point3D.GetZ()) + viewProj._44;
+
+    float invW = 1.0f / projW;
+
+    float x = static_cast<float>(static_cast<long>((1.0f + (projX * invW)) * clipX));
+    float y = static_cast<float>(static_cast<long>((1.0f + (projY * invW)) * clipY));
+    
+    return lpta_3d::POINT(x, y, 0.0f);
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -383,7 +476,7 @@ void LptaD3D::Adjust2D(void)
 }
 void LptaD3D::AdjustProj2D(void)
 {
-    memset(&proj2D, 0, sizeof(D3DMATRIX));
+    memset(&proj2D, 0, sizeof(D3DXMATRIX));
     float clippingPlaneDist = clippingPlanes.planeFar - clippingPlanes.planeNear;
     proj2D._11 = 2.0f / (float)this->screenWidth;
     proj2D._22 = 2.0f / (float)this->screenHeight;
@@ -393,7 +486,7 @@ void LptaD3D::AdjustProj2D(void)
 }
 void LptaD3D::AdjustView2D(void)
 {
-    memset(&view2D, 0, sizeof(D3DMATRIX));
+    memset(&view2D, 0, sizeof(D3DXMATRIX));
     view2D._11 = view2D._33 = view2D._44 = 1.0f;
 
     float tx = (float)(-((int)screenWidth) + screenWidth * 0.5);
@@ -406,7 +499,7 @@ void LptaD3D::AdjustView2D(void)
     view2D._43 = tz;
 }
 
-HRESULT LptaD3D::CalcPerspViewProjection(float fov, float aspectRatio, D3DMATRIX *m)
+HRESULT LptaD3D::CalcPerspProjection(float fov, float aspectRatio, D3DXMATRIX *m)
 {
     if (fabs(clippingPlanes.planeFar - clippingPlanes.planeNear) < lpta::CLIPPING_PLANE_MIN) {
         return E_FAIL;
@@ -414,13 +507,14 @@ HRESULT LptaD3D::CalcPerspViewProjection(float fov, float aspectRatio, D3DMATRIX
     float sinFov = sinf(fov / 2);
     if (sinFov < lpta::CLIPPING_PLANE_MIN) {
         return E_FAIL;
-    }float cosFov = cosf(fov / 2);
+    }
+    float cosFov = cosf(fov / 2);
 
     float w = aspectRatio * (cosFov / sinFov);
     float h = 1.0f * (cosFov / sinFov);
     float Q = clippingPlanes.planeFar / (clippingPlanes.planeFar - clippingPlanes.planeNear);
 
-    memset(m, 0, sizeof(D3DMATRIX));
+    memset(m, 0, sizeof(D3DXMATRIX));
     m->_11 = w;
     m->_22 = h;
     m->_33 = Q;
