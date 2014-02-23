@@ -55,7 +55,17 @@ public:
 
     virtual HRESULT GetFrustum(lpta_3d::LptaFrustum *frustum);
 
+    ///////////////////////////////////////////////////////////////////////////
+    // Internal State Mutator
+    /////////////////////////////////////////////////////////////////
+    virtual HRESULT SetMode2D(void);
+    virtual HRESULT SetMode3D(lpta::RENDER_STAGE stage, lpta::RENDER_MODE mode);
+
 private:
+    // SetMode Helper
+    HRESULT SetModeWithShader(lpta::RENDER_STAGE stage, lpta::RENDER_MODE mode);
+    HRESULT SetModeWithoutShader(lpta::RENDER_STAGE stage, lpta::RENDER_MODE mode);
+    //
     void Adjust2D(void);
     void AdjustProj2D(void);
     void AdjustView2D(void);

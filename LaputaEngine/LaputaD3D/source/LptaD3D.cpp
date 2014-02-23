@@ -27,6 +27,9 @@ inline lpta_3d::LptaPlane BottomFrustumPlane(const D3DMATRIX &viewProj);
 inline lpta_3d::LptaPlane NearFrustumPlane(const D3DMATRIX &viewProj);
 inline lpta_3d::LptaPlane FarFrustumPlane(const D3DMATRIX &viewProj);
 
+// SetMode
+inline bool IsValidStage(unsigned int numStages, lpta::RENDER_STAGE stage);
+
 // CalcWorldViewProj
 inline void SetWorldViewProj(D3DXMATRIX *out, 
     const D3DXMATRIX &world, const D3DXMATRIX &view, const D3DXMATRIX &proj);
@@ -297,6 +300,82 @@ lpta_3d::LptaPlane FarFrustumPlane(const D3DMATRIX &viewProj)
     return lpta_3d::LptaPlane(LptaNormalVector::MakeFrom(direction), distance);
 }
 
+///////////////////////////////////////////////////////////////////////////
+// Internal State Mutator
+/////////////////////////////////////////////////////////////////
+HRESULT LptaD3D::SetMode2D(void)
+{
+    if (!isRunning) {
+        return E_FAIL;
+    }
+    this->mode = lpta::MODE_2D;
+
+    D3DVIEWPORT9 d3dvp;
+    d3dvp.X = 0;
+    d3dvp.Y = 0;
+    d3dvp.Width = screenWidth;
+    d3dvp.Height = screenHeight;
+    d3dvp.MinZ = 0.0f;
+    d3dvp.MaxZ = 1.0f;
+
+    if (FAILED(d3ddev->SetViewport(&d3dvp))) {
+        return E_FAIL;
+    }
+    if (!isUsingShader) {
+        if (FAILED(d3ddev->SetTransform(D3DTS_PROJECTION, &proj2D))) {
+            return E_FAIL;
+        }
+        if (FAILED(d3ddev->SetTransform(D3DTS_VIEW, &view2D))) {
+            return E_FAIL;
+        }
+    }
+    return S_OK;
+}
+
+HRESULT LptaD3D::SetMode3D(lpta::RENDER_STAGE stage, lpta::RENDER_MODE mode)
+{
+    if (!isRunning || !IsValidStage(MAX_STAGES, stage)) {
+        return E_FAIL;
+    }
+    this->stage = stage;
+
+    D3DVIEWPORT9 d3dvp;
+    d3dvp.X = viewports.at(stage).GetPoint().x;
+    d3dvp.Y = viewports.at(stage).GetPoint().y;
+    d3dvp.Width = viewports.at(stage).GetDimension().width;
+    d3dvp.Height = viewports.at(stage).GetDimension().height;
+    d3dvp.MinZ = 0.0f;
+    d3dvp.MaxZ = 1.0f;
+
+    if (FAILED(d3ddev->SetTransform(D3DTS_VIEW, &view3D))) {
+        return E_FAIL;
+    }
+    switch (mode) {
+    case lpta::MODE_PERSPECTIVE:
+        if (FAILED(d3ddev->SetTransform(D3DTS_PROJECTION, &perspectives.at(stage)))) {
+            return E_FAIL;
+        }
+        break;
+    case lpta::MODE_ORTHOGONAL:
+        if (FAILED(d3ddev->SetTransform(D3DTS_PROJECTION, &orthogonals.at(stage)))) {
+            return E_FAIL;
+        }
+        break;
+    default:
+        // log error
+        ;
+    }
+    CalcViewProjection();
+    CalcWorldViewProjection();
+}
+bool IsValidStage(unsigned int numStages, lpta::RENDER_STAGE stage)
+{
+    return 0 <= stage && stage < numStages;
+}
+
+///////////////////////////////////////////////////////////////////////////
+// Private Helpers
+/////////////////////////////////////////////////////////////////
 void LptaD3D::Adjust2D(void)
 {
     AdjustProj2D();

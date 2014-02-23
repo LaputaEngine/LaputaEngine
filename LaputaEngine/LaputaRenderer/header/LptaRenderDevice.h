@@ -77,7 +77,8 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // Internal State Mutator
     /////////////////////////////////////////////////////////////////
-    //virtual HRESULT SetMode(RENDER_MODE mode) = 0;
+    virtual HRESULT SetMode2D(void) = 0;
+    virtual HRESULT SetMode3D(RENDER_STAGE stage, RENDER_MODE mode) = 0;
     //virtual HRESULT SetStage(RENDER_STAGE stage) = 0;
     //virtual HRESULT InitStage(float fov, const LptaViewport &viewport, RENDER_STAGE stage) = 0;
 
