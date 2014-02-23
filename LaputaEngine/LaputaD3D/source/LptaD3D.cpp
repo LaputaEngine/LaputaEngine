@@ -7,6 +7,8 @@
 #include "LptaPlane.h"
 #include "LptaFrustum.h"
 #include "LptaRay.h"
+#include "LptaMatrix.h"
+#include "LptaD3DMatrix.h"
 using lpta_3d::LptaVector;
 using lpta_3d::LptaNormalVector;
 using std::unique_ptr;
@@ -148,6 +150,23 @@ HRESULT LptaD3D::UseWindow(UINT windowIndex)
 ///////////////////////////////////////////////////////////////////////////
 // World View Orientation
 /////////////////////////////////////////////////////////////////
+void LptaD3D::SetWorldTransform(const lpta_3d::LptaMatrix &world)
+{
+    // todo flush vcache
+
+    this->world = static_cast<LptaD3DMatrix>(world).ConvertToDxMatrix();
+    CalcWorldViewProjection();
+
+    if (isUsingShader) {
+        D3DXMATRIX worldTranspose;
+        D3DXMatrixTranspose(&worldTranspose, &this->world);
+        d3ddev->SetVertexShaderConstantF(0, reinterpret_cast<float *>(&worldTranspose), 4);
+    }
+    else {
+        d3ddev->SetTransform(D3DTS_WORLD, &this->world);
+    }
+}
+
 HRESULT LptaD3D::SetView3D(const lpta_3d::LptaVector &right, const lpta_3d::LptaVector &up, 
     const lpta_3d::LptaVector &dir, 
     const lpta_3d::POINT &point)

@@ -46,6 +46,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // World View Orientation
     /////////////////////////////////////////////////////////////////
+    virtual void SetWorldTransform(const lpta_3d::LptaMatrix &world);
     virtual HRESULT SetView3D(const lpta_3d::LptaVector &right, const lpta_3d::LptaVector &up, 
         const lpta_3d::LptaVector &dir, 
         const lpta_3d::POINT &point);
