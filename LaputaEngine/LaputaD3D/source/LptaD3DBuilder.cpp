@@ -1,4 +1,5 @@
 #include <d3d9.h>
+#include <d3dx9.h>
 #include "LptaStatusCodes.h"
 #include "LptaD3D.h"
 #include "LptaD3DConfig.h"
@@ -23,6 +24,35 @@ extern "C" __declspec(dllexport) HRESULT CreateDeviceBuilder(HINSTANCE hDll,
 
 namespace lpta_d3d
 {
+inline bool InitShaderSupport(const LPDIRECT3DDEVICE9 &d3ddev, 
+    LPDIRECT3DVERTEXDECLARATION9 *declVertex,
+    LPDIRECT3DVERTEXDECLARATION9 *declLitVertex) {
+
+    D3DCAPS9 caps;
+    if (FAILED(d3ddev->GetDeviceCaps(&caps))) {
+        return false;
+    }
+    if (caps.VertexShaderVersion < D3DVS_VERSION(1, 1) || 
+        caps.PixelShaderVersion < D3DPS_VERSION(1, 1)) {
+
+        return false;
+    }
+    D3DVERTEXELEMENT9 declVertexElements[] = {
+        {0, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0},
+        {0, 12, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_NORMAL, 0},
+        {0, 24, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0},
+        D3DDECL_END(),
+    };
+    D3DVERTEXELEMENT9 declLitVertexElements[] = {
+        {0, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0},
+        {0, 12, D3DDECLTYPE_D3DCOLOR, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_COLOR, 0},
+        {0, 16, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0},
+        D3DDECL_END(),
+    };
+    d3ddev->CreateVertexDeclaration(declVertexElements, declVertex);
+    d3ddev->CreateVertexDeclaration(declLitVertexElements, declLitVertex);
+    return true;
+}
 
 LptaD3DDeviceBuilder::LptaD3DDeviceBuilder(HINSTANCE hDll) : hDll(hDll)
 {
@@ -57,9 +87,14 @@ HRESULT LptaD3DDeviceBuilder::Make(HWND hWnd, const vector<HWND> &childWnds, lpt
         swapChainPP.hDeviceWindow = d3dDevice->renderWindows[i];
         d3dDevice->d3ddev->CreateAdditionalSwapChain(&swapChainPP, &d3dDevice->chain[i]);
     }
-    d3dDevice->RunRenderer();
 
+    d3dDevice->isUsingShader = InitShaderSupport(d3dDevice->d3ddev, 
+        &d3dDevice->declVertex, &d3dDevice->declLitVertex);
+    d3dDevice->d3ddev->SetFVF(NULL);
+
+    d3dDevice->RunRenderer();
     *device = std::move(d3dDevice);
+
     return S_OK;
 }
 

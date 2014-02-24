@@ -88,6 +88,9 @@ private:
     LPDIRECT3DDEVICE9 d3ddev;
     LPDIRECT3DSWAPCHAIN9 chain[MAX_3DHWND];
 
+    LPDIRECT3DVERTEXDECLARATION9 declVertex;
+    LPDIRECT3DVERTEXDECLARATION9 declLitVertex;
+
     D3DCOLOR clearColor;
     bool isSceneRunning;
     bool isUsingShader;
