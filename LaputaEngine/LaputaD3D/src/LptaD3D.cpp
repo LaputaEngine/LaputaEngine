@@ -68,7 +68,7 @@ HRESULT LptaD3D::LoadShader(void *data)
 
 HRESULT LptaD3D::LoadShaderFromFile(const std::string &filename)
 {
-    HANDLE fileHandle = CreateFile(lpta_d3d_utils::ToUnicode(filename).c_str(), GENERIC_READ, 
+    HANDLE fileHandle = CreateFile(lpta_d3d_utils::ToWChar(filename).c_str(), GENERIC_READ, 
         false, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
     if (INVALID_HANDLE_VALUE == fileHandle) {
         return E_FAIL;
@@ -106,7 +106,7 @@ HRESULT LptaD3D::LoadAndCompileShaderFromFile(const std::string &filename)
     LPD3DXBUFFER compiled;
     LPD3DXBUFFER errorMsg;
     HRESULT assembleResult = D3DXAssembleShaderFromFileW(
-        lpta_d3d_utils::ToUnicode(filename).c_str(), NULL, NULL, 0, &compiled, &errorMsg);
+        lpta_d3d_utils::ToWChar(filename).c_str(), NULL, NULL, 0, &compiled, &errorMsg);
     
     if (SUCCEEDED(assembleResult)) {
         return LoadShader(compiled->GetBufferPointer());

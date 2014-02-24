@@ -32,7 +32,7 @@ std::string lpta_d3d_utils::GetTitleFor(D3DDEVTYPE deviceType)
     }
 }
 
-std::wstring lpta_d3d_utils::ToUnicode(const std::string &str)
+std::wstring lpta_d3d_utils::ToWChar(const std::string &str)
 {
     std::wstringstream ss;
     ss << str.c_str();

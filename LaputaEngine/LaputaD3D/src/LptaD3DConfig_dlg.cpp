@@ -127,7 +127,7 @@ HRESULT GetComboBoxSelection(HWND comboBox)
 
 void AddComboBoxItem(HWND comboBox, const string &title, LPARAM data)
 {
-    std::wstring wTitle = lpta_d3d_utils::ToUnicode(title);
+    std::wstring wTitle = lpta_d3d_utils::ToWChar(title);
     int itemIndex = (int)SendMessage(comboBox, CB_ADDSTRING, NULL, (LPARAM)wTitle.c_str());
     SendMessage(comboBox, CB_SETITEMDATA, (WPARAM)itemIndex, data);
 }

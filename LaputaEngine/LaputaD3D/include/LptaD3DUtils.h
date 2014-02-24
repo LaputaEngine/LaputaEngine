@@ -10,7 +10,7 @@ namespace lpta_d3d_utils {
 unsigned int GetBitsFor(D3DFORMAT format);
 std::string GetTitleFor(D3DDEVTYPE deviceType);
 
-std::wstring ToUnicode(const std::string &str);
+std::wstring ToWChar(const std::string &str);
 
 struct DisplayFormatComparator
 {
