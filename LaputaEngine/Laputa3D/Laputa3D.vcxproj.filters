@@ -24,93 +24,93 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="header\LptaVector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\LptaMatrix.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\errors\InvalidRotationAxis.h">
+    <ClInclude Include="include\errors\InvalidDimension.h">
       <Filter>Header Files\Errors</Filter>
     </ClInclude>
-    <ClInclude Include="header\LptaRay.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\errors\InvalidRotationAxis.h">
+      <Filter>Header Files\Errors</Filter>
     </ClInclude>
-    <ClInclude Include="header\geometry\Shapes.h">
+    <ClInclude Include="include\errors\MatrixInversionError.h">
+      <Filter>Header Files\Errors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\errors\NonNormalVector.h">
+      <Filter>Header Files\Errors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\geometry\Shapes.h">
       <Filter>Header Files\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="header\Lpta3D.h">
+    <ClInclude Include="include\Lpta3D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\LptaPlane.h">
+    <ClInclude Include="include\LptaAABB.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\errors\NonNormalVector.h">
-      <Filter>Header Files\Errors</Filter>
-    </ClInclude>
-    <ClInclude Include="header\LptaNormalVector.h">
+    <ClInclude Include="include\LptaBoundingBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\LptaAABB.h">
+    <ClInclude Include="include\LptaFrustum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\LptaBoundingBox.h">
+    <ClInclude Include="include\LptaMatrix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\LptaOBB.h">
+    <ClInclude Include="include\LptaNormalVector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\errors\InvalidDimension.h">
-      <Filter>Header Files\Errors</Filter>
-    </ClInclude>
-    <ClInclude Include="header\errors\MatrixInversionError.h">
-      <Filter>Header Files\Errors</Filter>
-    </ClInclude>
-    <ClInclude Include="header\LptaQuat.h">
+    <ClInclude Include="include\LptaOBB.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\LptaFrustum.h">
+    <ClInclude Include="include\LptaPlane.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LptaQuat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LptaRay.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LptaVector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\LptaVector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\LptaMatrix.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\errors\InvalidRotationAxis.cpp">
+    <ClCompile Include="src\errors\InvalidDimension.cpp">
       <Filter>Source Files\Errors</Filter>
     </ClCompile>
-    <ClCompile Include="source\LptaRay.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\errors\NonNormalVector.cpp">
+    <ClCompile Include="src\errors\InvalidRotationAxis.cpp">
       <Filter>Source Files\Errors</Filter>
     </ClCompile>
-    <ClCompile Include="source\LptaNormalVector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\LptaPlane.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\LptaAABB.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\LptaOBB.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\errors\InvalidDimension.cpp">
+    <ClCompile Include="src\errors\MatrixInversionError.cpp">
       <Filter>Source Files\Errors</Filter>
     </ClCompile>
-    <ClCompile Include="source\errors\MatrixInversionError.cpp">
+    <ClCompile Include="src\errors\NonNormalVector.cpp">
       <Filter>Source Files\Errors</Filter>
     </ClCompile>
-    <ClCompile Include="source\LptaQuat.cpp">
+    <ClCompile Include="src\LptaAABB.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\LptaFrustum.cpp">
+    <ClCompile Include="src\LptaFrustum.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LptaMatrix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LptaNormalVector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LptaOBB.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LptaPlane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LptaQuat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LptaRay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LptaVector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

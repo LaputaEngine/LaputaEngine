@@ -21,84 +21,84 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\adapter\AdapterInfo.cpp">
+    <ClCompile Include="src\adapter\AdapterInfo.cpp">
       <Filter>Source Files\Adapter</Filter>
     </ClCompile>
-    <ClCompile Include="source\LptaD3DUtils.cpp">
+    <ClCompile Include="src\resources\errors\TextureD3DFailure.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\LptaD3DConfig_dlg.cpp">
+    <ClCompile Include="src\resources\errors\TextureError.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\LptaD3DConfig_main.cpp">
+    <ClCompile Include="src\resources\errors\TextureFileNotFound.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\resources\LptaD3DTexture.cpp">
+    <ClCompile Include="src\resources\LptaD3DTexture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\resources\errors\TextureD3DFailure.cpp">
+    <ClCompile Include="src\resources\LptaD3DTextureManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\resources\errors\TextureError.cpp">
+    <ClCompile Include="src\LptaD3D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\resources\errors\TextureFileNotFound.cpp">
+    <ClCompile Include="src\LptaD3DBuilder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\resources\LptaD3DTextureManager.cpp">
+    <ClCompile Include="src\LptaD3DConfig_dlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\LptaD3DBuilder.cpp">
+    <ClCompile Include="src\LptaD3DConfig_main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\LptaD3D.cpp">
+    <ClCompile Include="src\LptaD3DMatrix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\LptaD3DVertexCache.cpp">
+    <ClCompile Include="src\LptaD3DUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\LptaD3DMatrix.cpp">
+    <ClCompile Include="src\LptaD3DVertexCache.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="header\LptaD3D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\LptaD3DUtils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\adapter\AdapterInfo.h">
+    <ClInclude Include="include\adapter\AdapterInfo.h">
       <Filter>Header Files\Adapter</Filter>
     </ClInclude>
-    <ClInclude Include="header\LptaD3DConfig.h">
+    <ClInclude Include="include\resources\errors\TextureD3DFailure.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\resources\LptaD3DTexture.h">
+    <ClInclude Include="include\resources\errors\TextureError.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\resources\errors\TextureFileNotFound.h">
+    <ClInclude Include="include\resources\errors\TextureFileNotFound.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\resources\errors\TextureError.h">
+    <ClInclude Include="include\resources\LptaD3DTexture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\resources\errors\TextureD3DFailure.h">
+    <ClInclude Include="include\resources\LptaD3DTextureManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\resources\LptaD3DTextureManager.h">
+    <ClInclude Include="include\LptaD3D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\LptaD3DDeviceBuilder.h">
+    <ClInclude Include="include\LptaD3DConfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\LptaD3DVertexCache.h">
+    <ClInclude Include="include\LptaD3DDeviceBuilder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\LptaD3DMatrix.h">
+    <ClInclude Include="include\LptaD3DMatrix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LptaD3DUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LptaD3DVertexCache.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

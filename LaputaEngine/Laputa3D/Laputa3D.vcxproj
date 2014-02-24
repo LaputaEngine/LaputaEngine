@@ -11,37 +11,37 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="header\errors\InvalidDimension.h" />
-    <ClInclude Include="header\errors\InvalidRotationAxis.h" />
-    <ClInclude Include="header\errors\MatrixInversionError.h" />
-    <ClInclude Include="header\errors\NonNormalVector.h" />
-    <ClInclude Include="header\geometry\Shapes.h" />
-    <ClInclude Include="header\Lpta3D.h" />
-    <ClInclude Include="header\LptaAABB.h" />
-    <ClInclude Include="header\LptaBoundingBox.h" />
-    <ClInclude Include="header\LptaFrustum.h" />
-    <ClInclude Include="header\LptaMatrix.h" />
-    <ClInclude Include="header\LptaNormalVector.h" />
-    <ClInclude Include="header\LptaOBB.h" />
-    <ClInclude Include="header\LptaPlane.h" />
-    <ClInclude Include="header\LptaQuat.h" />
-    <ClInclude Include="header\LptaRay.h" />
-    <ClInclude Include="header\LptaVector.h" />
+    <ClInclude Include="include\errors\InvalidDimension.h" />
+    <ClInclude Include="include\errors\InvalidRotationAxis.h" />
+    <ClInclude Include="include\errors\MatrixInversionError.h" />
+    <ClInclude Include="include\errors\NonNormalVector.h" />
+    <ClInclude Include="include\geometry\Shapes.h" />
+    <ClInclude Include="include\Lpta3D.h" />
+    <ClInclude Include="include\LptaAABB.h" />
+    <ClInclude Include="include\LptaBoundingBox.h" />
+    <ClInclude Include="include\LptaFrustum.h" />
+    <ClInclude Include="include\LptaMatrix.h" />
+    <ClInclude Include="include\LptaNormalVector.h" />
+    <ClInclude Include="include\LptaOBB.h" />
+    <ClInclude Include="include\LptaPlane.h" />
+    <ClInclude Include="include\LptaQuat.h" />
+    <ClInclude Include="include\LptaRay.h" />
+    <ClInclude Include="include\LptaVector.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\errors\InvalidDimension.cpp" />
-    <ClCompile Include="source\errors\InvalidRotationAxis.cpp" />
-    <ClCompile Include="source\errors\MatrixInversionError.cpp" />
-    <ClCompile Include="source\errors\NonNormalVector.cpp" />
-    <ClCompile Include="source\LptaAABB.cpp" />
-    <ClCompile Include="source\LptaFrustum.cpp" />
-    <ClCompile Include="source\LptaMatrix.cpp" />
-    <ClCompile Include="source\LptaNormalVector.cpp" />
-    <ClCompile Include="source\LptaOBB.cpp" />
-    <ClCompile Include="source\LptaPlane.cpp" />
-    <ClCompile Include="source\LptaQuat.cpp" />
-    <ClCompile Include="source\LptaRay.cpp" />
-    <ClCompile Include="source\LptaVector.cpp" />
+    <ClCompile Include="src\errors\InvalidDimension.cpp" />
+    <ClCompile Include="src\errors\InvalidRotationAxis.cpp" />
+    <ClCompile Include="src\errors\MatrixInversionError.cpp" />
+    <ClCompile Include="src\errors\NonNormalVector.cpp" />
+    <ClCompile Include="src\LptaAABB.cpp" />
+    <ClCompile Include="src\LptaFrustum.cpp" />
+    <ClCompile Include="src\LptaMatrix.cpp" />
+    <ClCompile Include="src\LptaNormalVector.cpp" />
+    <ClCompile Include="src\LptaOBB.cpp" />
+    <ClCompile Include="src\LptaPlane.cpp" />
+    <ClCompile Include="src\LptaQuat.cpp" />
+    <ClCompile Include="src\LptaRay.cpp" />
+    <ClCompile Include="src\LptaVector.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F9C9E922-8AAD-41E2-A1DA-31C72149A649}</ProjectGuid>
@@ -80,7 +80,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)\header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

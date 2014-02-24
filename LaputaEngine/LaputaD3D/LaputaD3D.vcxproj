@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(DXSDK_DIR)\Include;$(ProjectDir)\header;$(IncludePath);$(ProjectDir)\</IncludePath>
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -53,7 +53,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;LAPUTAD3D_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\LaputaRenderer\header;$(SolutionDir)\Laputa3D\header;$(SolutionDir)\LaputaGeneral\header;$(SolutionDir)\..\lib\CImage-1.5.7\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DXSDK_DIR)\include;$(ProjectDir)\;$(ProjectDir)\include;$(SolutionDir)\LaputaRenderer\include;$(SolutionDir)\Laputa3D\include;$(SolutionDir)\LaputaGeneral\include;$(SolutionDir)\..\lib\CImage-1.5.7\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -85,33 +85,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="source\adapter\AdapterInfo.cpp" />
-    <ClCompile Include="source\LptaD3DBuilder.cpp" />
-    <ClCompile Include="source\LptaD3DConfig_main.cpp" />
-    <ClCompile Include="source\LptaD3DConfig_dlg.cpp" />
-    <ClCompile Include="source\LptaD3DMatrix.cpp" />
-    <ClCompile Include="source\LptaD3DUtils.cpp" />
-    <ClCompile Include="source\LptaD3D.cpp" />
-    <ClCompile Include="source\LptaD3DVertexCache.cpp" />
-    <ClCompile Include="source\resources\errors\TextureD3DFailure.cpp" />
-    <ClCompile Include="source\resources\errors\TextureError.cpp" />
-    <ClCompile Include="source\resources\errors\TextureFileNotFound.cpp" />
-    <ClCompile Include="source\resources\LptaD3DTexture.cpp" />
-    <ClCompile Include="source\resources\LptaD3DTextureManager.cpp" />
+    <ClCompile Include="src\adapter\AdapterInfo.cpp" />
+    <ClCompile Include="src\LptaD3DBuilder.cpp" />
+    <ClCompile Include="src\LptaD3DConfig_main.cpp" />
+    <ClCompile Include="src\LptaD3DConfig_dlg.cpp" />
+    <ClCompile Include="src\LptaD3DMatrix.cpp" />
+    <ClCompile Include="src\LptaD3DUtils.cpp" />
+    <ClCompile Include="src\LptaD3D.cpp" />
+    <ClCompile Include="src\LptaD3DVertexCache.cpp" />
+    <ClCompile Include="src\resources\errors\TextureD3DFailure.cpp" />
+    <ClCompile Include="src\resources\errors\TextureError.cpp" />
+    <ClCompile Include="src\resources\errors\TextureFileNotFound.cpp" />
+    <ClCompile Include="src\resources\LptaD3DTexture.cpp" />
+    <ClCompile Include="src\resources\LptaD3DTextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="header\adapter\AdapterInfo.h" />
-    <ClInclude Include="header\LptaD3D.h" />
-    <ClInclude Include="header\LptaD3DDeviceBuilder.h" />
-    <ClInclude Include="header\LptaD3DConfig.h" />
-    <ClInclude Include="header\LptaD3DMatrix.h" />
-    <ClInclude Include="header\LptaD3DUtils.h" />
-    <ClInclude Include="header\LptaD3DVertexCache.h" />
-    <ClInclude Include="header\resources\errors\TextureD3DFailure.h" />
-    <ClInclude Include="header\resources\errors\TextureError.h" />
-    <ClInclude Include="header\resources\errors\TextureFileNotFound.h" />
-    <ClInclude Include="header\resources\LptaD3DTexture.h" />
-    <ClInclude Include="header\resources\LptaD3DTextureManager.h" />
+    <ClInclude Include="include\adapter\AdapterInfo.h" />
+    <ClInclude Include="include\LptaD3D.h" />
+    <ClInclude Include="include\LptaD3DDeviceBuilder.h" />
+    <ClInclude Include="include\LptaD3DConfig.h" />
+    <ClInclude Include="include\LptaD3DMatrix.h" />
+    <ClInclude Include="include\LptaD3DUtils.h" />
+    <ClInclude Include="include\LptaD3DVertexCache.h" />
+    <ClInclude Include="include\resources\errors\TextureD3DFailure.h" />
+    <ClInclude Include="include\resources\errors\TextureError.h" />
+    <ClInclude Include="include\resources\errors\TextureFileNotFound.h" />
+    <ClInclude Include="include\resources\LptaD3DTexture.h" />
+    <ClInclude Include="include\resources\LptaD3DTextureManager.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

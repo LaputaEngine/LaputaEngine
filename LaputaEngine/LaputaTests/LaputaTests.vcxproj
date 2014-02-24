@@ -52,7 +52,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\lib\gtest-1.7.0\include;$(SolutionDir)\Laputa3D\header;$(SolutionDir)\LaputaRenderer\header;$(SolutionDir)\LaputaD3D\header;$(DXSDK_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\lib\gtest-1.7.0\include;$(SolutionDir)\Laputa3D\include;$(SolutionDir)\LaputaRenderer\include;$(SolutionDir)\LaputaD3D\include;$(DXSDK_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

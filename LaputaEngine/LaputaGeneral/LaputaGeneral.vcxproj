@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="header\LptaStatusCodes.h" />
+    <ClInclude Include="include\LptaStatusCodes.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9F682FC7-AA12-4CE4-9951-F1F6E160CBF2}</ProjectGuid>
