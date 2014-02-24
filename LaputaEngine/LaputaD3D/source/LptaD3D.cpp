@@ -1,4 +1,4 @@
-#include "resource.h"
+#include <fstream>
 #include "LptaD3D.h"
 #include "LptaD3DConfig.h"
 #include "Lpta3D.h"
@@ -9,6 +9,7 @@
 #include "LptaRay.h"
 #include "LptaMatrix.h"
 #include "LptaD3DMatrix.h"
+#include "LptaD3DUtils.h"
 using lpta_3d::LptaVector;
 using lpta_3d::LptaNormalVector;
 using std::unique_ptr;
@@ -54,7 +55,68 @@ LptaD3D::~LptaD3D(void)
 {
     Release();
 }
+///////////////////////////////////////////////////////////////////////////
+// Shader Configuring
+/////////////////////////////////////////////////////////////////
+HRESULT LptaD3D::LoadShader(void *data)
+{
+    LPDIRECT3DVERTEXSHADER9 shader;
+    HRESULT result = d3ddev->CreateVertexShader(static_cast<DWORD *>(data), &shader);
+    // todo save shader program pointer somewhere
+    return SUCCEEDED(result)? S_OK : E_FAIL;
+}
 
+HRESULT LptaD3D::LoadShaderFromFile(const std::string &filename)
+{
+    HANDLE fileHandle = CreateFile(lpta_d3d_utils::ToUnicode(filename).c_str(), GENERIC_READ, 
+        false, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+    if (INVALID_HANDLE_VALUE == fileHandle) {
+        return E_FAIL;
+    }
+    
+    HANDLE fileMemMap = CreateFileMapping(fileHandle, 0, PAGE_READONLY, 0, 0, 0);
+    void *fileMapView = MapViewOfFile(fileMemMap, FILE_MAP_READ, 0, 0, 0);
+    HRESULT result = LoadShader(fileMapView);
+    
+    UnmapViewOfFile(fileMapView);   
+    CloseHandle(fileMemMap);
+    CloseHandle(fileHandle);
+
+    return S_OK;
+}
+
+HRESULT LptaD3D::LoadAndCompileShader(std::string shader)
+{
+    LPD3DXBUFFER compiled;
+    LPD3DXBUFFER errorMsg;
+    HRESULT assembleResult = D3DXAssembleShader(
+        shader.c_str(), shader.length() , NULL, NULL, 0, &compiled, &errorMsg); 
+
+    if (SUCCEEDED(assembleResult)) {
+        return LoadShader(compiled->GetBufferPointer());
+    }
+    else {
+        // log error
+        return E_FAIL;
+    }
+}
+
+HRESULT LptaD3D::LoadAndCompileShaderFromFile(const std::string &filename)
+{
+    LPD3DXBUFFER compiled;
+    LPD3DXBUFFER errorMsg;
+    HRESULT assembleResult = D3DXAssembleShaderFromFileW(
+        lpta_d3d_utils::ToUnicode(filename).c_str(), NULL, NULL, 0, &compiled, &errorMsg);
+    
+    if (SUCCEEDED(assembleResult)) {
+        return LoadShader(compiled->GetBufferPointer());
+    }
+    else {
+        // log error
+        return E_FAIL;
+    }
+}
+ 
 ///////////////////////////////////////////////////////////////////////////
 // Rendering
 /////////////////////////////////////////////////////////////////

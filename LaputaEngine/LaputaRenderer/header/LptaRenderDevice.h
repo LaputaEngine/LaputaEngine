@@ -56,6 +56,14 @@ public:
     virtual bool IsRunning(void) = 0;
 
     ///////////////////////////////////////////////////////////////////////////
+    // Shader Configuring
+    /////////////////////////////////////////////////////////////////
+    virtual HRESULT LoadShader(void *data) = 0;
+    virtual HRESULT LoadShaderFromFile(const std::string &filename) = 0;
+    virtual HRESULT LoadAndCompileShader(std::string shader) = 0;
+    virtual HRESULT LoadAndCompileShaderFromFile(const std::string &filename) = 0;
+ 
+    ///////////////////////////////////////////////////////////////////////////
     // Rendering
     /////////////////////////////////////////////////////////////////
     virtual HRESULT UseWindow(UINT) = 0;
