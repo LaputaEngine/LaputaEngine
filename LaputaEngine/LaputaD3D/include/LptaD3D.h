@@ -6,6 +6,7 @@
 #include "LptaSkinManager.h"
 #include "LptaMaterialManager.h"
 #include "resources/LptaD3DTextureManager.h"
+#include "resources/LptaD3DShaderManager.h"
 #include "LptaD3DConfig.h"
 #include "LptaRenderDeviceImpl.h"
 using std::unique_ptr;
@@ -98,6 +99,8 @@ private:
 
     LPDIRECT3DVERTEXDECLARATION9 declVertex;
     LPDIRECT3DVERTEXDECLARATION9 declLitVertex;
+
+    unique_ptr<LptaD3DShaderManager> shaderManager;
 
     D3DCOLOR clearColor;
     bool isSceneRunning;

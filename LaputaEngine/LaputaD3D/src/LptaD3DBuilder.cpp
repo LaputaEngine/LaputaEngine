@@ -91,6 +91,8 @@ HRESULT LptaD3DDeviceBuilder::Make(HWND hWnd, const vector<HWND> &childWnds, lpt
     d3dDevice->isUsingShader = InitShaderSupport(d3dDevice->d3ddev, 
         &d3dDevice->declVertex, &d3dDevice->declLitVertex);
     d3dDevice->d3ddev->SetFVF(NULL);
+    d3dDevice->shaderManager = 
+        unique_ptr<LptaD3DShaderManager>(new LptaD3DShaderManager(d3dDevice->d3ddev));
 
     d3dDevice->RunRenderer();
     *device = std::move(d3dDevice);

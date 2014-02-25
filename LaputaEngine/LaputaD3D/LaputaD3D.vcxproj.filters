@@ -19,6 +19,12 @@
     <Filter Include="Source Files\Adapter">
       <UniqueIdentifier>{f2aa6032-da99-4796-b9fe-0f1feead69f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Errors">
+      <UniqueIdentifier>{82a03806-bc91-4814-82a5-45ee872436fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Errors">
+      <UniqueIdentifier>{653bd09d-e82e-416f-8c26-5a95f4cb0853}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\adapter\AdapterInfo.cpp">
@@ -60,6 +66,15 @@
     <ClCompile Include="src\LptaD3DVertexCache.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\resources\LptaD3DShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resources\LptaD3DShaderManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resources\errors\ShaderCompileFail.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -99,6 +114,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\LptaD3DVertexCache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resources\LptaD3DShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resources\LptaD3DShaderManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resources\errors\ShaderCompileFail.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
