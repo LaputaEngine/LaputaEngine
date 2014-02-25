@@ -91,8 +91,10 @@
     <ClCompile Include="src\LptaD3DConfig_dlg.cpp" />
     <ClCompile Include="src\LptaD3DMatrix.cpp" />
     <ClCompile Include="src\resources\errors\ShaderCompileFail.cpp" />
-    <ClCompile Include="src\resources\LptaD3DShader.cpp" />
-    <ClCompile Include="src\resources\LptaD3DShaderManager.cpp" />
+    <ClCompile Include="src\resources\LptaD3DPixelShader.cpp" />
+    <ClCompile Include="src\resources\LptaD3DPixelShaderManager.cpp" />
+    <ClCompile Include="src\resources\LptaD3DVertexShader.cpp" />
+    <ClCompile Include="src\resources\LptaD3DVertexShaderManager.cpp" />
     <ClCompile Include="src\LptaD3DUtils.cpp" />
     <ClCompile Include="src\LptaD3D.cpp" />
     <ClCompile Include="src\LptaD3DVertexCache.cpp" />
@@ -109,8 +111,10 @@
     <ClInclude Include="include\LptaD3DConfig.h" />
     <ClInclude Include="include\LptaD3DMatrix.h" />
     <ClInclude Include="include\resources\errors\ShaderCompileFail.h" />
-    <ClInclude Include="include\resources\LptaD3DShader.h" />
-    <ClInclude Include="include\resources\LptaD3DShaderManager.h" />
+    <ClInclude Include="include\resources\LptaD3DPixelShader.h" />
+    <ClInclude Include="include\resources\LptaD3DPixelShaderManager.h" />
+    <ClInclude Include="include\resources\LptaD3DVertexShader.h" />
+    <ClInclude Include="include\resources\LptaD3DVertexShaderManager.h" />
     <ClInclude Include="include\LptaD3DUtils.h" />
     <ClInclude Include="include\LptaD3DVertexCache.h" />
     <ClInclude Include="include\resources\errors\TextureD3DFailure.h" />

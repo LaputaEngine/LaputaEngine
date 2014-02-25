@@ -1,11 +1,11 @@
 #include "LptaD3DUtils.h"
 #include "resources/errors/ShaderCompileFail.h"
-#include "resources/LptaD3DShaderManager.h"
+#include "resources/LptaD3DVertexShaderManager.h"
 
 namespace lpta_d3d
 {
 
-const std::string LptaD3DShaderManager::defaultShaderProgram = 
+const std::string LptaD3DVertexShaderManager::defaultShaderProgram = 
     "vs.1.1\n"
     "dcl_position0  v0\n"
     "dcl_normal0    v3\n"
@@ -17,19 +17,19 @@ const std::string LptaD3DShaderManager::defaultShaderProgram =
     "mov oD0, c4\n"
     "mov oT0, v6\n";
 
-LptaD3DShaderManager::LptaD3DShaderManager(LPDIRECT3DDEVICE9 d3ddev) : d3ddev(d3ddev)
+LptaD3DVertexShaderManager::LptaD3DVertexShaderManager(LPDIRECT3DDEVICE9 d3ddev) : d3ddev(d3ddev)
 {
     LPDIRECT3DVERTEXSHADER9 defaultShader = LoadAndCompileShader(defaultShaderProgram);
-    this->SetNullResource(LptaD3DShader(GetNextId(), defaultShader));
+    this->SetNullResource(LptaD3DVertexShader(GetNextId(), defaultShader));
 }
 
-LptaD3DShaderManager::~LptaD3DShaderManager(void)
+LptaD3DVertexShaderManager::~LptaD3DVertexShaderManager(void)
 {
     this->resources.clear();
 }
 
 // todo refactor, we can do this a lot cleaner after moving it away from the d3d device class
-LPDIRECT3DVERTEXSHADER9 LptaD3DShaderManager::LoadShader(void *data)
+LPDIRECT3DVERTEXSHADER9 LptaD3DVertexShaderManager::LoadShader(void *data)
 {
     LPDIRECT3DVERTEXSHADER9 shader;
     HRESULT result = d3ddev->CreateVertexShader(static_cast<DWORD *>(data), &shader);
@@ -42,7 +42,7 @@ LPDIRECT3DVERTEXSHADER9 LptaD3DShaderManager::LoadShader(void *data)
     }
 }
 
-LPDIRECT3DVERTEXSHADER9 LptaD3DShaderManager::LoadShaderFromFile(const std::string &filename)
+LPDIRECT3DVERTEXSHADER9 LptaD3DVertexShaderManager::LoadShaderFromFile(const std::string &filename)
 {
     HANDLE fileHandle = CreateFile(lpta_d3d_utils::ToWChar(filename).c_str(), GENERIC_READ, 
         false, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
@@ -61,7 +61,7 @@ LPDIRECT3DVERTEXSHADER9 LptaD3DShaderManager::LoadShaderFromFile(const std::stri
     return shader;
 }
 
-LPDIRECT3DVERTEXSHADER9 LptaD3DShaderManager::LoadAndCompileShader(std::string shader)
+LPDIRECT3DVERTEXSHADER9 LptaD3DVertexShaderManager::LoadAndCompileShader(std::string shader)
 {
     LPD3DXBUFFER compiled;
     LPD3DXBUFFER errorMsg;
@@ -76,7 +76,7 @@ LPDIRECT3DVERTEXSHADER9 LptaD3DShaderManager::LoadAndCompileShader(std::string s
     }
 }
 
-LPDIRECT3DVERTEXSHADER9 LptaD3DShaderManager::LoadAndCompileShaderFromFile(const std::string &filename)
+LPDIRECT3DVERTEXSHADER9 LptaD3DVertexShaderManager::LoadAndCompileShaderFromFile(const std::string &filename)
 {
     LPD3DXBUFFER compiled;
     LPD3DXBUFFER errorMsg;

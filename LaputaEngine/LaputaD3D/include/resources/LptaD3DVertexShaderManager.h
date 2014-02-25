@@ -3,17 +3,17 @@
 
 #include <d3d9.h>
 #include <d3dx9.h>
-#include "LptaD3DShader.h"
+#include "LptaD3DVertexShader.h"
 #include "LptaResourceManager.h"
 
 namespace lpta_d3d
 {
 
-class LptaD3DShaderManager : public lpta::LptaResourceManager<LptaD3DShader>
+class LptaD3DVertexShaderManager : public lpta::LptaResourceManager<LptaD3DVertexShader>
 {
 public:
-    LptaD3DShaderManager(LPDIRECT3DDEVICE9 d3ddev);
-    ~LptaD3DShaderManager(void);
+    LptaD3DVertexShaderManager(LPDIRECT3DDEVICE9 d3ddev);
+    ~LptaD3DVertexShaderManager(void);
 
     // todo refine these function definitions
     LPDIRECT3DVERTEXSHADER9 LoadShader(void *data);
