@@ -25,25 +25,22 @@
     <Filter Include="Source Files\Errors">
       <UniqueIdentifier>{653bd09d-e82e-416f-8c26-5a95f4cb0853}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Resources">
+      <UniqueIdentifier>{c7cd0214-27b8-461b-b950-0f05501accc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Resources\Errors">
+      <UniqueIdentifier>{bbe17437-5acf-429a-96d8-a6594fe1df34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Resources">
+      <UniqueIdentifier>{c3936353-a099-46c5-ba9f-d85a5abcbaf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Resources\Errors">
+      <UniqueIdentifier>{339e1a92-7e6b-4080-a4c2-40a7084db361}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\adapter\AdapterInfo.cpp">
       <Filter>Source Files\Adapter</Filter>
-    </ClCompile>
-    <ClCompile Include="src\resources\errors\TextureD3DFailure.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\resources\errors\TextureError.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\resources\errors\TextureFileNotFound.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\resources\LptaD3DTexture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\resources\LptaD3DTextureManager.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\LptaD3D.cpp">
       <Filter>Source Files</Filter>
@@ -66,20 +63,35 @@
     <ClCompile Include="src\LptaD3DVertexCache.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\resources\errors\TextureFileNotFound.cpp">
+      <Filter>Source Files\Resources\Errors</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resources\errors\TextureD3DFailure.cpp">
+      <Filter>Source Files\Resources\Errors</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resources\errors\TextureError.cpp">
+      <Filter>Source Files\Resources\Errors</Filter>
+    </ClCompile>
     <ClCompile Include="src\resources\errors\ShaderCompileFail.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Resources\Errors</Filter>
     </ClCompile>
     <ClCompile Include="src\resources\LptaD3DVertexShaderManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Resources</Filter>
     </ClCompile>
     <ClCompile Include="src\resources\LptaD3DVertexShader.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="src\resources\LptaD3DPixelShader.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\resources\LptaD3DTextureManager.cpp">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resources\LptaD3DTexture.cpp">
+      <Filter>Source Files\Resources</Filter>
     </ClCompile>
     <ClCompile Include="src\resources\LptaD3DPixelShaderManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resources\LptaD3DPixelShader.cpp">
+      <Filter>Source Files\Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -88,21 +100,6 @@
     </ClInclude>
     <ClInclude Include="include\adapter\AdapterInfo.h">
       <Filter>Header Files\Adapter</Filter>
-    </ClInclude>
-    <ClInclude Include="include\resources\errors\TextureD3DFailure.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\resources\errors\TextureError.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\resources\errors\TextureFileNotFound.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\resources\LptaD3DTexture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\resources\LptaD3DTextureManager.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\LptaD3D.h">
       <Filter>Header Files</Filter>
@@ -123,22 +120,37 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\resources\errors\ShaderCompileFail.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Resources\Errors</Filter>
     </ClInclude>
-    <ClInclude Include="include\resources\LptaD3DPixelShader.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\resources\errors\TextureD3DFailure.h">
+      <Filter>Header Files\Resources\Errors</Filter>
     </ClInclude>
-    <ClInclude Include="include\resources\LptaD3DPixelShaderManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\resources\errors\TextureError.h">
+      <Filter>Header Files\Resources\Errors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resources\errors\TextureFileNotFound.h">
+      <Filter>Header Files\Resources\Errors</Filter>
     </ClInclude>
     <ClInclude Include="include\resources\LptaD3DVertexShader.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Resources</Filter>
     </ClInclude>
     <ClInclude Include="include\resources\LptaD3DVertexShaderManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resources\LptaD3DTextureManager.h">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resources\LptaD3DTexture.h">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resources\LptaD3DPixelShaderManager.h">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resources\LptaD3DPixelShader.h">
+      <Filter>Header Files\Resources</Filter>
     </ClInclude>
     <ClInclude Include="include\resources\LptaD3DShaderManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
