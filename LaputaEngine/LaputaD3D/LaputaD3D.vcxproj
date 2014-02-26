@@ -123,6 +123,7 @@
     <ClInclude Include="include\resources\LptaD3DTexture.h" />
     <ClInclude Include="include\resources\LptaD3DTextureManager.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="include\resources\LptaD3DShaderManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="dlgChangeDevice.rc" />

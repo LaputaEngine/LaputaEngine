@@ -3,6 +3,7 @@
 #include <memory>
 #include <vector>
 #include <Windows.h>
+#include "LptaResource.h"
 using std::vector;
 
 namespace lpta_3d
@@ -36,6 +37,8 @@ typedef enum RENDER_MODE_TYPE
 } RENDER_MODE;
 
 typedef unsigned int RENDER_STAGE;
+typedef LptaResource::ID VERTEX_SHADER_ID;
+typedef LptaResource::ID PIXEL_SHADER_ID;
 
 const float CLIPPING_PLANE_MIN = 0.01f;
 const float CLIPPING_PLANE_MAX = 1.0f;
@@ -58,10 +61,16 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // Shader Configuring
     /////////////////////////////////////////////////////////////////
-    virtual HRESULT LoadShader(void *data) = 0;
-    virtual HRESULT LoadShaderFromFile(const std::string &filename) = 0;
-    virtual HRESULT LoadAndCompileShader(std::string shader) = 0;
-    virtual HRESULT LoadAndCompileShaderFromFile(const std::string &filename) = 0;
+    virtual VERTEX_SHADER_ID LoadVertexShader(void *data) = 0;
+    virtual VERTEX_SHADER_ID LoadVertexShaderFromFile(const std::string &filename) = 0;
+    virtual VERTEX_SHADER_ID LoadAndCompileVertexShader(const std::string& shader) = 0;
+    virtual VERTEX_SHADER_ID LoadAndCompileVertexShaderFromFile(const std::string &filename) = 0;
+/*
+    virtual PIXEL_SHADER_ID LoadPixelShader(void *data) = 0;
+    virtual PIXEL_SHADER_ID LoadPixelShaderFromFile(const std::string &filename) = 0;
+    virtual PIXEL_SHADER_ID LoadAndCompilePixelShader(const std::string& shader) = 0;
+    virtual PIXEL_SHADER_ID LoadAndCompilePixelShaderFromFile(const std::string &filename) = 0;
+*/
  
     ///////////////////////////////////////////////////////////////////////////
     // Rendering

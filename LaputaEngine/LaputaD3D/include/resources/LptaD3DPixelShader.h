@@ -3,6 +3,8 @@
 
 #include <d3d9.h>
 #include "LptaResource.h"
+#include "LptaD3DPixelShader.h"
+#include "LptaD3DShaderManager.h"
 
 namespace lpta_d3d
 {
@@ -10,7 +12,7 @@ namespace lpta_d3d
 class LptaD3DPixelShader : public lpta::LptaResource
 {
 public:
-    typedef LptaResource::ID PIXEL_SHADER_ID;
+    typedef lpta::LptaResource::ID PIXEL_SHADER_ID;
 
 public:
     LptaD3DPixelShader(PIXEL_SHADER_ID id, LPDIRECT3DPIXELSHADER9 shader);

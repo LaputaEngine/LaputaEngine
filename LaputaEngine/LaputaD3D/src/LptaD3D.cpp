@@ -59,64 +59,47 @@ LptaD3D::~LptaD3D(void)
 // Shader Configuring
 /////////////////////////////////////////////////////////////////
 // todo make these use the shader manager to load data
-HRESULT LptaD3D::LoadShader(void *data)
+lpta::VERTEX_SHADER_ID LptaD3D::LoadVertexShader(void *data)
 {
-    LPDIRECT3DVERTEXSHADER9 shader;
-    HRESULT result = d3ddev->CreateVertexShader(static_cast<DWORD *>(data), &shader);
-    // todo save shader program pointer somewhere
-    return SUCCEEDED(result)? S_OK : E_FAIL;
+    return vertexShaderManager->AddShader(data);
 }
 
-HRESULT LptaD3D::LoadShaderFromFile(const std::string &filename)
+lpta::VERTEX_SHADER_ID LptaD3D::LoadVertexShaderFromFile(const std::string &filename)
 {
-    HANDLE fileHandle = CreateFile(lpta_d3d_utils::ToWChar(filename).c_str(), GENERIC_READ, 
-        false, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-    if (INVALID_HANDLE_VALUE == fileHandle) {
-        return E_FAIL;
-    }
-    
-    HANDLE fileMemMap = CreateFileMapping(fileHandle, 0, PAGE_READONLY, 0, 0, 0);
-    void *fileMapView = MapViewOfFile(fileMemMap, FILE_MAP_READ, 0, 0, 0);
-    HRESULT result = LoadShader(fileMapView);
-    
-    UnmapViewOfFile(fileMapView);   
-    CloseHandle(fileMemMap);
-    CloseHandle(fileHandle);
-
-    return S_OK;
+    return vertexShaderManager->AddShaderFromFile(filename);
 }
 
-HRESULT LptaD3D::LoadAndCompileShader(std::string shader)
+lpta::VERTEX_SHADER_ID LptaD3D::LoadAndCompileVertexShader(const std::string &program)
 {
-    LPD3DXBUFFER compiled;
-    LPD3DXBUFFER errorMsg;
-    HRESULT assembleResult = D3DXAssembleShader(
-        shader.c_str(), shader.length() , NULL, NULL, 0, &compiled, &errorMsg); 
-
-    if (SUCCEEDED(assembleResult)) {
-        return LoadShader(compiled->GetBufferPointer());
-    }
-    else {
-        // log error
-        return E_FAIL;
-    }
+    return vertexShaderManager->CompileAddShader(program);
 }
 
-HRESULT LptaD3D::LoadAndCompileShaderFromFile(const std::string &filename)
+lpta::VERTEX_SHADER_ID LptaD3D::LoadAndCompileVertexShaderFromFile(const std::string &filename)
 {
-    LPD3DXBUFFER compiled;
-    LPD3DXBUFFER errorMsg;
-    HRESULT assembleResult = D3DXAssembleShaderFromFileW(
-        lpta_d3d_utils::ToWChar(filename).c_str(), NULL, NULL, 0, &compiled, &errorMsg);
-    
-    if (SUCCEEDED(assembleResult)) {
-        return LoadShader(compiled->GetBufferPointer());
-    }
-    else {
-        // log error
-        return E_FAIL;
-    }
+    return vertexShaderManager->CompileAddShaderFromFile(filename);
 }
+
+/*
+lpta::PIXEL_SHADER_ID LoadPixelShader(void *data)
+{
+    return 0;
+}
+
+lpta::PIXEL_SHADER_ID LoadPixelShaderFromFile(const std::string &filename)
+{
+    return 0;
+}
+
+lpta::PIXEL_SHADER_ID LoadAndCompilePixelShader(const std::string &program)
+{
+    return 0;
+}
+
+lpta::PIXEL_SHADER_ID LoadAndCompilePixelShaderFromFile(const std::string &filename)
+{
+    return 0;
+}
+*/
  
 ///////////////////////////////////////////////////////////////////////////
 // Rendering

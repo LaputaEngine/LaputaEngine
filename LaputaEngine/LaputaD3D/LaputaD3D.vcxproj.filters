@@ -137,6 +137,9 @@
     <ClInclude Include="include\resources\LptaD3DVertexShaderManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\resources\LptaD3DShaderManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="dlgChangeDevice.rc">
