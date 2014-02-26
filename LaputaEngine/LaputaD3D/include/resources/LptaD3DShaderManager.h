@@ -90,8 +90,7 @@ template <class ResourceT, class DxT, class DerivedT>
 DxT LptaD3DShaderManager<ResourceT, DxT, DerivedT>::Load(void *program)
 {
     DxT shader;
-    HRESULT result = static_cast<DerivedT *>(this)->D3DCreateShader(
-        static_cast<DWORD *>(program), &shader);
+    HRESULT result = this->D3DCreateShader(static_cast<DWORD *>(program), &shader);
     // todo save shader program pointer somewhere
     if (SUCCEEDED(result)) {
         return shader;

@@ -3,7 +3,6 @@
 
 #include <d3d9.h>
 #include "LptaResource.h"
-#include "LptaD3DPixelShader.h"
 #include "LptaD3DShaderManager.h"
 
 namespace lpta_d3d
