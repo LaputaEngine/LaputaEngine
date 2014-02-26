@@ -8,15 +8,15 @@
 namespace lpta_d3d
 {
 
-class LptaD3DPixelShaderManager : public LptaD3DShaderManager<LptaD3DPixelShader,
-    LPDIRECT3DPIXELSHADER9, LptaD3DPixelShaderManager>
+class LptaD3DPixelShaderManager : public LptaD3DShaderManager<LptaD3DPixelShader, 
+    LPDIRECT3DPIXELSHADER9>
 {
 public:
     LptaD3DPixelShaderManager(LPDIRECT3DDEVICE9 d3ddev);
     ~LptaD3DPixelShaderManager(void);
 
 protected:
-    template <class ResourceT, class DxT, class DervivedT>
+    template <class ResourceT, class DxT>
     friend class LptaD3DShaderManager;
     HRESULT D3DCreateShader(DWORD *shader, LPDIRECT3DPIXELSHADER9 *handle);
 

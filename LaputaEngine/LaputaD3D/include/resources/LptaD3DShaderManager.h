@@ -10,7 +10,7 @@
 namespace lpta_d3d
 {
 
-template <class ResourceT, class DxT, class DerivedT>
+template <class ResourceT, class DxT>
 class LptaD3DShaderManager : public lpta::LptaResourceManager<ResourceT>
 {
 public:
@@ -32,8 +32,8 @@ protected:
 ///////////////////////////////////////////////////////////////////////////////
 // public
 ///////////////////////////////////////////////////////////
-template <class ResourceT, class DxT, class DerivedT>
-lpta::LptaResource::ID LptaD3DShaderManager<ResourceT, DxT, DerivedT>::AddShader(void *data)
+template <class ResourceT, class DxT>
+lpta::LptaResource::ID LptaD3DShaderManager<ResourceT, DxT>::AddShader(void *data)
 {
     try {
         ResourceT shader(GetNextId(), Load(data));
@@ -44,8 +44,8 @@ lpta::LptaResource::ID LptaD3DShaderManager<ResourceT, DxT, DerivedT>::AddShader
     }
 }
 
-template <class ResourceT, class DxT, class DerivedT>
-lpta::LptaResource::ID LptaD3DShaderManager<ResourceT, DxT, DerivedT>::AddShaderFromFile(
+template <class ResourceT, class DxT>
+lpta::LptaResource::ID LptaD3DShaderManager<ResourceT, DxT>::AddShaderFromFile(
     const std::string &filename)
 {
     try {
@@ -57,8 +57,8 @@ lpta::LptaResource::ID LptaD3DShaderManager<ResourceT, DxT, DerivedT>::AddShader
     }
 }
 
-template <class ResourceT, class DxT, class DerivedT>
-lpta::LptaResource::ID LptaD3DShaderManager<ResourceT, DxT, DerivedT>::CompileAddShader(
+template <class ResourceT, class DxT>
+lpta::LptaResource::ID LptaD3DShaderManager<ResourceT, DxT>::CompileAddShader(
     const std::string &program)
 {
     try {
@@ -70,8 +70,8 @@ lpta::LptaResource::ID LptaD3DShaderManager<ResourceT, DxT, DerivedT>::CompileAd
     }
 }
 
-template <class ResourceT, class DxT, class DerivedT>
-lpta::LptaResource::ID LptaD3DShaderManager<ResourceT, DxT, DerivedT>::CompileAddShaderFromFile(
+template <class ResourceT, class DxT>
+lpta::LptaResource::ID LptaD3DShaderManager<ResourceT, DxT>::CompileAddShaderFromFile(
     const std::string &filename)
 {
     try {
@@ -86,8 +86,8 @@ lpta::LptaResource::ID LptaD3DShaderManager<ResourceT, DxT, DerivedT>::CompileAd
 ///////////////////////////////////////////////////////////////////////////////
 // protected
 ///////////////////////////////////////////////////////////
-template <class ResourceT, class DxT, class DerivedT>
-DxT LptaD3DShaderManager<ResourceT, DxT, DerivedT>::Load(void *program)
+template <class ResourceT, class DxT>
+DxT LptaD3DShaderManager<ResourceT, DxT>::Load(void *program)
 {
     DxT shader;
     HRESULT result = this->D3DCreateShader(static_cast<DWORD *>(program), &shader);
@@ -100,8 +100,8 @@ DxT LptaD3DShaderManager<ResourceT, DxT, DerivedT>::Load(void *program)
     }
 }
 
-template <class ResourceT, class DxT, class DerivedT>
-DxT LptaD3DShaderManager<ResourceT, DxT, DerivedT>::LoadFromFile(const std::string &filename)
+template <class ResourceT, class DxT>
+DxT LptaD3DShaderManager<ResourceT, DxT>::LoadFromFile(const std::string &filename)
 {
     HANDLE fileHandle = CreateFile(lpta_d3d_utils::ToWChar(filename).c_str(), GENERIC_READ, 
         false, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
@@ -120,8 +120,8 @@ DxT LptaD3DShaderManager<ResourceT, DxT, DerivedT>::LoadFromFile(const std::stri
     return shader;
 }
 
-template <class ResourceT, class DxT, class DerivedT>
-DxT LptaD3DShaderManager<ResourceT, DxT, DerivedT>::LoadAndCompile(const std::string &shader)
+template <class ResourceT, class DxT>
+DxT LptaD3DShaderManager<ResourceT, DxT>::LoadAndCompile(const std::string &shader)
 {
     LPD3DXBUFFER compiled;
     LPD3DXBUFFER errorMsg;
@@ -136,8 +136,8 @@ DxT LptaD3DShaderManager<ResourceT, DxT, DerivedT>::LoadAndCompile(const std::st
     }
 }
 
-template <class ResourceT, class DxT, class DerivedT>
-DxT LptaD3DShaderManager<ResourceT, DxT, DerivedT>::LoadAndCompileFromFile(const std::string &filename)
+template <class ResourceT, class DxT>
+DxT LptaD3DShaderManager<ResourceT, DxT>::LoadAndCompileFromFile(const std::string &filename)
 {
     LPD3DXBUFFER compiled;
     LPD3DXBUFFER errorMsg;

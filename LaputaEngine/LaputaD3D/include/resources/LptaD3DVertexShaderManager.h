@@ -10,15 +10,14 @@ namespace lpta_d3d
 {
 
 class LptaD3DVertexShaderManager : 
-    public LptaD3DShaderManager<LptaD3DVertexShader, 
-    LPDIRECT3DVERTEXSHADER9, LptaD3DVertexShaderManager>
+    public LptaD3DShaderManager<LptaD3DVertexShader, LPDIRECT3DVERTEXSHADER9>
 {
 public:
     LptaD3DVertexShaderManager(LPDIRECT3DDEVICE9 d3ddev);
     ~LptaD3DVertexShaderManager(void);
 
 protected:
-    template<class ResourceT, class DxT, class DerivedT>
+    template<class ResourceT, class DxT>
     friend class LptaD3DShaderManager;
     HRESULT D3DCreateShader(DWORD *shader, LPDIRECT3DVERTEXSHADER9 *handle);
 
