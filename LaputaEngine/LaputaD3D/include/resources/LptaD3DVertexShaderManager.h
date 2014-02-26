@@ -17,8 +17,6 @@ public:
     ~LptaD3DVertexShaderManager(void);
 
 protected:
-    template<class ResourceT, class DxT>
-    friend class LptaD3DShaderManager;
     HRESULT D3DCreateShader(DWORD *shader, LPDIRECT3DVERTEXSHADER9 *handle);
 
 private:

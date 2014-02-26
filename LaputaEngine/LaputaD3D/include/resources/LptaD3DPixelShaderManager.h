@@ -16,8 +16,6 @@ public:
     ~LptaD3DPixelShaderManager(void);
 
 protected:
-    template <class ResourceT, class DxT>
-    friend class LptaD3DShaderManager;
     HRESULT D3DCreateShader(DWORD *shader, LPDIRECT3DPIXELSHADER9 *handle);
 
 private:
