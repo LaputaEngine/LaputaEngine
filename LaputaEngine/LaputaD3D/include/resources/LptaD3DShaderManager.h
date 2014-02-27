@@ -14,6 +14,8 @@ template <class ResourceT, class DxT>
 class LptaD3DShaderManager : public lpta::LptaResourceManager<ResourceT>
 {
 public:
+    const ResourceT &RetreiveShader(lpta::LptaResource::ID shaderId) const;
+    
     lpta::LptaResource::ID CompileAddShader(const std::string &program);
 
 protected:
@@ -26,6 +28,13 @@ protected:
 ///////////////////////////////////////////////////////////////////////////////
 // public
 ///////////////////////////////////////////////////////////
+template <class ResourceT, class DxT>
+const ResourceT &LptaD3DShaderManager<ResourceT, DxT>::RetreiveShader(
+    lpta::LptaResource::ID shaderId)
+{
+    return this->RetrieveResource(shaderId);
+}
+
 template <class ResourceT, class DxT>
 lpta::LptaResource::ID LptaD3DShaderManager<ResourceT, DxT>::CompileAddShader(
     const std::string &program)

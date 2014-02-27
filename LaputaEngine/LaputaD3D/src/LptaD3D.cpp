@@ -59,32 +59,36 @@ LptaD3D::~LptaD3D(void)
 // Shader Configuring
 /////////////////////////////////////////////////////////////////
 // todo make these use the shader manager to load data
-lpta::VERTEX_SHADER_ID LptaD3D::LoadAndCompileVertexShader(const std::string &program)
+lpta::VERTEX_SHADER_ID LptaD3D::AddVertexShader(const std::string &program)
 {
     return vertexShaderManager->CompileAddShader(program);
 }
 
-/*
-lpta::PIXEL_SHADER_ID LoadPixelShader(void *data)
+HRESULT LptaD3D::ActivateVertexShader(lpta::VERTEX_SHADER_ID shaderId)
 {
-    return 0;
+    if (!isUsingShader) {
+        return E_FAIL;
+    }
+    const LptaD3DVertexShader &shader = vertexShaderManager->RetreiveShader(shaderId);
+    // todo flush vcache
+
+    return SUCCEEDED(d3ddev->SetVertexShader(shader.GetVertexShader()))? S_OK : E_FAIL;
 }
 
-lpta::PIXEL_SHADER_ID LoadPixelShaderFromFile(const std::string &filename)
+lpta::PIXEL_SHADER_ID LptaD3D::AddPixelShader(const std::string &program)
 {
-    return 0;
+    return pixelShaderManager->CompileAddShader(program);
 }
 
-lpta::PIXEL_SHADER_ID LoadAndCompilePixelShader(const std::string &program)
+HRESULT LptaD3D::ActivatePixelShader(lpta::PIXEL_SHADER_ID shaderId)
 {
-    return 0;
-}
+    if (!isUsingShader) {
+        return E_FAIL;
+    }
+    const LptaD3DPixelShader &shader = pixelShaderManager->RetreiveShader(shaderId);
 
-lpta::PIXEL_SHADER_ID LoadAndCompilePixelShaderFromFile(const std::string &filename)
-{
-    return 0;
+    return SUCCEEDED(d3ddev->SetPixelShader(shader.GetPixelShader()))? S_OK : E_FAIL;
 }
-*/
  
 ///////////////////////////////////////////////////////////////////////////
 // Rendering

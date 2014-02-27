@@ -61,13 +61,11 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // Shader Configuring
     /////////////////////////////////////////////////////////////////
-    virtual VERTEX_SHADER_ID LoadAndCompileVertexShader(const std::string& shader) = 0;
-/*
-    virtual PIXEL_SHADER_ID LoadPixelShader(void *data) = 0;
-    virtual PIXEL_SHADER_ID LoadPixelShaderFromFile(const std::string &filename) = 0;
-    virtual PIXEL_SHADER_ID LoadAndCompilePixelShader(const std::string& shader) = 0;
-    virtual PIXEL_SHADER_ID LoadAndCompilePixelShaderFromFile(const std::string &filename) = 0;
-*/
+    virtual VERTEX_SHADER_ID AddVertexShader(const std::string &program) = 0;
+    virtual HRESULT ActivateVertexShader(VERTEX_SHADER_ID shaderId) = 0;
+
+    virtual PIXEL_SHADER_ID AddPixelShader(const std::string &program) = 0;
+    virtual HRESULT ActivatePixelShader(PIXEL_SHADER_ID shaderId) = 0;
  
     ///////////////////////////////////////////////////////////////////////////
     // Rendering
