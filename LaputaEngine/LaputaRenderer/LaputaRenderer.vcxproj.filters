@@ -48,6 +48,9 @@
     <ClCompile Include="src\LptaViewport.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\vertices\LptaVertexCollection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\errors\ImproperResourceManager.h">
@@ -99,6 +102,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\renderer\RenderStates.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LptaVertexCacheManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vertices\LptaVertexCollection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
