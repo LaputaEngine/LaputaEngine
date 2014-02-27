@@ -4,6 +4,7 @@
 #include <vector>
 #include <Windows.h>
 #include "LptaResource.h"
+#include "renderer/RenderStates.h"
 using std::vector;
 
 namespace lpta_3d
@@ -22,6 +23,7 @@ namespace lpta
 {
 
 class LptaViewport;
+class LptaColor;
 
 typedef struct CLIPPING_PLANES_TYPE
 {
@@ -95,6 +97,13 @@ public:
     virtual HRESULT SetMode2D(void) = 0;
     virtual HRESULT SetMode3D(RENDER_STAGE stage, RENDER_MODE mode) = 0;
     virtual HRESULT InitStage(float fov, const LptaViewport &viewport, RENDER_STAGE stage) = 0;
+
+    virtual void SetCullingMode(RENDER_CULL_MODE cullMode) = 0;
+    virtual void SetZBufferMode(RENDER_DEPTH_MODE depthMode) = 0;
+    virtual void SetShadeMode(RENDER_SHADE_MODE shadeMode, const LptaColor &wireColor) = 0;
+    virtual void SetShadeMode(RENDER_SHADE_MODE shadeMode) = 0;
+    virtual void SetPointMode(RENDER_POINT_MODE pointMode) = 0;
+    virtual void SetPointMode(RENDER_POINT_MODE pointMode, float pointSize) = 0;
 
     ///////////////////////////////////////////////////////////////////////////
     // Conversions

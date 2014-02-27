@@ -30,6 +30,7 @@
     <ClCompile Include="src\LptaSkinManager.cpp" />
     <ClInclude Include="include\LptaTextureManager.h" />
     <ClInclude Include="include\LptaViewport.h" />
+    <ClInclude Include="include\renderer\RenderStates.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\LptaColor.h" />

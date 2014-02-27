@@ -1,4 +1,5 @@
 #include <fstream>
+#include <Windows.h>
 #include "LptaD3D.h"
 #include "LptaD3DConfig.h"
 #include "Lpta3D.h"
@@ -451,6 +452,117 @@ HRESULT LptaD3D::InitStage(float fov, const lpta::LptaViewport &viewport, lpta::
     orthogonals.at(stage)._43 = -clippingPlanes.planeNear * orthogonals.at(stage)._33;
     orthogonals.at(stage)._44 = 1.0f;
     return S_OK;
+}
+
+
+void LptaD3D::SetCullingMode(lpta::RENDER_CULL_MODE cullMode)
+{
+    using lpta::RENDER_CULL_MODE;
+
+    // todo flush vcache
+    switch (cullMode) {
+    case RENDER_CULL_MODE::RS_CULL_CW:
+        d3ddev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
+        break;
+    case RENDER_CULL_MODE::RS_CULL_CCW:
+        d3ddev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+        break;
+    case RENDER_CULL_MODE::RS_CULL_NONE:
+        d3ddev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+        break;
+    default:
+        // log error
+        ;
+    }
+}
+
+void LptaD3D::SetZBufferMode(lpta::RENDER_DEPTH_MODE depthMode)
+{
+    using lpta::RENDER_DEPTH_MODE;
+    // todo flush vcache
+
+    switch (depthMode) {
+    case RENDER_DEPTH_MODE::RS_DEPTH_READWRTE:
+        d3ddev->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+        d3ddev->SetRenderState(D3DRS_ZWRITEENABLE, D3DZB_TRUE);
+        break;
+    case RENDER_DEPTH_MODE::RS_DEPTH_READONLY:
+        d3ddev->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+        d3ddev->SetRenderState(D3DRS_ZWRITEENABLE, D3DZB_FALSE);
+        break;
+    case RENDER_DEPTH_MODE::RS_DEPTH_NONE:
+        d3ddev->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
+        d3ddev->SetRenderState(D3DRS_ZWRITEENABLE, D3DZB_FALSE);
+        break;
+    default:
+        // log error
+        ;
+    }
+}
+
+void LptaD3D::SetShadeMode(lpta::RENDER_SHADE_MODE shadeMode, const lpta::LptaColor &wireColor)
+{
+    this->wireColor = wireColor;
+    // todo invalidate states
+    SetShadeMode(shadeMode);
+}
+void LptaD3D::SetShadeMode(lpta::RENDER_SHADE_MODE shadeMode)
+{
+    using lpta::RENDER_SHADE_MODE;
+    // todo flush vcache
+
+    switch (shadeMode) {
+    case RENDER_SHADE_MODE::RS_SHADE_TRIWIRE:
+        d3ddev->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+        break;
+    case RENDER_SHADE_MODE::RS_SHADE_HULLWIRE:
+        // todo: the book mentions something funny going on with this mode, but hasn't
+        // shown it yet
+        // fallthrough
+    case RENDER_SHADE_MODE::RS_SHADE_SOLID:
+        d3ddev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+        break;
+    default:
+        // log error
+        ;
+    }
+
+    // todo invalidate states?
+}
+
+void LptaD3D::SetPointMode(lpta::RENDER_POINT_MODE pointMode)
+{
+    SetPointMode(pointMode, 0.0f);
+}
+void LptaD3D::SetPointMode(lpta::RENDER_POINT_MODE pointMode, float pointSize)
+{
+    using lpta::RENDER_POINT_MODE;
+    using lpta_d3d_utils::FloatToDWORD;
+    // todo flush vcache
+
+    switch (pointMode) {
+    case RENDER_POINT_MODE::RS_POINT_SPRITE:
+        if (!(pointSize > 0.0f)) {
+            // log error
+            break;
+        }
+        d3ddev->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE);
+        d3ddev->SetRenderState(D3DRS_POINTSCALEENABLE, TRUE);
+        d3ddev->SetRenderState(D3DRS_POINTSIZE, FloatToDWORD(pointSize));
+        d3ddev->SetRenderState(D3DRS_POINTSIZE_MIN, FloatToDWORD(0.0f));
+        d3ddev->SetRenderState(D3DRS_POINTSCALE_A, FloatToDWORD(0.0f));
+        d3ddev->SetRenderState(D3DRS_POINTSCALE_B, FloatToDWORD(0.0f));
+        d3ddev->SetRenderState(D3DRS_POINTSCALE_C, FloatToDWORD(1.0f));
+        break;
+    case RENDER_POINT_MODE::RS_POINT_NONE:
+        d3ddev->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE);
+        d3ddev->SetRenderState(D3DRS_POINTSCALEENABLE, FALSE);
+        break;
+    default:
+        // log error
+        ;
+    }
+    // todo invalidate states?
 }
 
 ///////////////////////////////////////////////////////////////////////////

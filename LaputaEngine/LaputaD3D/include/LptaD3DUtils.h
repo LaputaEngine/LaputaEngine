@@ -7,6 +7,11 @@
 
 namespace lpta_d3d_utils {
 
+inline DWORD FloatToDWORD(float f)
+{
+    return *reinterpret_cast<DWORD *>(&f);
+}
+
 unsigned int GetBitsFor(D3DFORMAT format);
 std::string GetTitleFor(D3DDEVTYPE deviceType);
 

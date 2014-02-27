@@ -1,6 +1,7 @@
 #ifndef _LPTAD3D_H_
 #define _LPTAD3D_H_
 
+#include <d3d9.h>
 #include <d3dx9.h>
 #include "LptaMaterialManager.h"
 #include "LptaSkinManager.h"
@@ -75,6 +76,13 @@ public:
     virtual HRESULT InitStage(float fov, const lpta::LptaViewport &viewport, 
         lpta::RENDER_STAGE stage);
 
+    virtual void SetCullingMode(lpta::RENDER_CULL_MODE cullMode);
+    virtual void SetZBufferMode(lpta::RENDER_DEPTH_MODE depthMode);
+    virtual void SetShadeMode(lpta::RENDER_SHADE_MODE shadeMode, const lpta::LptaColor &wireColor);
+    virtual void SetShadeMode(lpta::RENDER_SHADE_MODE shadeMode);
+    virtual void SetPointMode(lpta::RENDER_POINT_MODE pointMode);
+    virtual void SetPointMode(lpta::RENDER_POINT_MODE pointMode, float pointSize);
+
     ///////////////////////////////////////////////////////////////////////////
     // Conversions
     /////////////////////////////////////////////////////////////////
@@ -108,6 +116,8 @@ private:
     D3DCOLOR clearColor;
     bool isSceneRunning;
     bool isUsingShader;
+
+    lpta::LptaColor wireColor;
 
     D3DXMATRIX view2D;
     D3DXMATRIX view3D;

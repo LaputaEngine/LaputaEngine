@@ -30,7 +30,7 @@ protected:
 ///////////////////////////////////////////////////////////
 template <class ResourceT, class DxT>
 const ResourceT &LptaD3DShaderManager<ResourceT, DxT>::RetreiveShader(
-    lpta::LptaResource::ID shaderId)
+    lpta::LptaResource::ID shaderId) const
 {
     return this->RetrieveResource(shaderId);
 }
