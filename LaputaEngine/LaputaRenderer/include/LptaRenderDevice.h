@@ -61,10 +61,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // Shader Configuring
     /////////////////////////////////////////////////////////////////
-    virtual VERTEX_SHADER_ID LoadVertexShader(void *data) = 0;
-    virtual VERTEX_SHADER_ID LoadVertexShaderFromFile(const std::string &filename) = 0;
     virtual VERTEX_SHADER_ID LoadAndCompileVertexShader(const std::string& shader) = 0;
-    virtual VERTEX_SHADER_ID LoadAndCompileVertexShaderFromFile(const std::string &filename) = 0;
 /*
     virtual PIXEL_SHADER_ID LoadPixelShader(void *data) = 0;
     virtual PIXEL_SHADER_ID LoadPixelShaderFromFile(const std::string &filename) = 0;

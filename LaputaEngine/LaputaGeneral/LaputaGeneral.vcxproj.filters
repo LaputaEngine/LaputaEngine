@@ -18,5 +18,13 @@
     <ClInclude Include="include\LptaStatusCodes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\LptaFileHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\LptaFileHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

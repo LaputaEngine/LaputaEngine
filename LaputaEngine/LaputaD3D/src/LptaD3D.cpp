@@ -59,24 +59,9 @@ LptaD3D::~LptaD3D(void)
 // Shader Configuring
 /////////////////////////////////////////////////////////////////
 // todo make these use the shader manager to load data
-lpta::VERTEX_SHADER_ID LptaD3D::LoadVertexShader(void *data)
-{
-    return vertexShaderManager->AddShader(data);
-}
-
-lpta::VERTEX_SHADER_ID LptaD3D::LoadVertexShaderFromFile(const std::string &filename)
-{
-    return vertexShaderManager->AddShaderFromFile(filename);
-}
-
 lpta::VERTEX_SHADER_ID LptaD3D::LoadAndCompileVertexShader(const std::string &program)
 {
     return vertexShaderManager->CompileAddShader(program);
-}
-
-lpta::VERTEX_SHADER_ID LptaD3D::LoadAndCompileVertexShaderFromFile(const std::string &filename)
-{
-    return vertexShaderManager->CompileAddShaderFromFile(filename);
 }
 
 /*

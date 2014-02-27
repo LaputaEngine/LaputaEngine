@@ -37,10 +37,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // Shader Configuring
     /////////////////////////////////////////////////////////////////
-    virtual lpta::VERTEX_SHADER_ID LoadVertexShader(void *data);
-    virtual lpta::VERTEX_SHADER_ID LoadVertexShaderFromFile(const std::string &filename);
     virtual lpta::VERTEX_SHADER_ID LoadAndCompileVertexShader(const std::string &shader);
-    virtual lpta::VERTEX_SHADER_ID LoadAndCompileVertexShaderFromFile(const std::string &filename);
 /*
     virtual lpta::PIXEL_SHADER_ID LoadPixelShader(void *data);
     virtual lpta::PIXEL_SHADER_ID LoadPixelShaderFromFile(const std::string &filename);
