@@ -51,6 +51,12 @@
     <ClCompile Include="src\vertices\LptaVertexCollection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\vertices\LptaUUVertexCollection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vertices\LptaULVertexCollection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\errors\ImproperResourceManager.h">
@@ -108,6 +114,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\vertices\LptaVertexCollection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vertices\LptaVertexCollectionVisitor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vertices\LptaUUVertexCollection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vertices\LptaULVertexCollection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

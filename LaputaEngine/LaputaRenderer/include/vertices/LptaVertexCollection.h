@@ -1,6 +1,8 @@
 #ifndef _LPTAVERTEXCOLLECTION_H_
 #define _LPTAVERTEXCOLLECTION_H_
 
+#include "LptaVertexCollectionVisitor.h"
+
 namespace lpta
 {
 
@@ -17,6 +19,8 @@ public:
     virtual ~LptaVertexCollection(void);
 
     VERTEX_TYPE GetType(void) const;
+
+    virtual void Accept(LptaVertexCollectionVisitor *visitor) = 0;
 
 protected:
     LptaVertexCollection(VERTEX_TYPE vType);
