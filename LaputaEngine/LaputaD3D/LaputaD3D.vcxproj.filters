@@ -37,6 +37,12 @@
     <Filter Include="Source Files\Resources\Errors">
       <UniqueIdentifier>{339e1a92-7e6b-4080-a4c2-40a7084db361}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Vertices">
+      <UniqueIdentifier>{e345cae5-d4ac-438d-9a73-3a97e1c3d339}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Vertices">
+      <UniqueIdentifier>{85458983-99b8-41b0-8c05-54beac6e3b2f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\adapter\AdapterInfo.cpp">
@@ -92,6 +98,9 @@
     </ClCompile>
     <ClCompile Include="src\resources\LptaD3DPixelShader.cpp">
       <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vertices\LptaD3DVertexCollectionVisitor.cpp">
+      <Filter>Source Files\Vertices</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +160,12 @@
     </ClInclude>
     <ClInclude Include="include\resources\LptaD3DShaderManager.h">
       <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vertices\LptaD3DVertexCollectionVisitor.h">
+      <Filter>Header Files\Vertices</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vertices\LptaD3DStaticBuffer.h">
+      <Filter>Header Files\Vertices</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

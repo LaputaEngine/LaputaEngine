@@ -103,6 +103,7 @@
     <ClCompile Include="src\resources\errors\TextureFileNotFound.cpp" />
     <ClCompile Include="src\resources\LptaD3DTexture.cpp" />
     <ClCompile Include="src\resources\LptaD3DTextureManager.cpp" />
+    <ClCompile Include="src\vertices\LptaD3DVertexCollectionVisitor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\adapter\AdapterInfo.h" />
@@ -122,6 +123,8 @@
     <ClInclude Include="include\resources\errors\TextureFileNotFound.h" />
     <ClInclude Include="include\resources\LptaD3DTexture.h" />
     <ClInclude Include="include\resources\LptaD3DTextureManager.h" />
+    <ClInclude Include="include\vertices\LptaD3DStaticBuffer.h" />
+    <ClInclude Include="include\vertices\LptaD3DVertexCollectionVisitor.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="include\resources\LptaD3DShaderManager.h" />
   </ItemGroup>

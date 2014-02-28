@@ -16,6 +16,9 @@
     <Filter Include="LaputaGeneral">
       <UniqueIdentifier>{004f2398-dfd7-45dd-b9fe-2a036d696e88}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LaputaD3D\Vertices">
+      <UniqueIdentifier>{ae00e7dc-5a19-45e4-9da1-abd755d1f5cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TestRunner.cpp">
@@ -50,6 +53,9 @@
     </ClCompile>
     <ClCompile Include="LaputaGeneral\LptaFileHelper.cpp">
       <Filter>LaputaGeneral</Filter>
+    </ClCompile>
+    <ClCompile Include="LaputaD3D\vertices\LptaD3DVertexCollectionVisitor.cpp">
+      <Filter>LaputaD3D\Vertices</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

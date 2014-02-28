@@ -91,6 +91,7 @@
     <ClCompile Include="Laputa3D\LptaRay.cpp" />
     <ClCompile Include="Laputa3D\LptaVector.cpp" />
     <ClCompile Include="LaputaD3D\LptaD3DMatrix.cpp" />
+    <ClCompile Include="LaputaD3D\vertices\LptaD3DVertexCollectionVisitor.cpp" />
     <ClCompile Include="LaputaGeneral\LptaFileHelper.cpp" />
     <ClCompile Include="TestRunner.cpp" />
   </ItemGroup>
