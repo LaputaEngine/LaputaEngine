@@ -28,7 +28,7 @@ public:
     virtual void Accept(LptaVertexCollectionVisitor *visitor);
 
     void AddVertex(const UL_VERTEX &vertex);
-    const std::vector<UL_VERTEX> GetVertices(void) const;
+    const std::vector<UL_VERTEX> &GetVertices(void) const;
 
 private:
     std::vector<UL_VERTEX> vertices;

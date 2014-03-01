@@ -88,11 +88,8 @@ void LptaD3DVertexCopier::Visit(lpta::LptaULVertexCollection *collection)
         return;
     }
     D3D_LVERTEX *buffer = static_cast<D3D_LVERTEX *>(copyBuffer);
-    // note: for some reason, referencing the vertex directly leads to
-    // incorrect results. Must reference the underyling vector first.
-    const auto &vertices = collection->GetVertices();
     for (unsigned int i = 0; i < GetNumVertices(); ++i) {
-        const auto &vertex = vertices.at(i);
+        const auto &vertex = collection->GetVertices().at(i);
         // todo
         buffer[i].x = vertex.coordinate.GetX();
         buffer[i].y = vertex.coordinate.GetY();

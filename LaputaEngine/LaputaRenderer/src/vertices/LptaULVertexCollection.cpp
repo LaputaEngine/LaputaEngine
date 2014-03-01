@@ -26,7 +26,7 @@ void LptaULVertexCollection::AddVertex(const UL_VERTEX &vertex)
     vertices.push_back(vertex);
 }
 
-const std::vector<UL_VERTEX> LptaULVertexCollection::GetVertices(void) const
+const std::vector<UL_VERTEX> &LptaULVertexCollection::GetVertices(void) const
 {
     return vertices;
 }
