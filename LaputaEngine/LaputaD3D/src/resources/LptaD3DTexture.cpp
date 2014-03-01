@@ -1,47 +1,21 @@
 #include <d3d9.h>
 #define cimg_display 0
 #include <cimage/CImg.h>
+#include "LptaD3DColorUtils.h"
 #include "resources/errors/TextureD3DFailure.h"
 #include "resources/errors/TextureFileNotFound.h"
 #include "resources/LptaD3DTexture.h"
+using namespace lpta_d3d_utils;
 
 namespace lpta_d3d
 {
 // D3DLoadTextureFile
-#define RED_CHANNEL 0
-#define GREEN_CHANNEL 1
-#define BLUE_CHANNEL 2
-#define ALPHA_CHANNEL 3
-struct Color24Bit
-{
-    unsigned char r;
-    unsigned char g;
-    unsigned char b;
-};
-struct Color32Bit
-{
-    unsigned char a;
-    unsigned char r;
-    unsigned char g;
-    unsigned char b;
-};
+
 inline void CopyCImgToD3DRect24Bit(const cimg_library::CImg<unsigned char> &image, 
     D3DLOCKED_RECT d3dLockedRect);
 inline void CopyCImgToD3DRect32Bit(const cimg_library::CImg<unsigned char> &image, 
     D3DLOCKED_RECT d3dLockedRect);
 
-// general
-#define MAX_ARGB 255
-inline Color32Bit FloatToColor(float a, float r, float g, float b)
-{
-    Color32Bit color = {
-        (unsigned char)(MAX_ARGB * a),
-        (unsigned char)(MAX_ARGB * r),
-        (unsigned char)(MAX_ARGB * g),
-        (unsigned char)(MAX_ARGB * b)
-    };
-    return color;
-}
 inline bool EqualRGB(const lpta::LptaColor &color, const Color32Bit &colorStruct)
 {
     return color.GetRed() == colorStruct.r &&

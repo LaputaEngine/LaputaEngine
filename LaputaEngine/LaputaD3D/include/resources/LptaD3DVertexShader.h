@@ -14,6 +14,7 @@ public:
 
 public:
     LptaD3DVertexShader(VERTEX_SHADER_ID, LPDIRECT3DVERTEXSHADER9 shader);
+    LptaD3DVertexShader(const LptaD3DVertexShader &copyTarget);
     ~LptaD3DVertexShader(void);
 
     LPDIRECT3DVERTEXSHADER9 GetVertexShader(void) const;

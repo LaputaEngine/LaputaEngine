@@ -8,8 +8,15 @@ LptaD3DPixelShader::LptaD3DPixelShader(PIXEL_SHADER_ID id, LPDIRECT3DPIXELSHADER
 {
 }
 
+LptaD3DPixelShader::LptaD3DPixelShader(const LptaD3DPixelShader &copyTarget) :
+    LptaD3DPixelShader(copyTarget.id, copyTarget.pixelShader)
+{
+    pixelShader->AddRef();
+}
+
 LptaD3DPixelShader::~LptaD3DPixelShader(void)
 {
+    pixelShader->Release();
 }
 
 LPDIRECT3DPIXELSHADER9 LptaD3DPixelShader::GetPixelShader(void) const

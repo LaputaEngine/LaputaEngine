@@ -16,10 +16,6 @@ LptaD3DPixelShaderManager::LptaD3DPixelShaderManager(LPDIRECT3DDEVICE9 d3ddev) :
 
 LptaD3DPixelShaderManager::~LptaD3DPixelShaderManager(void)
 {
-    for (auto resource : resources) {
-        resource.second.GetPixelShader()->Release();
-    }
-    resources.clear();
 }
 
 HRESULT LptaD3DPixelShaderManager::D3DCreateShader(DWORD *shader, LPDIRECT3DPIXELSHADER9 *handle)

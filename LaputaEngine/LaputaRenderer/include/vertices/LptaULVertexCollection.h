@@ -24,6 +24,7 @@ public:
     LptaULVertexCollection(void);
     virtual ~LptaULVertexCollection(void);
 
+    virtual unsigned int GetNumVertices(void) const;
     virtual void Accept(LptaVertexCollectionVisitor *visitor);
 
     void AddVertex(const UL_VERTEX &vertex);

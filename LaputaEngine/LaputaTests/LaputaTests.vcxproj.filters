@@ -54,7 +54,7 @@
     <ClCompile Include="LaputaGeneral\LptaFileHelper.cpp">
       <Filter>LaputaGeneral</Filter>
     </ClCompile>
-    <ClCompile Include="LaputaD3D\vertices\LptaD3DVertexCollectionVisitor.cpp">
+    <ClCompile Include="LaputaD3D\vertices\LptaD3DVertexCopier.cpp">
       <Filter>LaputaD3D\Vertices</Filter>
     </ClCompile>
   </ItemGroup>

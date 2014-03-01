@@ -16,6 +16,7 @@ public:
         float alpha, const COLOR_KEYS &colorKeys);
     LptaD3DTexture(ID id, const string &name, LPDIRECT3DTEXTURE9 data, 
         float alpha, const COLOR_KEYS &colorKeys);
+    LptaD3DTexture(const LptaD3DTexture &copyTarget);
     ~LptaD3DTexture(void);
 
     void SetTransparency(float alpha) const;

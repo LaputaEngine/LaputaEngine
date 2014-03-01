@@ -8,8 +8,15 @@ LptaD3DVertexShader::LptaD3DVertexShader(VERTEX_SHADER_ID id, LPDIRECT3DVERTEXSH
 {
 }
 
+LptaD3DVertexShader::LptaD3DVertexShader(const LptaD3DVertexShader &copyTarget) :
+    LptaD3DVertexShader(copyTarget.id, copyTarget.vertexShader)
+{
+    vertexShader->AddRef();
+}
+
 LptaD3DVertexShader::~LptaD3DVertexShader(void)
 {
+    vertexShader->Release();
 }
 
 LPDIRECT3DVERTEXSHADER9 LptaD3DVertexShader::GetVertexShader(void) const

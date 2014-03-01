@@ -11,6 +11,11 @@ LptaUUVertexCollection::~LptaUUVertexCollection(void)
 {
 }
 
+unsigned int LptaUUVertexCollection::GetNumVertices(void) const
+{
+    return vertices.size();
+}
+
 void LptaUUVertexCollection::Accept(LptaVertexCollectionVisitor *visitor)
 {
     visitor->Visit(this);

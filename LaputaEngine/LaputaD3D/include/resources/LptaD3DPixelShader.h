@@ -15,6 +15,7 @@ public:
 
 public:
     LptaD3DPixelShader(PIXEL_SHADER_ID id, LPDIRECT3DPIXELSHADER9 shader);
+    LptaD3DPixelShader(const LptaD3DPixelShader &copyTarget);
     ~LptaD3DPixelShader(void);
 
     LPDIRECT3DPIXELSHADER9 GetPixelShader(void) const;

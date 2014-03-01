@@ -25,10 +25,6 @@ LptaD3DVertexShaderManager::LptaD3DVertexShaderManager(LPDIRECT3DDEVICE9 d3ddev)
 
 LptaD3DVertexShaderManager::~LptaD3DVertexShaderManager(void)
 {
-    for (auto resource : resources) {
-        resource.second.GetVertexShader()->Release();
-    }
-    resources.clear();
 }
 
 HRESULT LptaD3DVertexShaderManager::D3DCreateShader(DWORD *shader, LPDIRECT3DVERTEXSHADER9 *handle)

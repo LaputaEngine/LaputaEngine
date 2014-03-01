@@ -18,4 +18,14 @@ const string &LptaTexture::GetFilename(void) const
     return filename;
 }
 
+float LptaTexture::GetAlpha(void) const
+{
+    return alpha;
+}
+
+const LptaTexture::COLOR_KEYS &LptaTexture::GetColorKeys(void) const
+{
+    return colorKeys;
+}
+
 }

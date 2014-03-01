@@ -20,6 +20,7 @@ public:
 
     VERTEX_TYPE GetType(void) const;
 
+    virtual unsigned int GetNumVertices(void) const = 0;
     virtual void Accept(LptaVertexCollectionVisitor *visitor) = 0;
 
 protected:

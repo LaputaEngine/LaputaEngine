@@ -2,7 +2,7 @@
 #define _LPTAUUVERTEXCOLLECTION_H_
 
 #include <vector>
-#include <LptaVector.h>
+#include "LptaVector.h"
 #include "LptaVertexCollection.h"
 
 namespace lpta
@@ -23,6 +23,7 @@ public:
     LptaUUVertexCollection(void);
     virtual ~LptaUUVertexCollection(void);
 
+    virtual unsigned int GetNumVertices(void) const;
     virtual void Accept(LptaVertexCollectionVisitor *visitor);
 
     void AddVertex(const UU_VERTEX &vertex);

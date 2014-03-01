@@ -26,6 +26,9 @@ public:
     inline const DATA &GetData(void) const;
 
     const string &GetFilename(void) const;
+    float GetAlpha(void) const;
+    const COLOR_KEYS &GetColorKeys(void) const;
+
 private:
     string filename;
     DATA data;
