@@ -8,9 +8,6 @@
 
 namespace lpta_d3d
 {
-template <class T>
-inline bool BufferLargeEnough(unsigned int bufferSize, unsigned int numCount);
-inline bool HasValidTargetBuffer(void *buffer);
 
 LptaD3DVertexCopier::LptaD3DVertexCopier(lpta::LptaVertexCollection *collection) : 
     copyBuffer(NULL), copyBufferSize(0), stride(0), collection(collection)
@@ -81,8 +78,8 @@ void LptaD3DVertexCopier::Visit(lpta::LptaVertexCollection *collection)
 
 void LptaD3DVertexCopier::Visit(lpta::LptaUUVertexCollection *collection)
 {
-    if (!HasValidTargetBuffer(copyBuffer) || 
-        !BufferLargeEnough<D3D_VERTEX>(copyBufferSize, GetNumVertices())) {
+    if (!HasValidCopyBuffer<D3D_VERTEX>()) {
+        // log error
 
         throw D3DCopierInvalidTargetBuffer();
     }
@@ -105,8 +102,7 @@ void LptaD3DVertexCopier::Visit(lpta::LptaUUVertexCollection *collection)
 
 void LptaD3DVertexCopier::Visit(lpta::LptaULVertexCollection *collection)
 {
-    if (!HasValidTargetBuffer(copyBuffer) ||
-        !BufferLargeEnough<D3D_LVERTEX>(copyBufferSize, GetNumVertices())) {
+    if (!HasValidCopyBuffer<D3D_LVERTEX>()) {
 
         // log error
         throw D3DCopierInvalidTargetBuffer();
@@ -132,13 +128,12 @@ void LptaD3DVertexCopier::Visit(lpta::LptaULVertexCollection *collection)
 }
 
 template <class T>
-bool BufferLargeEnough<T>(unsigned int bufferSize, unsigned int numVertices)
+bool LptaD3DVertexCopier::HasValidCopyBuffer(void) const
 {
-    return bufferSize >= (sizeof(T) * numVertices);
-}
-bool HasValidTargetBuffer(void *buffer)
-{
-    return NULL != buffer;
+    // defensive assertion, ByteSize should return the proper size of buffer to allocate,
+    // but recalculate in visitor method to guarantee that the copy buffer is large enough
+    return NULL != copyBuffer &&
+        copyBufferSize >= (sizeof(T) * GetNumVertices());
 }
 
 }

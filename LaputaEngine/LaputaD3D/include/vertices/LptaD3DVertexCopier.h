@@ -32,6 +32,9 @@ protected:
     virtual void Visit(lpta::LptaUUVertexCollection *collection);
     virtual void Visit(lpta::LptaULVertexCollection *collection);
 
+    template <class T>
+    bool HasValidCopyBuffer(void) const;
+
 private:
     lpta::LptaVertexCollection *collection;
     unsigned int stride;
