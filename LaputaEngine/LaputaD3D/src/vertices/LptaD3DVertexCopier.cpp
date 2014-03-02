@@ -3,14 +3,17 @@
 #include "vertices/LptaVertexCollection.h"
 #include "vertices/LptaUUVertexCollection.h"
 #include "vertices/LptaULVertexCollection.h"
+#include "vertices/errors/D3DCopierInvalidTargetBuffer.h"
 #include "vertices/LptaD3DVertexCopier.h"
 
 namespace lpta_d3d
 {
+template <class T>
+inline bool BufferLargeEnough(unsigned int bufferSize, unsigned int numCount);
 inline bool HasValidTargetBuffer(void *buffer);
 
 LptaD3DVertexCopier::LptaD3DVertexCopier(lpta::LptaVertexCollection *collection) : 
-    copyBuffer(NULL), stride(0), collection(collection)
+    copyBuffer(NULL), copyBufferSize(0), stride(0), collection(collection)
 {
     using lpta::VERTEX_TYPE;
 
@@ -46,11 +49,29 @@ unsigned int LptaD3DVertexCopier::ByteSize(void) const
     return GetNumVertices() * GetStride();
 }
 
-void LptaD3DVertexCopier::CopyToBuffer(void *buffer)
+LptaD3DVertexCopier::COPY_RESULT LptaD3DVertexCopier::CopyToBuffer(
+    void *buffer, 
+    unsigned int bufferSize)
 {
     this->copyBuffer = buffer;
-    collection->Accept(this);
-    this->copyBuffer = NULL;
+    this->copyBufferSize = bufferSize;
+    try {
+        collection->Accept(this);
+        this->copyBuffer = NULL;
+        this->copyBufferSize = 0;
+        return COPY_RESULT::SUCCESS;
+    }
+    catch (D3DCopierInvalidTargetBuffer)
+    {
+        // log error
+        this->copyBuffer = NULL;
+        this->copyBufferSize = 0;
+        return COPY_RESULT::FAILURE;
+    }
+}
+bool BufferLargeEnough(unsigned int byteSize, unsigned int bufferSize)
+{
+    return byteSize <= bufferSize;
 }
 
 void LptaD3DVertexCopier::Visit(lpta::LptaVertexCollection *collection)
@@ -60,9 +81,10 @@ void LptaD3DVertexCopier::Visit(lpta::LptaVertexCollection *collection)
 
 void LptaD3DVertexCopier::Visit(lpta::LptaUUVertexCollection *collection)
 {
-    if (!HasValidTargetBuffer(copyBuffer)) {
-        // log error
-        return;
+    if (!HasValidTargetBuffer(copyBuffer) || 
+        !BufferLargeEnough<D3D_VERTEX>(copyBufferSize, GetNumVertices())) {
+
+        throw D3DCopierInvalidTargetBuffer();
     }
     D3D_VERTEX *buffer = static_cast<D3D_VERTEX *>(copyBuffer);
     for (unsigned int i = 0; i < GetNumVertices(); ++i) {
@@ -83,9 +105,11 @@ void LptaD3DVertexCopier::Visit(lpta::LptaUUVertexCollection *collection)
 
 void LptaD3DVertexCopier::Visit(lpta::LptaULVertexCollection *collection)
 {
-    if (!HasValidTargetBuffer(copyBuffer)) {
+    if (!HasValidTargetBuffer(copyBuffer) ||
+        !BufferLargeEnough<D3D_LVERTEX>(copyBufferSize, GetNumVertices())) {
+
         // log error
-        return;
+        throw D3DCopierInvalidTargetBuffer();
     }
     D3D_LVERTEX *buffer = static_cast<D3D_LVERTEX *>(copyBuffer);
     for (unsigned int i = 0; i < GetNumVertices(); ++i) {
@@ -107,6 +131,11 @@ void LptaD3DVertexCopier::Visit(lpta::LptaULVertexCollection *collection)
     }
 }
 
+template <class T>
+bool BufferLargeEnough<T>(unsigned int bufferSize, unsigned int numVertices)
+{
+    return bufferSize >= (sizeof(T) * numVertices);
+}
 bool HasValidTargetBuffer(void *buffer)
 {
     return NULL != buffer;

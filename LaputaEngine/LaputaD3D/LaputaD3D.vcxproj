@@ -104,6 +104,7 @@
     <ClCompile Include="src\resources\errors\TextureFileNotFound.cpp" />
     <ClCompile Include="src\resources\LptaD3DTexture.cpp" />
     <ClCompile Include="src\resources\LptaD3DTextureManager.cpp" />
+    <ClCompile Include="src\vertices\errors\D3DCopierInvalidTargetBuffer.cpp" />
     <ClCompile Include="src\vertices\LptaD3DVertexBuffer.cpp" />
     <ClCompile Include="src\vertices\LptaD3DVertexCopier.cpp" />
   </ItemGroup>
@@ -120,6 +121,7 @@
     <ClInclude Include="include\resources\LptaD3DVertexShaderManager.h" />
     <ClInclude Include="include\LptaD3DUtils.h" />
     <ClInclude Include="include\LptaD3DColorUtils.h" />
+    <ClInclude Include="include\vertices\errors\D3DCopierInvalidTargetBuffer.h" />
     <ClInclude Include="include\vertices\LptaD3DVertex.h" />
     <ClInclude Include="include\vertices\LptaD3DVertexCache.h" />
     <ClInclude Include="include\resources\errors\TextureD3DFailure.h" />

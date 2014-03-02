@@ -11,6 +11,13 @@ namespace lpta_d3d
 class LptaD3DVertexCopier : protected lpta::LptaVertexCollectionVisitor
 {
 public:
+    typedef enum COPY_RESULT_TYPE
+    {
+        SUCCESS,
+        FAILURE
+    } COPY_RESULT;
+    
+public:
     LptaD3DVertexCopier(lpta::LptaVertexCollection *collection);
     virtual ~LptaD3DVertexCopier(void);
 
@@ -18,7 +25,7 @@ public:
     unsigned int GetNumVertices(void) const;
     unsigned int ByteSize(void) const;
 
-    void CopyToBuffer(void *buffer);
+    COPY_RESULT CopyToBuffer(void *buffer, unsigned int bufferSize);
 
 protected:
     virtual void Visit(lpta::LptaVertexCollection *collection);
@@ -30,6 +37,7 @@ private:
     unsigned int stride;
 
     void *copyBuffer;
+    unsigned int copyBufferSize;
 };
 
 }
