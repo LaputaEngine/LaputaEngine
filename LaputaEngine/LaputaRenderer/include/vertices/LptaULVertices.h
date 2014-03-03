@@ -1,10 +1,10 @@
-#ifndef _LPTAULVERTEXCOLLECTION_H_
-#define _LPTAULVERTEXCOLLECTION_H_
+#ifndef _LPTAULVERTICES_H_
+#define _LPTAULVERTICES_H_
 
 #include <vector>
 #include "LptaVector.h"
 #include "LptaColor.h"
-#include "LptaVertexCollection.h"
+#include "LptaVertices.h"
 
 namespace lpta
 {
@@ -18,14 +18,14 @@ typedef struct UL_VERTEX_TYPE
     float tv;
 } UL_VERTEX;
 
-class LptaULVertexCollection : public LptaVertexCollection
+class LptaULVertices : public LptaVertices
 {
 public:
-    LptaULVertexCollection(void);
-    virtual ~LptaULVertexCollection(void);
+    LptaULVertices(void);
+    virtual ~LptaULVertices(void);
 
     virtual unsigned int GetNumVertices(void) const;
-    virtual void Accept(LptaVertexCollectionVisitor *visitor);
+    virtual void Accept(LptaVerticesVisitor *visitor);
 
     void AddVertex(const UL_VERTEX &vertex);
     const std::vector<UL_VERTEX> &GetVertices(void) const;

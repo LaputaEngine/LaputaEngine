@@ -1,9 +1,9 @@
-#ifndef _LPTAUUVERTEXCOLLECTION_H_
-#define _LPTAUUVERTEXCOLLECTION_H_
+#ifndef _LPTAUUVERTICES_H_
+#define _LPTAUUVERTICES_H_
 
 #include <vector>
 #include "LptaVector.h"
-#include "LptaVertexCollection.h"
+#include "LptaVertices.h"
 
 namespace lpta
 {
@@ -17,14 +17,14 @@ typedef struct UU_VERTEX_TYPE
     float tv;
 } UU_VERTEX;
 
-class LptaUUVertexCollection : public LptaVertexCollection
+class LptaUUVertices : public LptaVertices
 {
 public:
-    LptaUUVertexCollection(void);
-    virtual ~LptaUUVertexCollection(void);
+    LptaUUVertices(void);
+    virtual ~LptaUUVertices(void);
 
     virtual unsigned int GetNumVertices(void) const;
-    virtual void Accept(LptaVertexCollectionVisitor *visitor);
+    virtual void Accept(LptaVerticesVisitor *visitor);
 
     void AddVertex(const UU_VERTEX &vertex);
     const std::vector<UU_VERTEX> &GetVertices(void) const;

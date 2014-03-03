@@ -57,13 +57,13 @@
     <ClCompile Include="src\LptaViewport.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\vertices\LptaVertexCollection.cpp">
+    <ClCompile Include="src\vertices\LptaULVertices.cpp">
       <Filter>Source Files\Vertices</Filter>
     </ClCompile>
-    <ClCompile Include="src\vertices\LptaUUVertexCollection.cpp">
+    <ClCompile Include="src\vertices\LptaUUVertices.cpp">
       <Filter>Source Files\Vertices</Filter>
     </ClCompile>
-    <ClCompile Include="src\vertices\LptaULVertexCollection.cpp">
+    <ClCompile Include="src\vertices\LptaVertices.cpp">
       <Filter>Source Files\Vertices</Filter>
     </ClCompile>
   </ItemGroup>
@@ -119,20 +119,23 @@
     <ClInclude Include="include\LptaVertexCacheManager.h">
       <Filter>Header Files\Vertices</Filter>
     </ClInclude>
-    <ClInclude Include="include\vertices\LptaVertexCollection.h">
-      <Filter>Header Files\Vertices</Filter>
-    </ClInclude>
-    <ClInclude Include="include\vertices\LptaVertexCollectionVisitor.h">
-      <Filter>Header Files\Vertices</Filter>
-    </ClInclude>
-    <ClInclude Include="include\vertices\LptaUUVertexCollection.h">
-      <Filter>Header Files\Vertices</Filter>
-    </ClInclude>
-    <ClInclude Include="include\vertices\LptaULVertexCollection.h">
-      <Filter>Header Files\Vertices</Filter>
-    </ClInclude>
     <ClInclude Include="include\errors\ImproperResourceManager.h">
       <Filter>Header Files\Errors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vertices\LptaULVertices.h">
+      <Filter>Header Files\Vertices</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vertices\LptaUUVertices.h">
+      <Filter>Header Files\Vertices</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vertices\LptaVertices.h">
+      <Filter>Header Files\Vertices</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vertices\LptaVerticesVisitor.h">
+      <Filter>Header Files\Vertices</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vertices\LptaIndices.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

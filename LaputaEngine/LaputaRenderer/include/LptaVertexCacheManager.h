@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <Windows.h>
-#include "vertices/LptaVertexCollection.h"
+#include "vertices/LptaVertices.h"
 #include "LptaSkin.h"
 #include "LptaResource.h"
 
@@ -16,10 +16,10 @@ public:
     typedef LptaResource::ID VCACHE_ID;
 
 public:
-    virtual HRESULT CreateStaticBuffer(const LptaVertexCollection &collection, 
+    virtual HRESULT CreateStaticBuffer(const LptaVertices &collection, 
         unsigned int *bufferId) = 0;
 
-    virtual HRESULT Render(const LptaVertexCollection &collection, LptaSkin::SKIN_ID skinId) = 0;
+    virtual HRESULT Render(const LptaVertices &collection, LptaSkin::SKIN_ID skinId) = 0;
     virtual HRESULT Render(unsigned int bufferId);
     
     virtual HRESULT ForceFlushBuffers(void) = 0;

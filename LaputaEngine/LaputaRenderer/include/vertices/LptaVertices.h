@@ -1,7 +1,7 @@
-#ifndef _LPTAVERTEXCOLLECTION_H_
-#define _LPTAVERTEXCOLLECTION_H_
+#ifndef _LPTAVERTICES_H_
+#define _LPTAVERTICES_H_
 
-#include "LptaVertexCollectionVisitor.h"
+#include "LptaVerticesVisitor.h"
 
 namespace lpta
 {
@@ -14,18 +14,18 @@ typedef enum VERTEX_TYPE_TYPE
     VT_UL,          // untransformed, lit
 } VERTEX_TYPE;
 
-class LptaVertexCollection
+class LptaVertices
 {
 public:
-    virtual ~LptaVertexCollection(void);
+    virtual ~LptaVertices(void);
 
     VERTEX_TYPE GetType(void) const;
 
     virtual unsigned int GetNumVertices(void) const = 0;
-    virtual void Accept(LptaVertexCollectionVisitor *visitor) = 0;
+    virtual void Accept(LptaVerticesVisitor *visitor) = 0;
 
 protected:
-    LptaVertexCollection(VERTEX_TYPE vType);
+    LptaVertices(VERTEX_TYPE vType);
 
 private:
     const VERTEX_TYPE vertexType;

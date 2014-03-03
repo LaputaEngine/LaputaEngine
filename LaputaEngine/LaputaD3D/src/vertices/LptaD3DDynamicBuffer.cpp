@@ -54,34 +54,78 @@ lpta::VERTEX_TYPE LptaD3DDynamicBuffer::GetVertexType(void) const
     return vertexType;   
 }
 
-bool LptaD3DDynamicBuffer::CanFit(const lpta::LptaVertexCollection &collection) const
+bool LptaD3DDynamicBuffer::CanFit(
+    const lpta::LptaVertices &vertices, const lpta::INDICES &indices) const
 {
-    if (collection.GetType() != vertexType) {
+    return CanFit(vertices) && (numIndices + indices.size()) <= maxIndices;
+}
+bool LptaD3DDynamicBuffer::CanFit(const lpta::LptaVertices &vertices) const
+{
+    if (vertices.GetType() != vertexType) {
         return false;
     }
 
-    return (numVertices + collection.GetNumVertices()) <= maxVertices;
+    return (numVertices + vertices.GetNumVertices()) <= maxVertices;
 }
 
-bool LptaD3DDynamicBuffer::AddVertices(lpta::LptaVertexCollection *collection)
+bool LptaD3DDynamicBuffer::AddVertices(lpta::LptaVertices *vertices)
 {
-    if (!CanFit(*collection)) {
+    lpta::INDICES empty;
+    return Add(vertices, empty);
+}
+bool LptaD3DDynamicBuffer::Add(lpta::LptaVertices *vertices, const lpta::INDICES &indices)
+{
+    if (!CanFit(*vertices, indices)) {
         return false;
     }
 
-    void *buffer;
-    unsigned int byteSize = ToStride(collection->GetType()) * collection->GetNumVertices();
-    DWORD lockFlag = numVertices > 0? D3DLOCK_NOOVERWRITE : D3DLOCK_DISCARD;
-    LptaD3DVertexCopier copier(collection);
+    void *vertexWriteBuffer;
+    unsigned int vertexByteSize = ToStride(vertices->GetType()) * vertices->GetNumVertices();
 
-    HRESULT lockResult = vertexBuffer->Lock(numVertices, byteSize, &buffer, lockFlag);
-    if (FAILED(lockResult)) {
+    DWORD *indexWriteBuffer;
+    unsigned int indexByteSize = sizeof(DWORD) * indices.size();
+    unsigned int indexOffset = numIndices;
+
+    DWORD lockFlag = numVertices > 0? D3DLOCK_NOOVERWRITE : D3DLOCK_DISCARD;
+
+    if (!LockedBuffers(&vertexWriteBuffer, vertexByteSize, 
+        &indexWriteBuffer, indexByteSize, lockFlag)) {
+
         // log error
         return false;
     }
-    copier.CopyToBuffer(buffer, byteSize);
+
+    LptaD3DVertexCopier copier(vertices);
+
+    copier.CopyToBuffer(vertexWriteBuffer, vertexByteSize);
+    numVertices += vertices->GetNumVertices();
+
+    for (unsigned int i = 0; i < indices.size(); ++i) {
+        indexWriteBuffer[i] = static_cast<DWORD>(indices.at(i)) + indexOffset;
+    }
+    numIndices += indices.size();
+
     vertexBuffer->Unlock();
+    indexBuffer->Unlock();
     return true;
+
+}
+
+bool LptaD3DDynamicBuffer::LockedBuffers(void **vertexWriteBuffer, unsigned int vertexByteSize, 
+    DWORD **indexWriteBuffer, unsigned int indexByteSize, DWORD lockFlag)
+{
+    if (SUCCEEDED(vertexBuffer->Lock(numVertices, vertexByteSize, vertexWriteBuffer, lockFlag))) {
+        if (SUCCEEDED(indexBuffer->Lock(numIndices, indexByteSize, 
+            reinterpret_cast<void **>(indexWriteBuffer), lockFlag))) {
+
+            return true;
+        }
+        else {
+            vertexBuffer->Unlock();
+            return false;
+        }
+    }
+    return false;
 }
 
 }

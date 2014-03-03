@@ -2,13 +2,13 @@
 #define _LPTAD3DVERTEXCOPIER_H_
 
 #include <vector>
-#include "vertices/LptaVertexCollectionVisitor.h"
+#include "vertices/LptaVerticesVisitor.h"
 #include "LptaD3DVertexBuffer.h"
 
 namespace lpta_d3d
 {
 
-class LptaD3DVertexCopier : protected lpta::LptaVertexCollectionVisitor
+class LptaD3DVertexCopier : protected lpta::LptaVerticesVisitor
 {
 public:
     typedef enum COPY_RESULT_TYPE
@@ -18,7 +18,7 @@ public:
     } COPY_RESULT;
     
 public:
-    LptaD3DVertexCopier(lpta::LptaVertexCollection *collection);
+    LptaD3DVertexCopier(lpta::LptaVertices *collection);
     virtual ~LptaD3DVertexCopier(void);
 
     lpta::VERTEX_TYPE GetVertexType(void) const;
@@ -29,15 +29,15 @@ public:
     COPY_RESULT CopyToBuffer(void *buffer, unsigned int bufferSize);
 
 protected:
-    virtual void Visit(lpta::LptaVertexCollection *collection);
-    virtual void Visit(lpta::LptaUUVertexCollection *collection);
-    virtual void Visit(lpta::LptaULVertexCollection *collection);
+    virtual void Visit(lpta::LptaVertices *collection);
+    virtual void Visit(lpta::LptaUUVertices *collection);
+    virtual void Visit(lpta::LptaULVertices *collection);
 
     template <class T>
     bool HasValidCopyBuffer(void) const;
 
 private:
-    lpta::LptaVertexCollection *collection;
+    lpta::LptaVertices *collection;
 
     void *copyBuffer;
     unsigned int copyBufferSize;

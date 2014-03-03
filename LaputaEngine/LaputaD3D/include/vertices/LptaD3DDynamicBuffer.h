@@ -2,7 +2,8 @@
 #define _LPTAD3DDYNAMICBUFFER_H_
 
 #include <d3d9.h>
-#include "vertices/LptaVertexCollection.h"
+#include "vertices/LptaVertices.h"
+#include "vertices/LptaIndices.h"
 #include "LptaD3DVertexBuffer.h"
 
 namespace lpta_d3d
@@ -17,9 +18,15 @@ public:
 
     lpta::VERTEX_TYPE GetVertexType(void) const;
 
-    bool CanFit(const lpta::LptaVertexCollection &collection) const;
+    bool CanFit(const lpta::LptaVertices &vertices, const lpta::INDICES &indices) const;
+    bool CanFit(const lpta::LptaVertices &vertices) const;
 
-    bool AddVertices(lpta::LptaVertexCollection *collection);
+    bool Add(lpta::LptaVertices *vertices, const lpta::INDICES &indices);
+    bool AddVertices(lpta::LptaVertices *vertices);
+
+private:
+    bool LockedBuffers(void **vertexWriteBuffer, unsigned int vertexByteSize,
+        DWORD **indexWriteBuffer, unsigned int indexByteSize, DWORD lockFlag);
 
 private:
     lpta::VERTEX_TYPE vertexType;   
@@ -27,8 +34,8 @@ private:
     unsigned int numVertices;
     unsigned int numIndices;
 
-    unsigned int maxVertices;
-    unsigned int maxIndices;
+    const unsigned int maxVertices;
+    const unsigned int maxIndices;
 
     LPDIRECT3DVERTEXBUFFER9 vertexBuffer;
     LPDIRECT3DINDEXBUFFER9 indexBuffer;

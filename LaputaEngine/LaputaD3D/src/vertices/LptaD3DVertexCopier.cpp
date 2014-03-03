@@ -1,15 +1,15 @@
 #include "LptaD3DColorUtils.h"
 #include "vertices/LptaD3DVertex.h"
-#include "vertices/LptaVertexCollection.h"
-#include "vertices/LptaUUVertexCollection.h"
-#include "vertices/LptaULVertexCollection.h"
+#include "vertices/LptaVertices.h"
+#include "vertices/LptaUUVertices.h"
+#include "vertices/LptaULVertices.h"
 #include "vertices/errors/D3DCopierInvalidTargetBuffer.h"
 #include "vertices/LptaD3DVertexCopier.h"
 
 namespace lpta_d3d
 {
 
-LptaD3DVertexCopier::LptaD3DVertexCopier(lpta::LptaVertexCollection *collection) : 
+LptaD3DVertexCopier::LptaD3DVertexCopier(lpta::LptaVertices *collection) : 
     copyBuffer(NULL), copyBufferSize(0), collection(collection)
 {
 }
@@ -63,12 +63,12 @@ bool BufferLargeEnough(unsigned int byteSize, unsigned int bufferSize)
     return byteSize <= bufferSize;
 }
 
-void LptaD3DVertexCopier::Visit(lpta::LptaVertexCollection *collection)
+void LptaD3DVertexCopier::Visit(lpta::LptaVertices *collection)
 {
     // log error
 }
 
-void LptaD3DVertexCopier::Visit(lpta::LptaUUVertexCollection *collection)
+void LptaD3DVertexCopier::Visit(lpta::LptaUUVertices *collection)
 {
     if (!HasValidCopyBuffer<D3D_VERTEX>()) {
         // log error
@@ -92,7 +92,7 @@ void LptaD3DVertexCopier::Visit(lpta::LptaUUVertexCollection *collection)
     }
 }
 
-void LptaD3DVertexCopier::Visit(lpta::LptaULVertexCollection *collection)
+void LptaD3DVertexCopier::Visit(lpta::LptaULVertices *collection)
 {
     if (!HasValidCopyBuffer<D3D_LVERTEX>()) {
 

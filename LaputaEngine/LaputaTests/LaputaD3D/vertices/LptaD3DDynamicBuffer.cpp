@@ -1,9 +1,9 @@
 #include "LaputaD3D/LptaD3D_Helper.h"
 #include "LptaVector.h"
 #include "LptaColor.h"
-#include "vertices/LptaVertexCollection.h"
-#include "vertices/LptaUUVertexCollection.h"
-#include "vertices/LptaULVertexCollection.h"
+#include "vertices/LptaVertices.h"
+#include "vertices/LptaUUVertices.h"
+#include "vertices/LptaULVertices.h"
 #include "vertices/LptaD3DDynamicBuffer.h"
 using namespace lpta_d3d;
 
@@ -30,7 +30,7 @@ TEST_F(LptaD3DDynamicBufferTest, CanFit)
         lpta::LptaColor(1.0f, 1.0f, 1.0f, 1.0f),
         0.0f, 0.0f
     };
-    lpta::LptaULVertexCollection ul;
+    lpta::LptaULVertices ul;
     for (unsigned int i = 0; i < 5; ++i) {
         ul.AddVertex(vertex);
     }
@@ -55,13 +55,14 @@ TEST_F(LptaD3DDynamicBufferTest, AddVertices)
         lpta::LptaColor(1.0f, 1.0f, 1.0f, 1.0f),
         0.0f, 0.0f
     };
-    lpta::LptaULVertexCollection ul;
+    lpta::LptaULVertices ul;
     for (unsigned int i = 0; i < 5; ++i) {
         ul.AddVertex(vertex);
     }
     {
         LptaD3DDynamicBuffer adequate(d3ddev, lpta::VERTEX_TYPE::VT_UL, 5, 5);
         ASSERT_TRUE(adequate.AddVertices(&ul));
+        ASSERT_FALSE(adequate.AddVertices(&ul));
     }
     {
         LptaD3DDynamicBuffer tooSmall(d3ddev, lpta::VERTEX_TYPE::VT_UL, 3, 3);

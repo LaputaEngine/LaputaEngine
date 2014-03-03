@@ -15,9 +15,9 @@
     <ClCompile Include="src\LptaTexture.cpp" />
     <ClCompile Include="src\LptaTextureManager.cpp" />
     <ClCompile Include="src\LptaViewport.cpp" />
-    <ClCompile Include="src\vertices\LptaULVertexCollection.cpp" />
-    <ClCompile Include="src\vertices\LptaUUVertexCollection.cpp" />
-    <ClCompile Include="src\vertices\LptaVertexCollection.cpp" />
+    <ClCompile Include="src\vertices\LptaULVertices.cpp" />
+    <ClCompile Include="src\vertices\LptaUUVertices.cpp" />
+    <ClCompile Include="src\vertices\LptaVertices.cpp" />
     <ClInclude Include="include\errors\ImproperResourceManager.h" />
     <ClInclude Include="include\LptaMaterialManager.h" />
     <ClInclude Include="include\LptaDeviceBuilder.h" />
@@ -35,10 +35,11 @@
     <ClInclude Include="include\LptaVertexCacheManager.h" />
     <ClInclude Include="include\LptaViewport.h" />
     <ClInclude Include="include\renderer\RenderStates.h" />
-    <ClInclude Include="include\vertices\LptaULVertexCollection.h" />
-    <ClInclude Include="include\vertices\LptaUUVertexCollection.h" />
-    <ClInclude Include="include\vertices\LptaVertexCollection.h" />
-    <ClInclude Include="include\vertices\LptaVertexCollectionVisitor.h" />
+    <ClInclude Include="include\vertices\LptaIndices.h" />
+    <ClInclude Include="include\vertices\LptaULVertices.h" />
+    <ClInclude Include="include\vertices\LptaUUVertices.h" />
+    <ClInclude Include="include\vertices\LptaVertices.h" />
+    <ClInclude Include="include\vertices\LptaVerticesVisitor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\LptaColor.h" />

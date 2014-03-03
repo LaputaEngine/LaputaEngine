@@ -4,8 +4,8 @@
 #include "LptaColor.h"
 #include "LptaD3DColorUtils.h"
 #include "vertices/LptaD3DVertex.h"
-#include "vertices/LptaUUVertexCollection.h"
-#include "vertices/LptaULVertexCollection.h"
+#include "vertices/LptaUUVertices.h"
+#include "vertices/LptaULVertices.h"
 #include "vertices/LptaD3DVertexBuffer.h"
 #include "vertices/LptaD3DVertexCopier.h"
 using lpta_d3d::LptaD3DVertexCopier;
@@ -17,7 +17,7 @@ TEST(LptaD3DVertexCopierTest, UUCopier)
         lpta_3d::LptaVector(1.0f, 0.0f, 0.0f),
         0.0f, 0.0f
     };
-    lpta::LptaUUVertexCollection uu;
+    lpta::LptaUUVertices uu;
     uu.AddVertex(vertex);
     uu.AddVertex(vertex);
     lpta_d3d::LptaD3DVertexCopier copier(&uu);
@@ -45,7 +45,7 @@ TEST(LptaD3DVertexCopierTest, UUCopier_BadBuffer)
         lpta_3d::LptaVector(0.0f, 1.0f, 0.0f),
         0.0f, 0.0f
     };
-    lpta::LptaUUVertexCollection uu;
+    lpta::LptaUUVertices uu;
     uu.AddVertex(vertex);
     uu.AddVertex(vertex);
     lpta_d3d::LptaD3DVertexCopier copier(&uu);
@@ -63,7 +63,7 @@ TEST(LptaD3DVertexCopierTest, ULCopier)
         lpta::LptaColor(1.0f, 1.0f, 1.0f, 0.0f),
         0.0f, 0.0f
     };
-    lpta::LptaULVertexCollection ul;
+    lpta::LptaULVertices ul;
     ul.AddVertex(vertex);
     ul.AddVertex(vertex);
     lpta_d3d::LptaD3DVertexCopier copier(&ul);
@@ -91,7 +91,7 @@ TEST(LptaD3DVertexCopierTest, ULCopier_BadBuffer)
         lpta::LptaColor(1.0f, 1.0f, 1.0f, 0.0f),
         0.0f, 0.0f
     };
-    lpta::LptaULVertexCollection ul;
+    lpta::LptaULVertices ul;
     ul.AddVertex(vertex);
     ul.AddVertex(vertex);
     lpta_d3d::LptaD3DVertexCopier copier(&ul);

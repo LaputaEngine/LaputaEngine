@@ -2,7 +2,7 @@
 #define _LPTAD3DVERTEX_H_
 
 #include <d3d9.h>
-#include "vertices/LptaVertexCollection.h"
+#include "vertices/LptaVertices.h"
 #include "LptaD3DColorUtils.h"
 
 #define FVF_VERTEX (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1)
