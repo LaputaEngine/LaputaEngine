@@ -21,8 +21,9 @@ public:
     LptaD3DVertexCopier(lpta::LptaVertexCollection *collection);
     virtual ~LptaD3DVertexCopier(void);
 
-    unsigned int GetStride(void) const;
-    unsigned int GetNumVertices(void) const;
+    lpta::VERTEX_TYPE GetVertexType(void) const;
+    unsigned int Stride(void) const;
+    unsigned int NumVertices(void) const;
     unsigned int ByteSize(void) const;
 
     COPY_RESULT CopyToBuffer(void *buffer, unsigned int bufferSize);
@@ -37,7 +38,6 @@ protected:
 
 private:
     lpta::LptaVertexCollection *collection;
-    unsigned int stride;
 
     void *copyBuffer;
     unsigned int copyBufferSize;

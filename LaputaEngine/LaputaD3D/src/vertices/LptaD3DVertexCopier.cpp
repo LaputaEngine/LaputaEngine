@@ -10,40 +10,32 @@ namespace lpta_d3d
 {
 
 LptaD3DVertexCopier::LptaD3DVertexCopier(lpta::LptaVertexCollection *collection) : 
-    copyBuffer(NULL), copyBufferSize(0), stride(0), collection(collection)
+    copyBuffer(NULL), copyBufferSize(0), collection(collection)
 {
-    using lpta::VERTEX_TYPE;
-
-    switch (collection->GetType()) {
-    case VERTEX_TYPE::VT_UU:
-        stride = sizeof(D3D_VERTEX);
-        break;
-    case VERTEX_TYPE::VT_UL:
-        stride = sizeof(D3D_LVERTEX);
-        break;
-    default:
-        // log error
-        ;
-    }
 }
 
 LptaD3DVertexCopier::~LptaD3DVertexCopier(void)
 {
 }
 
-unsigned int LptaD3DVertexCopier::GetStride(void) const
+lpta::VERTEX_TYPE LptaD3DVertexCopier::GetVertexType(void) const
 {
-    return stride;
+    return collection->GetType();
 }
 
-unsigned int LptaD3DVertexCopier::GetNumVertices(void) const
+unsigned int LptaD3DVertexCopier::Stride(void) const
+{
+    return ToStride(collection->GetType());
+}
+
+unsigned int LptaD3DVertexCopier::NumVertices(void) const
 {
     return collection->GetNumVertices();
 }
 
 unsigned int LptaD3DVertexCopier::ByteSize(void) const
 {
-    return GetNumVertices() * GetStride();
+    return NumVertices() * Stride();
 }
 
 LptaD3DVertexCopier::COPY_RESULT LptaD3DVertexCopier::CopyToBuffer(
@@ -84,7 +76,7 @@ void LptaD3DVertexCopier::Visit(lpta::LptaUUVertexCollection *collection)
         throw D3DCopierInvalidTargetBuffer();
     }
     D3D_VERTEX *buffer = static_cast<D3D_VERTEX *>(copyBuffer);
-    for (unsigned int i = 0; i < GetNumVertices(); ++i) {
+    for (unsigned int i = 0; i < NumVertices(); ++i) {
         const auto &vertex = collection->GetVertices().at(i);
         // todo
         buffer[i].x = vertex.coordinate.GetX();
@@ -108,7 +100,7 @@ void LptaD3DVertexCopier::Visit(lpta::LptaULVertexCollection *collection)
         throw D3DCopierInvalidTargetBuffer();
     }
     D3D_LVERTEX *buffer = static_cast<D3D_LVERTEX *>(copyBuffer);
-    for (unsigned int i = 0; i < GetNumVertices(); ++i) {
+    for (unsigned int i = 0; i < NumVertices(); ++i) {
         const auto &vertex = collection->GetVertices().at(i);
         // todo
         buffer[i].x = vertex.coordinate.GetX();
@@ -133,7 +125,7 @@ bool LptaD3DVertexCopier::HasValidCopyBuffer(void) const
     // defensive assertion, ByteSize should return the proper size of buffer to allocate,
     // but recalculate in visitor method to guarantee that the copy buffer is large enough
     return NULL != copyBuffer &&
-        copyBufferSize >= (sizeof(T) * GetNumVertices());
+        copyBufferSize >= (sizeof(T) * NumVertices());
 }
 
 }

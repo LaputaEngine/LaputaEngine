@@ -52,12 +52,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\lib\gtest-1.7.0\include;$(SolutionDir)\Laputa3D\include;$(SolutionDir)\LaputaRenderer\include;$(SolutionDir)\LaputaD3D\include;$(DXSDK_DIR)\include;$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\lib\gtest-1.7.0\include;$(SolutionDir)\Laputa3D\include;$(SolutionDir)\LaputaRenderer\include;$(SolutionDir)\LaputaD3D\include;$(DXSDK_DIR)\include;$(SolutionDir);$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(SolutionDir)\..\lib\gtest-1.7.0\bin_debug\gtestd.lib;$(SolutionDir)\..\lib\gtest-1.7.0\bin_debug\gtest_main-mdd.lib;$(OutputPath)\Laputa3D.lib;$(OutputPath)\LaputaRenderer.lib;$(OutputPath)\LaputaD3D_Static.lib;$(OutputPath)\LaputaGeneral.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)\..\lib\gtest-1.7.0\bin_debug\gtestd.lib;$(SolutionDir)\..\lib\gtest-1.7.0\bin_debug\gtest_main-mdd.lib;$(OutputPath)\Laputa3D.lib;$(OutputPath)\LaputaRenderer.lib;$(OutputPath)\LaputaD3D_Static.lib;$(OutputPath)\LaputaGeneral.lib;$(DXSDK_DIR)\lib\$(PlatformTarget)\d3d9.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -91,9 +91,13 @@
     <ClCompile Include="Laputa3D\LptaRay.cpp" />
     <ClCompile Include="Laputa3D\LptaVector.cpp" />
     <ClCompile Include="LaputaD3D\LptaD3DMatrix.cpp" />
+    <ClCompile Include="LaputaD3D\vertices\LptaD3DDynamicBuffer.cpp" />
     <ClCompile Include="LaputaD3D\vertices\LptaD3DVertexCopier.cpp" />
     <ClCompile Include="LaputaGeneral\LptaFileHelper.cpp" />
     <ClCompile Include="TestRunner.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="LaputaD3D\LptaD3D_Helper.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

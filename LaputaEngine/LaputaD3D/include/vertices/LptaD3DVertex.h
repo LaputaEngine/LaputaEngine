@@ -2,10 +2,13 @@
 #define _LPTAD3DVERTEX_H_
 
 #include <d3d9.h>
+#include "vertices/LptaVertexCollection.h"
 #include "LptaD3DColorUtils.h"
 
 #define FVF_VERTEX (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1)
 #define FVF_LVERTEX (D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1)
+
+#define INVALID_STRIDE 0
 
 namespace lpta_d3d
 {
@@ -33,6 +36,21 @@ typedef struct D3D_LVERTEX_TYPE
     float tu;
     float tv;
 } D3D_LVERTEX;
+
+inline unsigned int ToStride(lpta::VERTEX_TYPE vertexType)
+{
+    using lpta::VERTEX_TYPE;
+
+    switch (vertexType) {
+    case VERTEX_TYPE::VT_UU:
+        return sizeof(D3D_VERTEX);
+    case VERTEX_TYPE::VT_UL:
+        return sizeof(D3D_LVERTEX);
+    default:
+        // log error
+        return INVALID_STRIDE;
+    }
+}
 
 }
 

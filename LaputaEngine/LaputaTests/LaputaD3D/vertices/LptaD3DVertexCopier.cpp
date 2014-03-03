@@ -21,8 +21,8 @@ TEST(LptaD3DVertexCopierTest, UUCopier)
     uu.AddVertex(vertex);
     uu.AddVertex(vertex);
     lpta_d3d::LptaD3DVertexCopier copier(&uu);
-    ASSERT_EQ(2, copier.GetNumVertices());
-    ASSERT_EQ(sizeof(lpta_d3d::D3D_VERTEX), copier.GetStride());
+    ASSERT_EQ(2, copier.NumVertices());
+    ASSERT_EQ(sizeof(lpta_d3d::D3D_VERTEX), copier.Stride());
     ASSERT_EQ(sizeof(lpta_d3d::D3D_VERTEX) * uu.GetNumVertices(), copier.ByteSize());
     lpta_d3d::D3D_VERTEX buffer[2];
     auto result = 
@@ -67,8 +67,8 @@ TEST(LptaD3DVertexCopierTest, ULCopier)
     ul.AddVertex(vertex);
     ul.AddVertex(vertex);
     lpta_d3d::LptaD3DVertexCopier copier(&ul);
-    ASSERT_EQ(2, copier.GetNumVertices());
-    ASSERT_EQ(sizeof(lpta_d3d::D3D_LVERTEX), copier.GetStride());
+    ASSERT_EQ(2, copier.NumVertices());
+    ASSERT_EQ(sizeof(lpta_d3d::D3D_LVERTEX), copier.Stride());
     ASSERT_EQ(sizeof(lpta_d3d::D3D_LVERTEX) * ul.GetNumVertices(), copier.ByteSize());
     lpta_d3d::D3D_LVERTEX buffer[2];
     void *casted = static_cast<void *>(buffer);

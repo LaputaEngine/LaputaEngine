@@ -9,6 +9,7 @@ namespace lpta
 // vertex type registry
 typedef enum VERTEX_TYPE_TYPE
 {
+    VT_UNKNOWN,
     VT_UU,          // untransformed, unlit
     VT_UL,          // untransformed, lit
 } VERTEX_TYPE;
