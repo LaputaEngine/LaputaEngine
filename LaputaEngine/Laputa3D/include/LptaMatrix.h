@@ -27,9 +27,11 @@ public:
     //     [w0, w1, w2, w3]
     // this is abstracted away using the inline method "AssignAt"
     typedef array<array<float, LPTA_MATRIX_COLUMNS>, LPTA_MATRIX_ROWS> MATRIX;
+
 protected:
     LptaMatrix(void);
     inline void AssignAt(unsigned int row, unsigned int column, float value);
+
 public:
     ~LptaMatrix(void);
     
@@ -51,6 +53,7 @@ public:
     LptaVector GetTranslation(void) const;
     void SetTranslation(float dx, float dy, float dz);
     void ClearTranslation(void);
+
 private:
     MATRIX m;
 };

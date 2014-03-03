@@ -19,6 +19,7 @@ public:
         BACK,
         PLANE,
     };
+
 public:
     LptaPlane(void);
     LptaPlane(const LptaNormalVector &normal, float distanceToOrigin);
@@ -36,6 +37,7 @@ public:
     bool Intersects(const LPTA_TRIANGLE &triangle) const;
     bool Intersects(const LptaAABB &aabb) const;
     bool Intersects(const LptaOBB &obb) const;
+
 private:
     POINT point;
     LptaNormalVector normal;

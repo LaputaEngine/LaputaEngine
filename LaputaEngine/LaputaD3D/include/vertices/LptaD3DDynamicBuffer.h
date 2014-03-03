@@ -12,6 +12,10 @@ namespace lpta_d3d
 class LptaD3DDynamicBuffer
 {
 public:
+    // copy is disallowed because each instance should have unique ownership to
+    // the allocated dx9 buffers
+    LptaD3DDynamicBuffer(const LptaD3DDynamicBuffer &copy) = delete;
+
     LptaD3DDynamicBuffer(LPDIRECT3DDEVICE9 d3ddev, lpta::VERTEX_TYPE vertexType,
         unsigned int maxVertices, unsigned int maxIndices);
     ~LptaD3DDynamicBuffer(void);

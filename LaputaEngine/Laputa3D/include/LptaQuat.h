@@ -23,6 +23,7 @@ public:
 
     LptaQuat operator *(const LptaQuat &quat) const;
     void operator *=(const LptaQuat &quat);
+
 private:
     float w;
     float x;

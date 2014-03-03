@@ -17,6 +17,7 @@ public:
     inline const POINT &GetMin(void) const;
     inline const POINT &GetMax(void) const;
     inline const POINT &GetCentre(void) const;
+
 private:
     const POINT min; // near bottom left
     const POINT max; // far top right

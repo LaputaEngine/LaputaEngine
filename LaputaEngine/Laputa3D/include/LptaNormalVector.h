@@ -18,6 +18,12 @@ public:
     inline static LptaNormalVector MakeXAlignedVector(VECTOR_DIRECTION direction);
     inline static LptaNormalVector MakeYAlignedVector(VECTOR_DIRECTION direction);
     inline static LptaNormalVector MakeZAlignedVector(VECTOR_DIRECTION direction);
+
+    // todo: this is awkward, might need to rethink the design of this class and the
+    // vector class.
+    virtual void SetX(float x);
+    virtual void SetY(float y);
+    virtual void SetZ(float z);
 };
 
 LptaNormalVector LptaNormalVector::MakeFrom(const LptaVector &vector)

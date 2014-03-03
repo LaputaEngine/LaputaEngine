@@ -37,7 +37,7 @@ public:
 public:
     LptaVector(void);
     LptaVector(float x, float y, float z);
-    ~LptaVector(void);
+    virtual ~LptaVector(void);
 
     inline float GetDimension(DIMENSION dim) const;
     inline float GetX(void) const;
@@ -45,9 +45,9 @@ public:
     inline float GetZ(void) const;
 
     inline void SetDimension(DIMENSION dim, float value);
-    inline void SetX(float x);
-    inline void SetY(float y);
-    inline void SetZ(float z);
+    virtual inline void SetX(float x);
+    virtual inline void SetY(float y);
+    virtual inline void SetZ(float z);
 
     float Length(void) const;
     float LengthSquared(void) const;
@@ -67,8 +67,8 @@ public:
     LptaVector operator +(const LptaVector &other) const;
     LptaVector operator -(const LptaVector &other) const;
     LptaVector Cross(const LptaVector &other) const;
+
 private:
-    typedef struct VECTOR_TYPE VECTOR;
     VECTOR vector;
 };
 typedef LptaVector POINT;

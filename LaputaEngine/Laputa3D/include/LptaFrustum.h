@@ -26,6 +26,7 @@ public:
     ~LptaFrustum(void);
     
     const LptaPlane &GetPlaneFor(FACE face) const;
+
 private:
     array<LptaPlane, NUM_FACES> planes;
 };

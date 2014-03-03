@@ -22,6 +22,7 @@ public:
     bool Intersects(const LptaPlane &plane) const;
     bool Intersects(const LptaAABB &bBox) const;
     bool Intersects(const LptaOBB &obb) const;
+
 private:
     const POINT origin;
     const LptaVector direction;
