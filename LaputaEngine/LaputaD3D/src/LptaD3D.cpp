@@ -42,10 +42,10 @@ LptaD3D::LptaD3D(HINSTANCE dll, HWND hWnd, const vector<HWND> &childWnds) :
 {
     this->isRunning = false;
     
-    this->d3ddev = NULL;
-    this->d3d = NULL;
+    this->d3ddev = nullptr;
+    this->d3d = nullptr;
     for (unsigned int i = 0; i < MAX_3DHWND; ++i) {
-        chain[i] = NULL;
+        chain[i] = nullptr;
     }
     
     this->clearColor = lpta_d3d::DEFAULT_CLEAR_COLOR;
@@ -96,23 +96,23 @@ HRESULT LptaD3D::ActivatePixelShader(lpta::PIXEL_SHADER_ID shaderId)
 /////////////////////////////////////////////////////////////////
 void LptaD3D::Release(void)
 {
-    if (NULL != d3ddev) {
+    if (nullptr != d3ddev) {
         d3ddev->Release();
-        d3ddev = NULL;
+        d3ddev = nullptr;
     }
-    if (NULL != d3d) {
+    if (nullptr != d3d) {
         d3d->Release();
-        d3d = NULL;
+        d3d = nullptr;
     }
     for (unsigned int i = 0; i < numWindows; i++) {
-        renderWindows[i] = NULL;
-        if (NULL != chain[i]) {
+        renderWindows[i] = nullptr;
+        if (nullptr != chain[i]) {
             chain[i]->Release();
-            chain[i] = NULL;
+            chain[i] = nullptr;
         }
     }
     numWindows = 0;
-    dll = NULL;
+    dll = nullptr;
 }
 
 bool LptaD3D::IsRunning(void)
@@ -145,7 +145,7 @@ HRESULT LptaD3D::Clear(bool clearPixel, bool clearDepth, bool clearStencil)
     }
     if (clearFlag != 0) {
         bool failed = false;
-        if (FAILED(d3ddev->Clear(0, NULL, clearFlag, clearColor, 1.0f, 0))) {
+        if (FAILED(d3ddev->Clear(0, nullptr, clearFlag, clearColor, 1.0f, 0))) {
             failed = true;
         }
     }
@@ -159,9 +159,9 @@ void LptaD3D::EndRendering(void)
 {
     d3ddev->EndScene();
     //TODO: get rid of this nasty hack
-    //d3ddev->Present(NULL, NULL, NULL, NULL);
+    //d3ddev->Present(nullptr, nullptr, nullptr, nullptr);
     for (unsigned int i = 0; i < numWindows; i++) {
-        chain[i]->Present(NULL, NULL, renderWindows[i], NULL, 0);
+        chain[i]->Present(nullptr, nullptr, renderWindows[i], nullptr, 0);
     }
     isSceneRunning = false;
 }
@@ -176,7 +176,7 @@ HRESULT LptaD3D::UseWindow(UINT windowIndex)
     if (windowIndex < 0 || numWindows <= windowIndex) {
         return S_OK;
     }
-    LPDIRECT3DSURFACE9 surf = NULL;
+    LPDIRECT3DSURFACE9 surf = nullptr;
     chain[windowIndex]->GetBackBuffer(0, D3DBACKBUFFER_TYPE_MONO, &surf);
     d3ddev->SetRenderTarget(0, surf);
     surf->Release();
@@ -587,7 +587,7 @@ lpta_3d::LptaRay LptaD3D::Transform2DTo3D(const lpta_3d::POINT &point2D)
     float scaledY = (((point2D.GetY() * 2.0f) / screenHeight) - 1.0f) / perspectives.at(stage)._22;
     float scaledZ = 1.0f;
     D3DXMATRIX inverseView;
-    D3DXMatrixInverse(&inverseView, NULL, view);
+    D3DXMatrixInverse(&inverseView, nullptr, view);
 
     float dirX = (scaledX * inverseView._11) + (scaledY * inverseView._21) +
         (scaledZ * inverseView._31);

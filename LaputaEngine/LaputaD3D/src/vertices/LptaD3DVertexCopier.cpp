@@ -10,7 +10,7 @@ namespace lpta_d3d
 {
 
 LptaD3DVertexCopier::LptaD3DVertexCopier(lpta::LptaVertices *collection) : 
-    copyBuffer(NULL), copyBufferSize(0), collection(collection)
+    copyBuffer(nullptr), copyBufferSize(0), collection(collection)
 {
 }
 
@@ -46,14 +46,14 @@ LptaD3DVertexCopier::COPY_RESULT LptaD3DVertexCopier::CopyToBuffer(
     this->copyBufferSize = bufferSize;
     try {
         collection->Accept(this);
-        this->copyBuffer = NULL;
+        this->copyBuffer = nullptr;
         this->copyBufferSize = 0;
         return COPY_RESULT::SUCCESS;
     }
     catch (D3DCopierInvalidTargetBuffer)
     {
         // log error
-        this->copyBuffer = NULL;
+        this->copyBuffer = nullptr;
         this->copyBufferSize = 0;
         return COPY_RESULT::FAILURE;
     }
@@ -124,7 +124,7 @@ bool LptaD3DVertexCopier::HasValidCopyBuffer(void) const
 {
     // defensive assertion, ByteSize should return the proper size of buffer to allocate,
     // but recalculate in visitor method to guarantee that the copy buffer is large enough
-    return NULL != copyBuffer &&
+    return nullptr != copyBuffer &&
         copyBufferSize >= (sizeof(T) * NumVertices());
 }
 

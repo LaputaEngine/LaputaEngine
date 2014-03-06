@@ -25,7 +25,7 @@ public:
         d3d = Direct3DCreate9(D3D_SDK_VERSION);
         d3d->CreateDevice(D3DADAPTER_DEFAULT,
             D3DDEVTYPE_HAL,
-            NULL,
+            nullptr,
             D3DCREATE_SOFTWARE_VERTEXPROCESSING,
             &d3dpp,
             &d3ddev);

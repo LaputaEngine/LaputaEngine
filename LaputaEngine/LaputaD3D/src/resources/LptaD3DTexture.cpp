@@ -54,7 +54,7 @@ LPDIRECT3DTEXTURE9 LptaD3DTexture::D3DLoadTextureFile(LPDIRECT3DDEVICE9 d3ddev,
     try {
         CImg<unsigned char> image(filename.c_str());
         D3DFORMAT format = D3DFMT_A8R8G8B8;
-        LPDIRECT3DTEXTURE9 textureData = NULL;
+        LPDIRECT3DTEXTURE9 textureData = nullptr;
         D3DLOCKED_RECT d3dLockedRect;
         HRESULT result = d3ddev->CreateTexture(
             image.width(), image.height(),
@@ -67,7 +67,7 @@ LPDIRECT3DTEXTURE9 LptaD3DTexture::D3DLoadTextureFile(LPDIRECT3DDEVICE9 d3ddev,
         if (FAILED(result)) {
             throw TextureD3DFailure("could not allocate memory for texture");
         }
-        result = textureData->LockRect(0, &d3dLockedRect, NULL, 0);
+        result = textureData->LockRect(0, &d3dLockedRect, nullptr, 0);
         if (FAILED(result)) {
             textureData->Release();
             throw TextureD3DFailure("could not lock image buffer for copy");
@@ -123,7 +123,7 @@ void LptaD3DTexture::SetAlphaKey(const lpta::LptaColor &colorKey) const
     D3DSURFACE_DESC d3dDesc;
     D3DLOCKED_RECT d3dLockedRect;
     texture->GetLevelDesc(0, &d3dDesc);
-    if (FAILED(texture->LockRect(0, &d3dLockedRect, NULL, 0))) {
+    if (FAILED(texture->LockRect(0, &d3dLockedRect, nullptr, 0))) {
         throw TextureD3DFailure("could not lock image buffer to set color keys");
     }
     Color32Bit *buffer = static_cast<Color32Bit*>(d3dLockedRect.pBits);
@@ -146,7 +146,7 @@ void LptaD3DTexture::SetTransparency(float alpha) const
     D3DSURFACE_DESC d3dDesc;
     D3DLOCKED_RECT d3dLockedRect;
     texture->GetLevelDesc(0, &d3dDesc);
-    if (FAILED(texture->LockRect(0, &d3dLockedRect, NULL, 0))) {
+    if (FAILED(texture->LockRect(0, &d3dLockedRect, nullptr, 0))) {
         throw TextureD3DFailure("could not lock image buffer to set alpha");
     }
     Color32Bit *buffer = static_cast<Color32Bit*>(d3dLockedRect.pBits);

@@ -71,7 +71,7 @@ DxT LptaD3DShaderManager<ResourceT, DxT>::LoadAndCompile(const std::string &shad
     LPD3DXBUFFER compiled;
     LPD3DXBUFFER errorMsg;
     HRESULT assembleResult = D3DXAssembleShader(
-        shader.c_str(), shader.length() , NULL, NULL, 0, &compiled, &errorMsg); 
+        shader.c_str(), shader.length() , nullptr, nullptr, 0, &compiled, &errorMsg); 
 
     if (SUCCEEDED(assembleResult)) {
         return Load(compiled->GetBufferPointer());

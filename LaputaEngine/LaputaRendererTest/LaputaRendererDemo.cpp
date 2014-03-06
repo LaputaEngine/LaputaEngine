@@ -31,24 +31,24 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
     windowConfig.cbClsExtra = 0;
     windowConfig.cbWndExtra = 0;
     windowConfig.hInstance = instance;
-    windowConfig.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-    windowConfig.hCursor = LoadCursor(NULL, IDC_ARROW);
+    windowConfig.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
+    windowConfig.hCursor = LoadCursor(nullptr, IDC_ARROW);
     windowConfig.hbrBackground = (HBRUSH)COLOR_WINDOW;
     windowConfig.lpszClassName = L"LaputaRendererTestWindowClass";
-    windowConfig.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
+    windowConfig.hIconSm = LoadIcon(nullptr, IDI_APPLICATION);
 
     RegisterClassEx(&windowConfig);
 
-    hWnd = CreateWindowEx(NULL,
+    hWnd = CreateWindowEx(nullptr,
         L"LaputaRendererTestWindowClass",
         L"Laputa Renderer Test",
         WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT, CW_USEDEFAULT,
         SCREEN_WIDTH, SCREEN_HEIGHT,
-        NULL,
-        NULL,
+        nullptr,
+        nullptr,
         instance,
-        NULL);
+        nullptr);
     lpta::LptaRenderer renderer(instance);
     LPTA_DEVICE_BUILDER builder;
     renderer.CreateDeviceBuilder("Direct3D", &builder);
@@ -58,8 +58,8 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
     renderWindows.push_back(CreateWindowEx(
         WS_EX_CLIENTEDGE,
         L"static",
-        NULL,
-        WS_CHILD | SS_BLACKRECT | WS_VISIBLE, 10, 10, 100, 100, hWnd, NULL, instance, NULL)
+        nullptr,
+        WS_CHILD | SS_BLACKRECT | WS_VISIBLE, 10, 10, 100, 100, hWnd, nullptr, instance, nullptr)
     );
     builder->Make(hWnd, renderWindows, &device);
     device->SetClearColor(1.0f, 0.0f, 0.0f);
@@ -68,7 +68,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
     ShowWindow(hWnd, showArg);
     MSG message;
     while (true) {
-        while (PeekMessage(&message, NULL, 0, 0, PM_REMOVE)) {
+        while (PeekMessage(&message, nullptr, 0, 0, PM_REMOVE)) {
             TranslateMessage(&message);
             DispatchMessage(&message);
         }

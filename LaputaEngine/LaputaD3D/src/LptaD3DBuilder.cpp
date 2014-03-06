@@ -80,7 +80,7 @@ HRESULT LptaD3DDeviceBuilder::Make(HWND hWnd, const vector<HWND> &childWnds, lpt
         &d3dpp,
         &d3dDevice->d3ddev
         );
-    SetWindowPos(hWnd, NULL, -1, -1, d3dDevice->screenWidth, d3dDevice->screenHeight, SWP_NOMOVE);
+    SetWindowPos(hWnd, nullptr, -1, -1, d3dDevice->screenWidth, d3dDevice->screenHeight, SWP_NOMOVE);
     
     for (unsigned int i = 0; i < d3dDevice->numWindows; i++) {
         D3DPRESENT_PARAMETERS swapChainPP = d3dpp;
@@ -90,7 +90,7 @@ HRESULT LptaD3DDeviceBuilder::Make(HWND hWnd, const vector<HWND> &childWnds, lpt
 
     d3dDevice->isUsingShader = InitShaderSupport(d3dDevice->d3ddev, 
         &d3dDevice->declVertex, &d3dDevice->declLitVertex);
-    d3dDevice->d3ddev->SetFVF(NULL);
+    d3dDevice->d3ddev->SetFVF(nullptr);
     d3dDevice->vertexShaderManager = 
         unique_ptr<LptaD3DVertexShaderManager>(new LptaD3DVertexShaderManager(d3dDevice->d3ddev));
 

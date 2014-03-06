@@ -13,30 +13,30 @@ LptaD3DDynamicBuffer::LptaD3DDynamicBuffer(
     LPDIRECT3DDEVICE9 d3ddev, 
     lpta::VERTEX_TYPE vertexType,
     unsigned int maxVertices, unsigned int maxIndices) : 
-        vertexBuffer(NULL), indexBuffer(NULL), vertexType(vertexType),
+        vertexBuffer(nullptr), indexBuffer(nullptr), vertexType(vertexType),
         maxVertices(maxVertices), maxIndices(maxIndices), numVertices(0), numIndices(0)
 {
     try {
         {
             HRESULT result = d3ddev->CreateVertexBuffer(ToStride(vertexType) * maxVertices, 
-                USAGE, 0, D3DPOOL_DEFAULT, &vertexBuffer, NULL);
+                USAGE, 0, D3DPOOL_DEFAULT, &vertexBuffer, nullptr);
             if (FAILED(result)) {
                 throw std::runtime_error("failed to create vertex buffer");
             }
         }
         {
             HRESULT result = d3ddev->CreateIndexBuffer(sizeof(DWORD) * maxIndices,
-                USAGE, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &indexBuffer, NULL);
+                USAGE, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &indexBuffer, nullptr);
             if (FAILED(result)) {
                 throw std::runtime_error("failed to create index buffer");
             }
         }
     }
     catch (std::runtime_error) {
-        if (NULL != vertexBuffer) {
+        if (nullptr != vertexBuffer) {
             vertexBuffer->Release();
         }
-        if (NULL != indexBuffer) {
+        if (nullptr != indexBuffer) {
             indexBuffer->Release();
         }
         throw D3DBufferAllocationFailure();

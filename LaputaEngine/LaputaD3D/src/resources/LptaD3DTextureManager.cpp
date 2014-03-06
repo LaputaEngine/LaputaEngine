@@ -33,7 +33,7 @@ LptaD3DTexture::TEXTURE_ID LptaD3DTextureManager::AddorRetrieveTexture(const std
 
 lpta::LptaTexture::DATA LptaD3DTextureManager::GenerateDefaultData(void)
 {
-    LPDIRECT3DTEXTURE9 textureData = NULL;
+    LPDIRECT3DTEXTURE9 textureData = nullptr;
     D3DLOCKED_RECT d3dLockedRect;
     HRESULT result = d3ddev->CreateTexture(
         DEFAULT_TEXTURE_WIDTH, DEFAULT_TEXTURE_HEIGHT,
@@ -41,12 +41,12 @@ lpta::LptaTexture::DATA LptaD3DTextureManager::GenerateDefaultData(void)
         D3DFMT_A8R8G8B8,
         D3DPOOL_MANAGED,
         &textureData,
-        NULL
+        nullptr
     );
     if (FAILED(result)) {
         throw TextureD3DFailure("could not obtain texture object for default");
     }
-    result = textureData->LockRect(0, &d3dLockedRect, NULL, 0);
+    result = textureData->LockRect(0, &d3dLockedRect, nullptr, 0);
     if (FAILED(result)) {
         textureData->Release();
         throw TextureD3DFailure("failed to lock rectangle to set default texture color");

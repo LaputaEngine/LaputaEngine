@@ -49,7 +49,7 @@ TEST(LptaD3DVertexCopierTest, UUCopier_BadBuffer)
     uu.AddVertex(vertex);
     uu.AddVertex(vertex);
     lpta_d3d::LptaD3DVertexCopier copier(&uu);
-    auto result = copier.CopyToBuffer(NULL, sizeof(lpta_d3d::D3D_VERTEX) * 2);
+    auto result = copier.CopyToBuffer(nullptr, sizeof(lpta_d3d::D3D_VERTEX) * 2);
     ASSERT_EQ(copier.FAILURE, result);
     lpta_d3d::D3D_VERTEX inadequate[1];
     result = copier.CopyToBuffer(inadequate, sizeof(lpta_d3d::D3D_VERTEX));
@@ -95,7 +95,7 @@ TEST(LptaD3DVertexCopierTest, ULCopier_BadBuffer)
     ul.AddVertex(vertex);
     ul.AddVertex(vertex);
     lpta_d3d::LptaD3DVertexCopier copier(&ul);
-    auto result = copier.CopyToBuffer(NULL, sizeof(lpta_d3d::D3D_LVERTEX) * 2);
+    auto result = copier.CopyToBuffer(nullptr, sizeof(lpta_d3d::D3D_LVERTEX) * 2);
     ASSERT_EQ(copier.FAILURE, result);
     lpta_d3d::D3D_LVERTEX inadequate[1];
     result = copier.CopyToBuffer(inadequate, sizeof(lpta_d3d::D3D_LVERTEX));
