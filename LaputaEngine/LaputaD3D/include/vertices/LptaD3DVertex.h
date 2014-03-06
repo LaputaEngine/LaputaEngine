@@ -52,6 +52,21 @@ inline unsigned int ToStride(lpta::VERTEX_TYPE vertexType)
     }
 }
 
+inline DWORD ToFVF(lpta::VERTEX_TYPE vertexType)
+{
+    using lpta::VERTEX_TYPE;
+
+    switch (vertexType) {
+    case VERTEX_TYPE::VT_UU:
+        return FVF_VERTEX;
+    case VERTEX_TYPE::VT_UL:
+        return FVF_LVERTEX;
+    default:
+        // log error
+        return 0;
+    }
+}
+
 }
 
 #endif

@@ -107,6 +107,7 @@
     <ClCompile Include="src\vertices\errors\D3DBufferAllocationFailure.cpp" />
     <ClCompile Include="src\vertices\errors\D3DCopierInvalidTargetBuffer.cpp" />
     <ClCompile Include="src\vertices\LptaD3DDynamicBuffer.cpp" />
+    <ClCompile Include="src\vertices\LptaD3DStaticBuffer.cpp" />
     <ClCompile Include="src\vertices\LptaD3DVertexBuffer.cpp" />
     <ClCompile Include="src\vertices\LptaD3DVertexCopier.cpp" />
   </ItemGroup>
@@ -126,6 +127,7 @@
     <ClInclude Include="include\vertices\errors\D3DBufferAllocationFailure.h" />
     <ClInclude Include="include\vertices\errors\D3DCopierInvalidTargetBuffer.h" />
     <ClInclude Include="include\vertices\LptaD3DDynamicBuffer.h" />
+    <ClInclude Include="include\vertices\LptaD3DStaticBuffer.h" />
     <ClInclude Include="include\vertices\LptaD3DVertex.h" />
     <ClInclude Include="include\vertices\LptaD3DVertexCache.h" />
     <ClInclude Include="include\resources\errors\TextureD3DFailure.h" />

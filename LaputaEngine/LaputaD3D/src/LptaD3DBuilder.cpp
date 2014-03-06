@@ -90,7 +90,7 @@ HRESULT LptaD3DDeviceBuilder::Make(HWND hWnd, const vector<HWND> &childWnds, lpt
 
     d3dDevice->isUsingShader = InitShaderSupport(d3dDevice->d3ddev, 
         &d3dDevice->declVertex, &d3dDevice->declLitVertex);
-    d3dDevice->d3ddev->SetFVF(nullptr);
+    d3dDevice->d3ddev->SetFVF(0);
     d3dDevice->vertexShaderManager = 
         unique_ptr<LptaD3DVertexShaderManager>(new LptaD3DVertexShaderManager(d3dDevice->d3ddev));
 

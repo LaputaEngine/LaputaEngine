@@ -39,7 +39,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
 
     RegisterClassEx(&windowConfig);
 
-    hWnd = CreateWindowEx(nullptr,
+    hWnd = CreateWindowEx(0,
         L"LaputaRendererTestWindowClass",
         L"Laputa Renderer Test",
         WS_OVERLAPPEDWINDOW,
