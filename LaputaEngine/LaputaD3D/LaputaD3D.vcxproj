@@ -98,7 +98,6 @@
     <ClCompile Include="src\resources\LptaD3DVertexShaderManager.cpp" />
     <ClCompile Include="src\LptaD3DUtils.cpp" />
     <ClCompile Include="src\LptaD3D.cpp" />
-    <ClCompile Include="src\LptaD3DVertexCache.cpp" />
     <ClCompile Include="src\resources\errors\TextureD3DFailure.cpp" />
     <ClCompile Include="src\resources\errors\TextureError.cpp" />
     <ClCompile Include="src\resources\errors\TextureFileNotFound.cpp" />
@@ -108,7 +107,6 @@
     <ClCompile Include="src\vertices\errors\D3DCopierInvalidTargetBuffer.cpp" />
     <ClCompile Include="src\vertices\LptaD3DDynamicBuffer.cpp" />
     <ClCompile Include="src\vertices\LptaD3DStaticBuffer.cpp" />
-    <ClCompile Include="src\vertices\LptaD3DVertexBuffer.cpp" />
     <ClCompile Include="src\vertices\LptaD3DVertexCopier.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -117,6 +115,7 @@
     <ClInclude Include="include\LptaD3DDeviceBuilder.h" />
     <ClInclude Include="include\LptaD3DConfig.h" />
     <ClInclude Include="include\LptaD3DMatrix.h" />
+    <ClInclude Include="include\LptaD3DVertexCache.h" />
     <ClInclude Include="include\resources\errors\ShaderCompileFail.h" />
     <ClInclude Include="include\resources\LptaD3DPixelShader.h" />
     <ClInclude Include="include\resources\LptaD3DPixelShaderManager.h" />
@@ -129,16 +128,16 @@
     <ClInclude Include="include\vertices\LptaD3DDynamicBuffer.h" />
     <ClInclude Include="include\vertices\LptaD3DStaticBuffer.h" />
     <ClInclude Include="include\vertices\LptaD3DVertex.h" />
-    <ClInclude Include="include\vertices\LptaD3DVertexCache.h" />
     <ClInclude Include="include\resources\errors\TextureD3DFailure.h" />
     <ClInclude Include="include\resources\errors\TextureError.h" />
     <ClInclude Include="include\resources\errors\TextureFileNotFound.h" />
     <ClInclude Include="include\resources\LptaD3DTexture.h" />
     <ClInclude Include="include\resources\LptaD3DTextureManager.h" />
-    <ClInclude Include="include\vertices\LptaD3DVertexBuffer.h" />
     <ClInclude Include="include\vertices\LptaD3DVertexCopier.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="include\resources\LptaD3DShaderManager.h" />
+    <ClInclude Include="include\vertices\LptaD3DStaticBufferManager.h" />
+    <ClInclude Include="include\vertices\LptaD3DStaticBufferResource.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="dlgChangeDevice.rc" />

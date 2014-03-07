@@ -4,7 +4,6 @@
 #include <d3d9.h>
 #include "vertices/LptaVertices.h"
 #include "vertices/LptaIndices.h"
-#include "LptaD3DVertexBuffer.h"
 
 namespace lpta_d3d
 {

@@ -6,7 +6,6 @@
 #include "vertices/LptaD3DVertex.h"
 #include "vertices/LptaUUVertices.h"
 #include "vertices/LptaULVertices.h"
-#include "vertices/LptaD3DVertexBuffer.h"
 #include "vertices/LptaD3DVertexCopier.h"
 using lpta_d3d::LptaD3DVertexCopier;
 

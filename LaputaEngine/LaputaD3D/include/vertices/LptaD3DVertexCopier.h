@@ -4,7 +4,6 @@
 #include <vector>
 #include "vertices/LptaVerticesVisitor.h"
 #include "vertices/LptaVertices.h"
-#include "LptaD3DVertexBuffer.h"
 
 namespace lpta_d3d
 {
