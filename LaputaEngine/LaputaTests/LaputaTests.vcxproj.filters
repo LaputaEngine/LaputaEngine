@@ -58,6 +58,7 @@
       <Filter>LaputaD3D\Vertices</Filter>
     </ClCompile>
     <ClCompile Include="LaputaD3D\vertices\LptaD3DDynamicBuffer.cpp" />
+    <ClCompile Include="LaputaD3D\vertices\LptaD3DStaticBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LaputaD3D\LptaD3D_Helper.h" />

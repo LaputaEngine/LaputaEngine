@@ -92,6 +92,7 @@
     <ClCompile Include="Laputa3D\LptaVector.cpp" />
     <ClCompile Include="LaputaD3D\LptaD3DMatrix.cpp" />
     <ClCompile Include="LaputaD3D\vertices\LptaD3DDynamicBuffer.cpp" />
+    <ClCompile Include="LaputaD3D\vertices\LptaD3DStaticBuffer.cpp" />
     <ClCompile Include="LaputaD3D\vertices\LptaD3DVertexCopier.cpp" />
     <ClCompile Include="LaputaGeneral\LptaFileHelper.cpp" />
     <ClCompile Include="TestRunner.cpp" />

@@ -21,22 +21,24 @@ LptaD3DStaticBuffer::LptaD3DStaticBuffer(
     try {
         LptaD3DVertexCopier copier(vertices);
         if (SUCCEEDED(d3ddev->CreateVertexBuffer(
-                copier.ByteSize(), 
-                D3DUSAGE_WRITEONLY, useShader? 0 : ToFVF(vertexType), 
-                D3DPOOL_DEFAULT, &vertexBuffer, 
-                NULL)) &&
+                copier.ByteSize(),
+                D3DUSAGE_WRITEONLY, 
+                useShader? 0 : ToFVF(vertexType), 
+                D3DPOOL_DEFAULT, 
+                &vertexBuffer, 
+                nullptr)) &&
             SUCCEEDED(d3ddev->CreateIndexBuffer(
                 indices.size() * sizeof(DWORD), 
                 D3DUSAGE_WRITEONLY, 
                 D3DFMT_INDEX16, 
                 D3DPOOL_DEFAULT, 
                 &indexBuffer, 
-                NULL))
+                nullptr))
         ) {
             {
                 void *writeBuffer;
                 if (SUCCEEDED(vertexBuffer->Lock(LOCK_ALL, LOCK_ALL, &writeBuffer, 0))) {
-                    copier.CopyToBuffer(vertexBuffer, copier.ByteSize());
+                    copier.CopyToBuffer(writeBuffer, copier.ByteSize());
                     vertexBuffer->Unlock();
                 }
                 else {
