@@ -137,5 +137,8 @@
     <ClInclude Include="include\vertices\LptaIndices.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\LptaVertexCache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

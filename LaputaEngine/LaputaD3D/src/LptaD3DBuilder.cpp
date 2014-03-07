@@ -81,6 +81,8 @@ HRESULT LptaD3DDeviceBuilder::Make(HWND hWnd, const vector<HWND> &childWnds, lpt
         &d3dDevice->d3ddev
         );
     SetWindowPos(hWnd, nullptr, -1, -1, d3dDevice->screenWidth, d3dDevice->screenHeight, SWP_NOMOVE);
+
+    d3dDevice->vertexCache = unique_ptr<LptaD3DVertexCache>(new LptaD3DVertexCache(d3dDevice->d3ddev));
     
     for (unsigned int i = 0; i < d3dDevice->numWindows; i++) {
         D3DPRESENT_PARAMETERS swapChainPP = d3dpp;

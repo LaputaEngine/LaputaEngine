@@ -11,6 +11,7 @@
 #include "resources/LptaD3DPixelShaderManager.h"
 #include "LptaD3DConfig.h"
 #include "LptaRenderDeviceImpl.h"
+#include "LptaD3DVertexCache.h"
 using std::unique_ptr;
 
 namespace lpta_d3d
@@ -106,6 +107,8 @@ private:
     LPDIRECT3D9 d3d;
     LPDIRECT3DDEVICE9 d3ddev;
     LPDIRECT3DSWAPCHAIN9 chain[MAX_3DHWND];
+
+    unique_ptr<LptaD3DVertexCache> vertexCache;
 
     LPDIRECT3DVERTEXDECLARATION9 declVertex;
     LPDIRECT3DVERTEXDECLARATION9 declLitVertex;
