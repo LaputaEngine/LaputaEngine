@@ -1,10 +1,11 @@
 #ifndef _LPTAD3DVERTEXCACHE_H_
 #define _LPTAD3DVERTEXCACHE_H_
 
+#include <memory>
 #include <vector>
 #include <d3d9.h>
+#include "vertices/LptaD3DStaticBufferManager.h"
 #include "vertices/LptaD3DDynamicBuffer.h"
-#include "vertices/LptaD3DStaticBuffer.h"
 
 namespace lpta_d3d
 {
@@ -12,13 +13,19 @@ namespace lpta_d3d
 class LptaD3DVertexCache
 {
 public:
-    
+    typedef std::unique_ptr<LptaD3DDynamicBuffer> DYNAMIC_BUFFER;
+
+public:
+    LptaD3DVertexCache(LPDIRECT3DDEVICE9 d3ddev);
+    ~LptaD3DVertexCache(void);
+
+    void FlushAll(void);
 
 private:
     LPDIRECT3DDEVICE9 d3ddev;
-
-    std::vector<LptaD3DStaticBuffer> staticBuffers;
-    std::vector<LptaD3DDynamicBuffer> dynamicBuffers;
+    
+    LptaD3DStaticBufferManager staticBuffers;
+    std::vector<DYNAMIC_BUFFER> dynamicBuffers;
 };
 
 }

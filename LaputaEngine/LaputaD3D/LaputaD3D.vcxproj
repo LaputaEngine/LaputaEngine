@@ -91,6 +91,7 @@
     <ClCompile Include="src\LptaD3DConfig_main.cpp" />
     <ClCompile Include="src\LptaD3DConfig_dlg.cpp" />
     <ClCompile Include="src\LptaD3DMatrix.cpp" />
+    <ClCompile Include="src\LptaD3DVertexCache.cpp" />
     <ClCompile Include="src\resources\errors\ShaderCompileFail.cpp" />
     <ClCompile Include="src\resources\LptaD3DPixelShader.cpp" />
     <ClCompile Include="src\resources\LptaD3DPixelShaderManager.cpp" />
@@ -107,6 +108,8 @@
     <ClCompile Include="src\vertices\errors\D3DCopierInvalidTargetBuffer.cpp" />
     <ClCompile Include="src\vertices\LptaD3DDynamicBuffer.cpp" />
     <ClCompile Include="src\vertices\LptaD3DStaticBuffer.cpp" />
+    <ClCompile Include="src\vertices\LptaD3DStaticBufferManager.cpp" />
+    <ClCompile Include="src\vertices\LptaD3DStaticBufferResource.cpp" />
     <ClCompile Include="src\vertices\LptaD3DVertexCopier.cpp" />
   </ItemGroup>
   <ItemGroup>

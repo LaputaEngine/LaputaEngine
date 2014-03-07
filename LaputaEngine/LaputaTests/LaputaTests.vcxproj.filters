@@ -59,6 +59,7 @@
     </ClCompile>
     <ClCompile Include="LaputaD3D\vertices\LptaD3DDynamicBuffer.cpp" />
     <ClCompile Include="LaputaD3D\vertices\LptaD3DStaticBuffer.cpp" />
+    <ClCompile Include="LaputaD3D\LptaD3DVertexCache.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LaputaD3D\LptaD3D_Helper.h" />
