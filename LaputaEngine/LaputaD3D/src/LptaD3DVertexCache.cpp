@@ -12,6 +12,9 @@ LptaD3DVertexCache::~LptaD3DVertexCache(void)
 {
 }
 
+///////////////////////////////////////////////////////////////////////////////
+// Static buffers
+/////////////////////////////////////////////////////////////////////
 LptaD3DStaticBufferResource::ID LptaD3DVertexCache::CreateStaticBuffer(
     lpta::LptaVertices *vertices, const lpta::INDICES &indices)
 {
@@ -23,11 +26,30 @@ LptaD3DStaticBufferResource::ID LptaD3DVertexCache::CreateStaticBuffer(
 
 HRESULT LptaD3DVertexCache::FlushStaticBuffer(LptaD3DStaticBufferResource::ID buffer)
 {
+    // todo implement
     return S_OK;
 }
 
-void LptaD3DVertexCache::FlushAll(void)
+///////////////////////////////////////////////////////////////////////////////
+// Dynamic buffers
+/////////////////////////////////////////////////////////////////////
+HRESULT LptaD3DVertexCache::Render(lpta::LptaVertices *vertices, const lpta::INDICES &indices, 
+    lpta::LptaSkin::SKIN_ID skinId)
 {
+    // todo implement
+    return E_FAIL;
+}
+
+HRESULT LptaD3DVertexCache::ForcedFlushAll(void)
+{
+    // todo implement
+    return E_FAIL;
+}
+
+HRESULT LptaD3DVertexCache::ForcedFlush(lpta::VERTEX_TYPE vertexType)
+{
+    // todo implement
+    return E_FAIL;
 }
 
 }
