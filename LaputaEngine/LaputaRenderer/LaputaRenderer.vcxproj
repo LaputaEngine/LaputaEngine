@@ -33,7 +33,6 @@
     <ClCompile Include="src\LptaSkinManager.cpp" />
     <ClInclude Include="include\LptaTextureManager.h" />
     <ClInclude Include="include\LptaVertexCache.h" />
-    <ClInclude Include="include\LptaVertexCacheManager.h" />
     <ClInclude Include="include\LptaViewport.h" />
     <ClInclude Include="include\renderer\RenderStates.h" />
     <ClInclude Include="include\vertices\LptaIndices.h" />

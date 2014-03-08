@@ -116,9 +116,6 @@
     <ClInclude Include="include\renderer\RenderStates.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\LptaVertexCacheManager.h">
-      <Filter>Header Files\Vertices</Filter>
-    </ClInclude>
     <ClInclude Include="include\errors\ImproperResourceManager.h">
       <Filter>Header Files\Errors</Filter>
     </ClInclude>
