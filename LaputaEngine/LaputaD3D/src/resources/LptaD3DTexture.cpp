@@ -11,8 +11,6 @@ namespace lpta_d3d
 {
 // D3DLoadTextureFile
 
-inline void CopyCImgToD3DRect24Bit(const cimg_library::CImg<unsigned char> &image, 
-    D3DLOCKED_RECT d3dLockedRect);
 inline void CopyCImgToD3DRect32Bit(const cimg_library::CImg<unsigned char> &image, 
     D3DLOCKED_RECT d3dLockedRect);
 
@@ -81,23 +79,7 @@ LPDIRECT3DTEXTURE9 LptaD3DTexture::D3DLoadTextureFile(LPDIRECT3DDEVICE9 d3ddev,
         throw TextureFileNotFound(filename);
     }
 }
-#define NUM_BYTES 3
-void CopyCImgToD3DRect24Bit(const cimg_library::CImg<unsigned char> &image, 
-    D3DLOCKED_RECT d3dLockedRect)
-{
-    unsigned int colorsPerLine = d3dLockedRect.Pitch / NUM_BYTES;
-    Color24Bit *buffer = static_cast<Color24Bit*>(d3dLockedRect.pBits);
-    for (int y = 0; y < image.height(); ++y) {
-        for (int x = 0; x < image.width(); ++x) {
-            Color24Bit color = {
-                image(x, y, RED_CHANNEL),
-                image(x, y, GREEN_CHANNEL),
-                image(x, y, BLUE_CHANNEL),
-            };
-            buffer[(y * colorsPerLine) + x] = color;
-        }
-    }
-}
+
 void CopyCImgToD3DRect32Bit(const cimg_library::CImg<unsigned char> &image, 
     D3DLOCKED_RECT d3dLockedRect)
 {

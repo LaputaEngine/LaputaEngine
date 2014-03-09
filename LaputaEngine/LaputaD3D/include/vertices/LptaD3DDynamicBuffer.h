@@ -20,7 +20,8 @@ public:
         unsigned int maxVertices, unsigned int maxIndices, lpta::LptaSkin::SKIN_ID skinId);
     ~LptaD3DDynamicBuffer(void);
 
-    lpta::VERTEX_TYPE GetVertexType(void) const;
+    lpta::LptaSkin::SKIN_ID GetSkinId(void) const { return skinId; }
+    lpta::VERTEX_TYPE GetVertexType(void) const { return vertexType; }
 
     bool CanFit(const lpta::LptaVertices &vertices, const lpta::INDICES &indices) const;
     bool CanFit(const lpta::LptaVertices &vertices) const;

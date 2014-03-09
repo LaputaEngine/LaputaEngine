@@ -51,11 +51,6 @@ LptaD3DDynamicBuffer::~LptaD3DDynamicBuffer(void)
     indexBuffer->Release();
 }
 
-lpta::VERTEX_TYPE LptaD3DDynamicBuffer::GetVertexType(void) const
-{
-    return vertexType;   
-}
-
 bool LptaD3DDynamicBuffer::CanFit(
     const lpta::LptaVertices &vertices, const lpta::INDICES &indices) const
 {

@@ -17,7 +17,7 @@ public:
     LptaD3DStaticBufferResource(STATIC_BUFFER_ID id, LptaD3DStaticBuffer *buffer);
     virtual ~LptaD3DStaticBufferResource(void);
 
-    const LptaD3DStaticBuffer &GetBuffer(void) const;
+    LptaD3DStaticBuffer *GetBuffer(void) const { return buffer.get(); }
 
 private:
     std::shared_ptr<LptaD3DStaticBuffer> buffer;

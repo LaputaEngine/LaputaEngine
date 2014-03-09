@@ -117,7 +117,7 @@ void LptaD3D::Release(void)
 
 bool LptaD3D::IsRunning(void)
 {
-    return FALSE;
+    return isRunning;
 }
 
 HRESULT LptaD3D::BeginRendering(bool clearPixel, bool clearDepth, bool clearStencil)

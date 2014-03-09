@@ -7,6 +7,8 @@
 namespace lpta_d3d
 {
 
+struct NoSuchBuffer {};
+
 class LptaD3DStaticBufferManager : lpta::LptaResourceManager<LptaD3DStaticBufferResource>
 {
 public:
@@ -14,6 +16,8 @@ public:
     virtual ~LptaD3DStaticBufferManager(void);
 
     LptaD3DStaticBufferResource::ID AddBuffer(LptaD3DStaticBuffer *buffer);
+
+    LptaD3DStaticBuffer *GetStaticBuffer(LptaD3DStaticBufferResource::ID id) const;
 };
 
 }

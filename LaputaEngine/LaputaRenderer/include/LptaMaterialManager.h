@@ -22,6 +22,8 @@ public:
         const LptaColor &emissive, 
         float specularPower);
 
+    const LptaMaterial &RetrieveMaterial(LptaMaterial::ID id) { return RetrieveResource(id); }
+
 protected:
     static const LptaColor DEFAULT_COLOR;
 

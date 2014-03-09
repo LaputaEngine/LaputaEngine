@@ -7,6 +7,8 @@ namespace lpta
 LptaSkinManager::LptaSkinManager(const LptaMaterialManager &materialManager) : 
     defaultMaterial(materialManager.RetrieveNullResource())
 {
+    LptaSkin defaultSkin(GetNextId(), defaultMaterial.GetId(), LptaSkin::SKIN_NON_TRANSPARENT);
+    SetNullResource(defaultSkin);
 }
 
 LptaSkinManager::~LptaSkinManager(void)

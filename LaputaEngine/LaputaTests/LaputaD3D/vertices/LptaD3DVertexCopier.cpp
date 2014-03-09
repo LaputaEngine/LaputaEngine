@@ -59,7 +59,7 @@ TEST(LptaD3DVertexCopierTest, ULCopier)
 {
     lpta::UL_VERTEX vertex = {
         lpta_3d::POINT(0.0f, 0.0f, 0.0f),
-        lpta::LptaColor(1.0f, 1.0f, 1.0f, 0.0f),
+        lpta::LptaColor(1.0f, 1.0f, 0.0f, 1.0f),
         0.0f, 0.0f
     };
     lpta::LptaULVertices ul;

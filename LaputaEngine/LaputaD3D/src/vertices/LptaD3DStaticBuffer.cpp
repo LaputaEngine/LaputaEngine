@@ -18,7 +18,7 @@ LptaD3DStaticBuffer::LptaD3DStaticBuffer(
     const lpta::LptaSkin::SKIN_ID skinId,
     bool useShader) :
         vertexType(vertices->GetType()), vertexBuffer(nullptr), indexBuffer(nullptr),
-        skinId(skinId)
+        skinId(skinId), numVertices(vertices->GetNumVertices()), numIndices(indices.size())
 {
     try {
         LptaD3DVertexCopier copier(vertices);

@@ -34,4 +34,16 @@ LptaD3DStaticBufferResource::ID LptaD3DStaticBufferManager::AddBuffer(LptaD3DSta
     return bufferResource.GetId();
 }
 
+LptaD3DStaticBuffer *LptaD3DStaticBufferManager::GetStaticBuffer(
+    LptaD3DStaticBufferResource::ID id) const
+{
+    const LptaD3DStaticBufferResource &resource = this->RetrieveResource(id);
+    if (resource.GetId() == this->RetrieveNullResource().GetId()) {
+        throw NoSuchBuffer();
+    }
+    else {
+        return resource.GetBuffer();
+    }
+}
+
 }

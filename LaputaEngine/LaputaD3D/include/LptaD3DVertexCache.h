@@ -1,5 +1,6 @@
 #ifndef _LPTAD3DVERTEXCACHE_H_
 #define _LPTAD3DVERTEXCACHE_H_
+#define CUSTOMFVF (D3DFVF_XYZRHW | D3DFVF_DIFFUSE)
 
 #include <memory>
 #include <vector>
@@ -13,6 +14,13 @@
 #include "vertices/LptaD3DDynamicBuffer.h"
 using std::unique_ptr;
 
+struct CUSTOMVERTEX
+{
+	FLOAT x, y, z, rhw;
+	DWORD color;
+};
+
+
 namespace lpta_d3d
 {
 
@@ -20,6 +28,7 @@ class LptaD3DVertexCache : public lpta::LptaVertexCache
 {
 public:
     typedef std::unique_ptr<LptaD3DDynamicBuffer> DYNAMIC_BUFFER;
+    const unsigned int MAX_CACHES = 10;
 
 public:
     LptaD3DVertexCache(const LptaD3DVertexCache &copy) = delete;
@@ -48,6 +57,40 @@ public:
         lpta::LptaSkin::SKIN_ID skinId);
     virtual HRESULT ForcedFlushAll(void);
     virtual HRESULT ForcedFlush(lpta::VERTEX_TYPE vertexType);
+
+    void HAX(void)
+    {
+    LPDIRECT3DVERTEXBUFFER9 v_buffer;
+	CUSTOMVERTEX vertices[] =
+	{
+		{ 0.0f, 600.0f, 1.0f, 1.0f, D3DCOLOR_XRGB(255, 0, 0),},
+		{ 0.0f, 0.0f, 1.0f, 1.0f, D3DCOLOR_XRGB(0, 0, 255),},
+		{ 800.0f, 600.0f, 1.0f, 1.0f, D3DCOLOR_XRGB(0, 255, 0),},
+		{ 800.0f, 0.0f, 1.0f, 1.0f, D3DCOLOR_XRGB(0, 0, 0),},
+	};
+
+	
+	d3ddev->CreateVertexBuffer(4 * sizeof(CUSTOMVERTEX),
+		0,
+		CUSTOMFVF,
+		D3DPOOL_MANAGED,
+		&v_buffer,
+		NULL);
+
+	VOID *pVoid;
+
+	v_buffer->Lock(0, 0, (void **)&pVoid, 0);
+	memcpy(pVoid, vertices, sizeof(vertices));
+	v_buffer->Unlock();
+    	d3ddev->SetFVF(CUSTOMFVF);
+
+	d3ddev->SetStreamSource(0, v_buffer, 0, sizeof(CUSTOMVERTEX));
+	d3ddev->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+    v_buffer->Release();
+
+    }
+
+private:
 
 private:
     LPDIRECT3DDEVICE9 d3ddev;

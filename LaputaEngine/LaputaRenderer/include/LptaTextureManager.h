@@ -25,6 +25,11 @@ public:
     virtual LptaTexture::TEXTURE_ID AddorRetrieveTexture(const std::string &filename, bool transparent, float alpha,
         const LptaTexture::COLOR_KEYS &colorKeys) = 0;
 
+    const LptaTexture &RetrieveTexture(LptaTexture::ID textureId) const 
+    { 
+        return RetrieveResource(textureId); 
+    }
+
 protected:
     virtual LptaTexture::DATA GenerateDefaultData(void) = 0;
 

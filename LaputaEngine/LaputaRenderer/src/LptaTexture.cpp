@@ -5,7 +5,7 @@ namespace lpta
 
 LptaTexture::LptaTexture(ID id, const string &filename, DATA data, 
         float alpha, const COLOR_KEYS &colorKeys) :
-        LptaResource(id), data(std::move(data)), filename(filename), alpha(alpha), colorKeys(colorKeys)
+        LptaResource(id), data(data), filename(filename), alpha(alpha), colorKeys(colorKeys)
 {
 }
 
