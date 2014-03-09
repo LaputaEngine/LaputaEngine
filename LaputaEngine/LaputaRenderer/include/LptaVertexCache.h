@@ -16,7 +16,7 @@ public:
     virtual ~LptaVertexCache(void) {}
 
     virtual LptaResource::ID CreateStaticBuffer(LptaVertices *vertices, 
-        const INDICES &indices) = 0;
+        const INDICES &indices, LptaSkin::SKIN_ID skinId) = 0;
     virtual HRESULT FlushStaticBuffer(LptaResource::ID bufferId) = 0;
 
     virtual HRESULT Render(LptaVertices *vertices, const INDICES &indices, 

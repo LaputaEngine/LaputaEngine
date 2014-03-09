@@ -18,7 +18,7 @@ LptaD3DStaticBufferManager::LptaD3DStaticBufferManager(LPDIRECT3DDEVICE9 d3ddev)
     lpta::INDICES indices;
     indices.push_back(0);
     LptaD3DStaticBufferResource defaultBuffer(GetNextId(), new LptaD3DStaticBuffer(
-        d3ddev, &vertices, indices)
+        d3ddev, &vertices, indices, 0)
     );
     this->SetNullResource(defaultBuffer);
 }

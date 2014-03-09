@@ -14,11 +14,11 @@ class LptaD3DDynamicBufferTest : public D3D9Test
 TEST_F(LptaD3DDynamicBufferTest, GetVertexType)
 {
     {
-        LptaD3DDynamicBuffer buffer(d3ddev, lpta::VERTEX_TYPE::VT_UU, 10, 10);
+        LptaD3DDynamicBuffer buffer(d3ddev, lpta::VERTEX_TYPE::VT_UU, 10, 10, 0);
         ASSERT_EQ(lpta::VERTEX_TYPE::VT_UU, buffer.GetVertexType());
     }
     {
-        LptaD3DDynamicBuffer buffer(d3ddev, lpta::VERTEX_TYPE::VT_UL, 10, 10);
+        LptaD3DDynamicBuffer buffer(d3ddev, lpta::VERTEX_TYPE::VT_UL, 10, 10, 0);
         ASSERT_EQ(lpta::VERTEX_TYPE::VT_UL, buffer.GetVertexType());
     }
 }
@@ -35,15 +35,15 @@ TEST_F(LptaD3DDynamicBufferTest, CanFit)
         ul.AddVertex(vertex);
     }
     {
-        LptaD3DDynamicBuffer adequate(d3ddev, lpta::VERTEX_TYPE::VT_UL, 5, 5);
+        LptaD3DDynamicBuffer adequate(d3ddev, lpta::VERTEX_TYPE::VT_UL, 5, 5, 0);
         ASSERT_TRUE(adequate.CanFit(ul));
     }
     {
-        LptaD3DDynamicBuffer tooSmall(d3ddev, lpta::VERTEX_TYPE::VT_UL, 4, 4);
+        LptaD3DDynamicBuffer tooSmall(d3ddev, lpta::VERTEX_TYPE::VT_UL, 4, 4, 0);
         ASSERT_FALSE(tooSmall.CanFit(ul));
     }
     {
-        LptaD3DDynamicBuffer incompat(d3ddev, lpta::VERTEX_TYPE::VT_UU, 5, 5);
+        LptaD3DDynamicBuffer incompat(d3ddev, lpta::VERTEX_TYPE::VT_UU, 5, 5, 0);
         ASSERT_FALSE(incompat.CanFit(ul));
     }
 }
@@ -60,16 +60,16 @@ TEST_F(LptaD3DDynamicBufferTest, AddVertices)
         ul.AddVertex(vertex);
     }
     {
-        LptaD3DDynamicBuffer adequate(d3ddev, lpta::VERTEX_TYPE::VT_UL, 5, 5);
+        LptaD3DDynamicBuffer adequate(d3ddev, lpta::VERTEX_TYPE::VT_UL, 5, 5, 0);
         ASSERT_TRUE(adequate.AddVertices(&ul));
         ASSERT_FALSE(adequate.AddVertices(&ul));
     }
     {
-        LptaD3DDynamicBuffer tooSmall(d3ddev, lpta::VERTEX_TYPE::VT_UL, 3, 3);
+        LptaD3DDynamicBuffer tooSmall(d3ddev, lpta::VERTEX_TYPE::VT_UL, 3, 3, 0);
         ASSERT_FALSE(tooSmall.AddVertices(&ul));
     }
     {
-        LptaD3DDynamicBuffer incompat(d3ddev, lpta::VERTEX_TYPE::VT_UU, 5, 5);
+        LptaD3DDynamicBuffer incompat(d3ddev, lpta::VERTEX_TYPE::VT_UU, 5, 5, 0);
         ASSERT_FALSE(incompat.AddVertices(&ul));
     }
 }

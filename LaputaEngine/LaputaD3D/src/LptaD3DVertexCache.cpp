@@ -16,10 +16,10 @@ LptaD3DVertexCache::~LptaD3DVertexCache(void)
 // Static buffers
 /////////////////////////////////////////////////////////////////////
 LptaD3DStaticBufferResource::ID LptaD3DVertexCache::CreateStaticBuffer(
-    lpta::LptaVertices *vertices, const lpta::INDICES &indices)
+    lpta::LptaVertices *vertices, const lpta::INDICES &indices, lpta::LptaSkin::SKIN_ID skinId)
 {
     lpta::LptaResource::ID id = staticBuffers.AddBuffer(
-        new LptaD3DStaticBuffer(d3ddev, vertices, indices)
+        new LptaD3DStaticBuffer(d3ddev, vertices, indices, skinId)
     );
     return id;
 }

@@ -2,6 +2,7 @@
 #define _LPTAD3DDYNAMICBUFFER_H_
 
 #include <d3d9.h>
+#include "LptaSkin.h"
 #include "vertices/LptaVertices.h"
 #include "vertices/LptaIndices.h"
 
@@ -16,7 +17,7 @@ public:
     LptaD3DDynamicBuffer(const LptaD3DDynamicBuffer &copy) = delete;
 
     LptaD3DDynamicBuffer(LPDIRECT3DDEVICE9 d3ddev, lpta::VERTEX_TYPE vertexType,
-        unsigned int maxVertices, unsigned int maxIndices);
+        unsigned int maxVertices, unsigned int maxIndices, lpta::LptaSkin::SKIN_ID skinId);
     ~LptaD3DDynamicBuffer(void);
 
     lpta::VERTEX_TYPE GetVertexType(void) const;
@@ -32,13 +33,15 @@ private:
         DWORD **indexWriteBuffer, unsigned int indexByteSize, DWORD lockFlag);
 
 private:
-    lpta::VERTEX_TYPE vertexType;   
+    const lpta::VERTEX_TYPE vertexType;   
 
     unsigned int numVertices;
     unsigned int numIndices;
 
     const unsigned int maxVertices;
     const unsigned int maxIndices;
+
+    const lpta::LptaSkin::SKIN_ID skinId;
 
     LPDIRECT3DVERTEXBUFFER9 vertexBuffer;
     LPDIRECT3DINDEXBUFFER9 indexBuffer;

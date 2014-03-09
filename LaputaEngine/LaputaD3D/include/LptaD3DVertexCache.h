@@ -26,7 +26,7 @@ public:
     // Static Buffers
     /////////////////////////////////////////////////////////////////
     virtual LptaD3DStaticBufferResource::ID CreateStaticBuffer(lpta::LptaVertices *vertices, 
-        const lpta::INDICES &indices);
+        const lpta::INDICES &indices, lpta::LptaSkin::SKIN_ID skinId);
     virtual HRESULT FlushStaticBuffer(LptaD3DStaticBufferResource::ID buffer);
     
     ///////////////////////////////////////////////////////////////////////////

@@ -12,9 +12,11 @@ namespace lpta_d3d
 LptaD3DDynamicBuffer::LptaD3DDynamicBuffer(
     LPDIRECT3DDEVICE9 d3ddev, 
     lpta::VERTEX_TYPE vertexType,
-    unsigned int maxVertices, unsigned int maxIndices) : 
+    unsigned int maxVertices, unsigned int maxIndices,
+    lpta::LptaSkin::SKIN_ID skinId) : 
         vertexBuffer(nullptr), indexBuffer(nullptr), vertexType(vertexType),
-        maxVertices(maxVertices), maxIndices(maxIndices), numVertices(0), numIndices(0)
+        maxVertices(maxVertices), maxIndices(maxIndices), numVertices(0), numIndices(0),
+        skinId(skinId)
 {
     try {
         {
