@@ -36,6 +36,11 @@ public:
     LptaD3D(HINSTANCE hDLL, HWND hWnd, const vector<HWND> &childWnds);
     ~LptaD3D(void);
 
+    lpta::LptaVertexCache *GetVertexCache(void) const { return vertexCache.get(); }
+    lpta::LptaSkinManager *GetSkinManager(void) const { return vertexCache->GetSkinManager(); }
+    lpta::LptaMaterialManager *GetMaterialManager(void) const { return vertexCache->GetMaterialManager(); }
+    lpta::LptaTextureManager *GetTextureManager(void) const { return vertexCache->GetTextureManager(); }
+
     ///////////////////////////////////////////////////////////////////////////
     // Shader Configuring
     /////////////////////////////////////////////////////////////////
@@ -108,10 +113,10 @@ private:
     LPDIRECT3DDEVICE9 d3ddev;
     LPDIRECT3DSWAPCHAIN9 chain[MAX_3DHWND];
 
-    unique_ptr<LptaD3DVertexCache> vertexCache;
-
     LPDIRECT3DVERTEXDECLARATION9 declVertex;
     LPDIRECT3DVERTEXDECLARATION9 declLitVertex;
+
+    unique_ptr<LptaD3DVertexCache> vertexCache;
 
     unique_ptr<LptaD3DVertexShaderManager> vertexShaderManager;
     unique_ptr<LptaD3DPixelShaderManager> pixelShaderManager;

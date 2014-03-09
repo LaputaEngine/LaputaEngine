@@ -22,6 +22,11 @@ class LptaMatrix;
 namespace lpta
 {
 
+class LptaVertexCache;
+class LptaSkinManager;
+class LptaTextureManager;
+class LptaMaterialManager;
+
 class LptaViewport;
 class LptaColor;
 
@@ -59,6 +64,14 @@ public:
     /////////////////////////////////////////////////////////////////
     virtual void Release(void) = 0;
     virtual bool IsRunning(void) = 0;
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Manager Accessors
+    ///////////////////////////////////////////////////////
+    virtual LptaVertexCache *GetVertexCache(void) const = 0;
+    virtual LptaSkinManager *GetSkinManager(void) const = 0;
+    virtual LptaMaterialManager *GetMaterialManager(void) const = 0;
+    virtual LptaTextureManager *GetTextureManager(void) const = 0;
 
     ///////////////////////////////////////////////////////////////////////////
     // Shader Configuring

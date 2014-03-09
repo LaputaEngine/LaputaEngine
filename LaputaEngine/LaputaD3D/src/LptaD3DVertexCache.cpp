@@ -4,7 +4,10 @@ namespace lpta_d3d
 {
 
 LptaD3DVertexCache::LptaD3DVertexCache(LPDIRECT3DDEVICE9 d3ddev) : 
-    d3ddev(d3ddev), staticBuffers(LptaD3DStaticBufferManager(d3ddev))
+    d3ddev(d3ddev), staticBuffers(LptaD3DStaticBufferManager(d3ddev)),
+    materialManager(unique_ptr<lpta::LptaMaterialManager>(new lpta::LptaMaterialManager())),
+    skinManager(unique_ptr<lpta::LptaSkinManager>(new lpta::LptaSkinManager(*materialManager))),
+    textureManager(unique_ptr<LptaD3DTextureManager>(new LptaD3DTextureManager(d3ddev)))
 {
 }
 
