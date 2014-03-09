@@ -24,8 +24,6 @@ public:
 
     virtual HRESULT ForcedFlushAll(void) = 0;
     virtual HRESULT ForcedFlush(VERTEX_TYPE vertexType) = 0;
-
-    virtual void HAX(void) = 0;
 };
 
 }

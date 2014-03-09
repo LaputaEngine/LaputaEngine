@@ -30,7 +30,7 @@ LptaD3DStaticBuffer::LptaD3DStaticBuffer(
                 &vertexBuffer, 
                 nullptr)) &&
             SUCCEEDED(d3ddev->CreateIndexBuffer(
-                indices.size() * sizeof(DWORD), 
+                indices.size() * sizeof(WORD), 
                 D3DUSAGE_WRITEONLY, 
                 D3DFMT_INDEX16, 
                 D3DPOOL_DEFAULT, 
@@ -48,12 +48,12 @@ LptaD3DStaticBuffer::LptaD3DStaticBuffer(
                 }
             }
             {
-                DWORD *writeBuffer;
+                WORD *writeBuffer;
                 if (SUCCEEDED(indexBuffer->Lock(LOCK_ALL, LOCK_ALL, 
                     reinterpret_cast<void **>(&writeBuffer), 0))
                 ) {
                     for (unsigned int i = 0; i < indices.size(); ++i) {
-                        writeBuffer[i] = static_cast<DWORD>(indices.at(i));
+                        writeBuffer[i] = static_cast<WORD>(indices.at(i));
                     }
                     indexBuffer->Unlock();
                 }

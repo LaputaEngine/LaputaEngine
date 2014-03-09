@@ -65,9 +65,24 @@ lpta::VERTEX_SHADER_ID LptaD3D::AddVertexShader(const std::string &program)
     return vertexShaderManager->CompileAddShader(program);
 }
 
-HRESULT LptaD3D::ActivateVertexShader(lpta::VERTEX_SHADER_ID shaderId)
+HRESULT LptaD3D::ActivateVertexShader(lpta::VERTEX_SHADER_ID shaderId, lpta::VERTEX_TYPE vertexType)
 {
     if (!isUsingShader) {
+        return E_FAIL;
+    }
+    switch (vertexType) {
+    case lpta::VERTEX_TYPE::VT_UU:
+        if (FAILED(d3ddev->SetVertexDeclaration(declVertex))) {
+            return E_FAIL;
+        }
+        break;
+    case lpta::VERTEX_TYPE::VT_UL:
+        if (FAILED(d3ddev->SetVertexDeclaration(declLitVertex))) {
+            return E_FAIL;
+        }
+        break;
+    default:
+        // log error
         return E_FAIL;
     }
     const LptaD3DVertexShader &shader = vertexShaderManager->RetreiveShader(shaderId);
@@ -266,7 +281,7 @@ void LptaD3D::SetClippingPlanes(float planeNear, float planeFar)
 {
     lpta::CLIPPING_PLANES clipPlanes = {
         fmax(planeNear, lpta::CLIPPING_PLANE_MIN),
-        fmin(planeFar, lpta::CLIPPING_PLANE_MAX)
+        fmax(planeFar, lpta::CLIPPING_PLANE_MAX)
     };
     if (clipPlanes.planeNear >= clipPlanes.planeFar) {
         return;
@@ -630,6 +645,31 @@ lpta_3d::POINT LptaD3D::Transform3DTo2D(const lpta_3d::POINT &point3D)
     float y = static_cast<float>(static_cast<long>((1.0f + (projY * invW)) * clipY));
     
     return lpta_3d::POINT(x, y, 0.0f);
+}
+
+///////////////////////////////////////////////////////////////////////////
+// Lighting
+/////////////////////////////////////////////////////////////////
+void LptaD3D::SetAmbientLight(float r, float g, float b)
+{
+    // todo flush vcache
+    if (!isUsingShader) {
+        // log error
+        return;
+    }
+
+    unsigned int red = static_cast<unsigned int>(r * 255.0f);
+    unsigned int green = static_cast<unsigned int>(g * 255.0f);
+    unsigned int blue = static_cast<unsigned int>(b * 255.0f);
+
+    float color[4] = {
+        red,
+        green,
+        blue,
+        1.0f
+    };
+    d3ddev->SetVertexShaderConstantF(4, color, 1);
+    d3ddev->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_XRGB(red, green, blue));
 }
 
 ///////////////////////////////////////////////////////////////////////////

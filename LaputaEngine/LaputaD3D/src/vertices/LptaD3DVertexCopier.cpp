@@ -106,7 +106,6 @@ void LptaD3DVertexCopier::Visit(lpta::LptaULVertices *collection)
         buffer[i].x = vertex.coordinate.GetX();
         buffer[i].y = vertex.coordinate.GetY();
         buffer[i].z = vertex.coordinate.GetZ();
-        buffer[i].rhw = 1.0f;
 
         buffer[i].color = lpta_d3d_utils::FloatToColor(
             vertex.color.GetAlpha(),

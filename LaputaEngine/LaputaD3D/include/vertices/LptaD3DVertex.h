@@ -5,9 +5,9 @@
 #include "vertices/LptaVertices.h"
 #include "LptaD3DColorUtils.h"
 
-#define FVF_VERTEX (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX2)
+#define FVF_VERTEX (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1)
 // todo get rid of the RHW and use the rendering device's world transform
-#define FVF_LVERTEX (D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX2)
+#define FVF_LVERTEX (D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1)
 
 #define INVALID_STRIDE 0
 
@@ -31,7 +31,6 @@ typedef struct D3D_LVERTEX_TYPE
     float x;
     float y;
     float z;
-    float rhw;
 
     lpta_d3d_utils::Color32Bit color;
 

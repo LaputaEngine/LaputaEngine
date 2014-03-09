@@ -45,7 +45,7 @@ public:
     // Shader Configuring
     /////////////////////////////////////////////////////////////////
     virtual lpta::VERTEX_SHADER_ID AddVertexShader(const std::string &shader);
-    virtual HRESULT ActivateVertexShader(lpta::VERTEX_SHADER_ID shaderId);
+    virtual HRESULT ActivateVertexShader(lpta::VERTEX_SHADER_ID shaderId, lpta::VERTEX_TYPE vertexType);
 
     virtual lpta::PIXEL_SHADER_ID AddPixelShader(const std::string &shader);
     virtual HRESULT ActivatePixelShader(lpta::PIXEL_SHADER_ID shaderId);
@@ -94,6 +94,11 @@ public:
     /////////////////////////////////////////////////////////////////
     virtual lpta_3d::LptaRay Transform2DTo3D(const lpta_3d::POINT &point2D);
     virtual lpta_3d::POINT Transform3DTo2D(const lpta_3d::POINT &point3D);
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Lighting
+    /////////////////////////////////////////////////////////////////
+    virtual void SetAmbientLight(float r, float g, float b);
 
 private:
     // SetMode Helper

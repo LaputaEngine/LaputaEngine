@@ -1,3 +1,4 @@
+#define D3D_DEBUG_INFO
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
@@ -13,7 +14,7 @@
 #include "LptaTextureManager.h"
 #include "LptaVertexCache.h"
 #include "vertices/LptaVertices.h"
-#include "vertices/LptaULVertices.h"
+#include "vertices/LptaUUVertices.h"
 #include "vertices/LptaIndices.h"
 using namespace lpta;
 using namespace lpta_3d;
@@ -72,7 +73,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
         WS_CHILD | SS_BLACKRECT | WS_VISIBLE, 0, 0, 800, 600, hWnd, nullptr, instance, nullptr)
     );
     builder->Make(hWnd, renderWindows, &device);
-    //device->SetClearColor(1.0f, 0.0f, 0.0f);
+    device->SetClearColor(0.5f, 0.5f, 0.5f);
     device->UseWindow(0);
     
     ShowWindow(hWnd, showArg);
@@ -83,26 +84,30 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
     LptaVector dir(0.0f, 0.0f, 1.0f);
     LptaVector point(0.0f, 0.0f, 0.0f);
 
-    LptaULVertices tri;
-    UL_VERTEX vertex = {
-        lpta_3d::POINT(0.0f, 600.0f, 1.0f),
-        LptaColor(0.0f, 0.0f, 1.0f, 1.0f),
+    LptaUUVertices tri;
+    UU_VERTEX vertex = {
+        lpta_3d::POINT(-0.6f, -0.4f, 1.0f),
+        LptaNormalVector::MakeFrom(0.0f, 0.0f, 1.0f),
         0.0f, 1.0f  
     };
     tri.AddVertex(vertex);
-    vertex.coordinate.SetX(400.0f);
-    vertex.coordinate.SetY(0.0f);
-    vertex.color = LptaColor(0.0f, 1.0f, 0.0f, 1.0f);
+    vertex.coordinate.SetX(0.0f);
+    vertex.coordinate.SetY(0.4f);
     tri.AddVertex(vertex);
-    vertex.coordinate.SetX(800.0f);
-    vertex.coordinate.SetY(600.0f);
-    vertex.color = LptaColor(1.0f, 0.0f, 0.0f, 1.0f);
+    vertex.coordinate.SetX(0.6f);
+    vertex.coordinate.SetY(-0.4f);
     tri.AddVertex(vertex);
     INDICES indices;
-    indices.push_back(2);
-    indices.push_back(1);
     indices.push_back(0);
+    indices.push_back(1);
+    indices.push_back(2);
     LptaResource::ID bufferId = device->GetVertexCache()->CreateStaticBuffer(&tri, indices, 0);
+    device->SetCullingMode(RS_CULL_NONE);
+    device->ActivateVertexShader(0, VERTEX_TYPE::VT_UU);
+    device->ActivatePixelShader(0);
+
+    LptaMatrix m = LptaMatrix::MakeIdentityMatrix();
+    m.SetTranslation(0.0f, 0.0f, 0.0f);
 
     while (true) {
         while (PeekMessage(&message, nullptr, 0, 0, PM_REMOVE)) {
@@ -116,6 +121,8 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
 
         if (g_hasFocus) {
             device->BeginRendering(true, true, true);
+            //device->SetView3D(right, up, dir, point);
+            device->SetWorldTransform(m);
             device->GetVertexCache()->FlushStaticBuffer(bufferId);
             device->EndRendering();
         }

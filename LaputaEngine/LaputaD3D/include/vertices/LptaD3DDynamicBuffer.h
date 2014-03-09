@@ -31,7 +31,7 @@ public:
 
 private:
     bool LockedBuffers(void **vertexWriteBuffer, unsigned int vertexByteSize,
-        DWORD **indexWriteBuffer, unsigned int indexByteSize, DWORD lockFlag);
+        WORD **indexWriteBuffer, unsigned int indexByteSize, DWORD lockFlag);
 
 private:
     const lpta::VERTEX_TYPE vertexType;   

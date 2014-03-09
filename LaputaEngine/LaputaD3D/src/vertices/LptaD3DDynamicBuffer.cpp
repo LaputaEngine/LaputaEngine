@@ -79,11 +79,11 @@ bool LptaD3DDynamicBuffer::Add(lpta::LptaVertices *vertices, const lpta::INDICES
     void *vertexWriteBuffer;
     unsigned int vertexByteSize = ToStride(vertices->GetType()) * vertices->GetNumVertices();
 
-    DWORD *indexWriteBuffer;
-    unsigned int indexByteSize = sizeof(DWORD) * indices.size();
+    WORD *indexWriteBuffer;
+    unsigned int indexByteSize = sizeof(WORD) * indices.size();
     unsigned int indexOffset = numIndices;
 
-    DWORD lockFlag = numVertices > 0? D3DLOCK_NOOVERWRITE : D3DLOCK_DISCARD;
+    WORD lockFlag = numVertices > 0? D3DLOCK_NOOVERWRITE : D3DLOCK_DISCARD;
 
     if (!LockedBuffers(&vertexWriteBuffer, vertexByteSize, 
         &indexWriteBuffer, indexByteSize, lockFlag)) {
@@ -98,7 +98,7 @@ bool LptaD3DDynamicBuffer::Add(lpta::LptaVertices *vertices, const lpta::INDICES
     numVertices += vertices->GetNumVertices();
 
     for (unsigned int i = 0; i < indices.size(); ++i) {
-        indexWriteBuffer[i] = static_cast<DWORD>(indices.at(i)) + indexOffset;
+        indexWriteBuffer[i] = static_cast<WORD>(indices.at(i)) + indexOffset;
     }
     numIndices += indices.size();
 
@@ -109,7 +109,7 @@ bool LptaD3DDynamicBuffer::Add(lpta::LptaVertices *vertices, const lpta::INDICES
 }
 
 bool LptaD3DDynamicBuffer::LockedBuffers(void **vertexWriteBuffer, unsigned int vertexByteSize, 
-    DWORD **indexWriteBuffer, unsigned int indexByteSize, DWORD lockFlag)
+    WORD **indexWriteBuffer, unsigned int indexByteSize, DWORD lockFlag)
 {
     if (SUCCEEDED(vertexBuffer->Lock(numVertices, vertexByteSize, vertexWriteBuffer, lockFlag))) {
         if (SUCCEEDED(indexBuffer->Lock(numIndices, indexByteSize, 
