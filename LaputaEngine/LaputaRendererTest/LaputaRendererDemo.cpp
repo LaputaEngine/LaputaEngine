@@ -86,16 +86,16 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
 
     LptaUUVertices tri;
     UU_VERTEX vertex = {
-        lpta_3d::POINT(-0.6f, -0.4f, 1.0f),
+        lpta_3d::POINT(-1.0f, -1.0f, 1.0f),
         LptaNormalVector::MakeFrom(0.0f, 0.0f, 1.0f),
         0.0f, 1.0f  
     };
     tri.AddVertex(vertex);
     vertex.coordinate.SetX(0.0f);
-    vertex.coordinate.SetY(0.4f);
+    vertex.coordinate.SetY(1.0f);
     tri.AddVertex(vertex);
-    vertex.coordinate.SetX(0.6f);
-    vertex.coordinate.SetY(-0.4f);
+    vertex.coordinate.SetX(1.0f);
+    vertex.coordinate.SetY(-1.0f);
     tri.AddVertex(vertex);
     INDICES indices;
     indices.push_back(0);
@@ -135,7 +135,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 {
     switch (message) {
     case WM_ACTIVATE:
-        g_hasFocus = (bool)wParam;
+        g_hasFocus = (wParam != 0);
         break;
     case WM_DESTROY:
         PostQuitMessage(0);

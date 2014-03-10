@@ -663,9 +663,9 @@ void LptaD3D::SetAmbientLight(float r, float g, float b)
     unsigned int blue = static_cast<unsigned int>(b * 255.0f);
 
     float color[4] = {
-        red,
-        green,
-        blue,
+        static_cast<float>(red),
+        static_cast<float>(green),
+        static_cast<float>(blue),
         1.0f
     };
     d3ddev->SetVertexShaderConstantF(4, color, 1);
