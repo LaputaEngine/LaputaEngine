@@ -1,5 +1,0 @@
-Sample teapot.obj file obtained from sample models for the Intro to Computer 
-Graphics (Fall 2003) at MIT.
-
-Link to sample page:
-http://groups.csail.mit.edu/graphics/classes/6.837/F03/models/

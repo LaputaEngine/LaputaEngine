@@ -23,6 +23,8 @@ class LptaMatrix;
 namespace lpta
 {
 
+class LptaMesh;
+
 class LptaVertexCache;
 class LptaSkinManager;
 class LptaTextureManager;
@@ -88,6 +90,7 @@ public:
     /////////////////////////////////////////////////////////////////
     virtual HRESULT UseWindow(UINT) = 0;
     virtual HRESULT BeginRendering(bool clearPixel, bool clearDepth, bool clearStencil) = 0;
+    virtual HRESULT Render(const LptaMesh &mesh) = 0;
     virtual void EndRendering(void) = 0;
     virtual HRESULT Clear(bool clearPixel, bool clearDepth, bool clearStencil) = 0;
     virtual void SetClearColor(float r, float g, float b) = 0;

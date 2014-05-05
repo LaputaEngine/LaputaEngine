@@ -66,6 +66,12 @@
     <ClCompile Include="src\vertices\LptaVertices.cpp">
       <Filter>Source Files\Vertices</Filter>
     </ClCompile>
+    <ClCompile Include="src\models\LptaMesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\models\LptaAssimpMesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\LptaColor.h">
@@ -135,6 +141,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\LptaVertexCache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\models\LptaMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\models\LptaAssimpMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\models\LptaNullMesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

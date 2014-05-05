@@ -143,6 +143,11 @@ HRESULT LptaD3D::BeginRendering(bool clearPixel, bool clearDepth, bool clearSten
     return S_OK;
 }
 
+HRESULT LptaD3D::Render(const lpta::LptaMesh &mesh)
+{
+    return E_FAIL;
+}
+
 HRESULT LptaD3D::Clear(bool clearPixel, bool clearDepth, bool clearStencil)
 {
     DWORD clearFlag = 0;

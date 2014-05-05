@@ -16,6 +16,7 @@
 #include "vertices/LptaVertices.h"
 #include "vertices/LptaUUVertices.h"
 #include "vertices/LptaIndices.h"
+#include "models/LptaMesh.h"
 using namespace lpta;
 using namespace lpta_3d;
 
@@ -105,6 +106,9 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
     device->SetCullingMode(RS_CULL_NONE);
     device->ActivateVertexShader(0, VERTEX_TYPE::VT_UU);
     device->ActivatePixelShader(0);
+
+    std::auto_ptr<LptaMesh> model(LptaMesh::LoadFromFile("test.3ds"));
+    model.reset();
 
     LptaMatrix m = LptaMatrix::MakeIdentityMatrix();
     m.SetTranslation(0.0f, 0.0f, 0.0f);

@@ -14,6 +14,11 @@
 #include "LptaD3DVertexCache.h"
 using std::unique_ptr;
 
+namespace lpta
+{
+class LptaMesh;
+}
+
 namespace lpta_d3d
 {
 const int MIN_WIDTH = 800;
@@ -56,6 +61,7 @@ public:
     void Release(void);
     bool IsRunning(void);
     HRESULT BeginRendering(bool clearPixel, bool clearDepth, bool clearStencil);
+    HRESULT Render(const lpta::LptaMesh &mesh);
     HRESULT Clear(bool clearPixel, bool clearDepth, bool clearStencil);
     void EndRendering(void);
     void SetClearColor(float r, float g, float b);
