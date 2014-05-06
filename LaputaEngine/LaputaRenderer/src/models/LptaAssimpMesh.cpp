@@ -17,9 +17,9 @@ Assimp::Importer LptaAssimpMesh::assetImporter;
 // LptaAssimpMesh(filename)
 inline bool IsValidScene(const aiScene &scene);
 inline LptaVertices *CopyMesh(VERTEX_TYPE vertexType, INDICES &indices, 
-    aiMesh *mesh);
-inline LptaULVertices *CopyULMesh(INDICES &indices, aiMesh *mesh);
-inline LptaUUVertices *CopyUUMesh(INDICES &indices, aiMesh *mesh);
+    const aiScene *mesh);
+inline LptaULVertices *CopyULMesh(INDICES &indices, const aiScene *scene);
+inline LptaUUVertices *CopyUUMesh(INDICES &indices, const aiScene *scene);
 
 
 LptaAssimpMesh::LptaAssimpMesh(VERTEX_TYPE vertexType, const std::string &filename)
@@ -30,7 +30,7 @@ LptaAssimpMesh::LptaAssimpMesh(VERTEX_TYPE vertexType, const std::string &filena
             if (!scene || !IsValidScene(*scene)) {
                 throw LptaMeshLoadFailure("Not a valid mesh file");
             }
-            vertices = CopyMesh(vertexType, indices, scene->mMeshes[0]);
+            vertices = CopyMesh(vertexType, indices, scene);
         }
         catch (const LptaMeshLoadFailure &loadFailure) {
             if (scene) {
@@ -47,15 +47,15 @@ LptaAssimpMesh::LptaAssimpMesh(VERTEX_TYPE vertexType, const std::string &filena
 }
 bool IsValidScene(const aiScene &scene)
 {
-    return scene.mNumMeshes == 1;
+    return true;
 }
-LptaVertices *CopyMesh(VERTEX_TYPE vertexType, INDICES &indices, aiMesh *mesh)
+LptaVertices *CopyMesh(VERTEX_TYPE vertexType, INDICES &indices, const aiScene *scene)
 {
     switch (vertexType) {
     case VERTEX_TYPE::VT_UL:
-        return CopyULMesh(indices, mesh);
+        return CopyULMesh(indices, scene);
     case VERTEX_TYPE::VT_UU:
-        return CopyUUMesh(indices, mesh);
+        return CopyUUMesh(indices, scene);
     default:
         throw LptaMeshLoadFailure("Don't know how to copy vertices for mesh");
     };
@@ -63,44 +63,52 @@ LptaVertices *CopyMesh(VERTEX_TYPE vertexType, INDICES &indices, aiMesh *mesh)
 // todo eliminate code dup
 // todo account for cases where face doesn't use 3 indices, might be post
 // processing flags
-LptaULVertices *CopyULMesh(INDICES &indices, aiMesh *mesh)
+LptaULVertices *CopyULMesh(INDICES &indices, const aiScene *scene)
 {
     LptaULVertices *vertices = new LptaULVertices();
-    for (unsigned int i = 0; i < mesh->mNumVertices; ++i) {
-        UL_VERTEX vertex;
-        auto meshVertex = mesh->mVertices[i];
-        // todo use actual values
-        vertex.coordinate = lpta_3d::LptaVector(meshVertex.x,
-            meshVertex.y, meshVertex.z);
-        vertex.tu = 0.0f;
-        vertex.tv = 0.0f;
-        vertices->AddVertex(vertex);
-    }
-    for (unsigned int i = 0; i < mesh->mNumFaces; ++i) {
-        auto face = mesh->mFaces[i];
-        for (unsigned int vIndex = 0; vIndex < face.mNumIndices; ++vIndex) {
-            indices.push_back(face.mIndices[vIndex]);
+    for (unsigned int meshIdx = 0; meshIdx < scene->mNumMeshes; ++meshIdx) {
+        const aiMesh *mesh = scene->mMeshes[meshIdx];
+        const unsigned int vertexOffset = vertices->GetNumVertices();
+        for (unsigned int i = 0; i < mesh->mNumVertices; ++i) {
+            UL_VERTEX vertex;
+            auto meshVertex = mesh->mVertices[i];
+            // todo use actual values
+            vertex.coordinate = lpta_3d::LptaVector(meshVertex.x,
+                meshVertex.y, meshVertex.z);
+            vertex.tu = 0.0f;
+            vertex.tv = 0.0f;
+            vertices->AddVertex(vertex);
+        }
+        for (unsigned int i = 0; i < mesh->mNumFaces; ++i) {
+            auto face = mesh->mFaces[i];
+            for (unsigned int vIndex = 0; vIndex < face.mNumIndices; ++vIndex) {
+                indices.push_back(vertexOffset + face.mIndices[vIndex]);
+            }
         }
     }
     return vertices;   
 }
-LptaUUVertices *CopyUUMesh(INDICES &indices, aiMesh *mesh)
+LptaUUVertices *CopyUUMesh(INDICES &indices, const aiScene *scene)
 {
     LptaUUVertices *vertices = new LptaUUVertices();
-    for (unsigned int i = 0; i < mesh->mNumVertices; ++i) {
-        UU_VERTEX vertex;
-        auto meshVertex = mesh->mVertices[i];
-        // todo use actual values
-        vertex.coordinate = lpta_3d::LptaVector(meshVertex.x,
-            meshVertex.y, meshVertex.z);
-        vertex.tu = 0.0f;
-        vertex.tv = 0.0f;
-        vertices->AddVertex(vertex);
-    }
-    for (unsigned int i = 0; i < mesh->mNumFaces; ++i) {
-        auto face = mesh->mFaces[i];
-        for (unsigned int vIndex = 0; vIndex < face.mNumIndices; ++vIndex) {
-            indices.push_back(face.mIndices[vIndex]);
+    for (unsigned int meshIdx = 0; meshIdx < scene->mNumMeshes; ++meshIdx) {
+        const aiMesh *mesh = scene->mMeshes[meshIdx];
+        unsigned int vertexOffset = vertices->GetNumVertices();
+        for (unsigned int i = 0; i < mesh->mNumVertices; ++i) {
+            UU_VERTEX vertex;
+            auto meshVertex = mesh->mVertices[i];
+            // todo use actual values
+            vertex.coordinate = lpta_3d::LptaVector(meshVertex.x,
+                meshVertex.y, meshVertex.z);
+            vertex.tu = 0.0f;
+            vertex.tv = 0.0f;
+            vertices->AddVertex(vertex);
+        }
+        for (unsigned int i = 0; i < mesh->mNumFaces; ++i) {
+            auto face = mesh->mFaces[i];
+            for (unsigned int vIndex = 0; vIndex < face.mNumIndices; ++vIndex) {
+                indices.push_back(vertexOffset + face.mIndices[vIndex]);
+            }
         }
     }
     return vertices;

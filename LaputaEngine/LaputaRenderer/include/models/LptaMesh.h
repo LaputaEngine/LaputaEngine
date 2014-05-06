@@ -18,6 +18,7 @@ public:
     const std::string reason;
 };
 
+// todo rename to something more sensible
 class LptaMesh
 {
 public:
