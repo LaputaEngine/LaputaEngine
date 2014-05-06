@@ -35,8 +35,8 @@ TEST_F(LptaD3DStaticBufferTest, CreateBuffer)
     indices.push_back(0);
     indices.push_back(1);
     indices.push_back(2);
-    LptaD3DStaticBuffer *buffer = new LptaD3DStaticBuffer(d3ddev, &testVertices, indices, false);
+    LptaD3DStaticBuffer *buffer = new LptaD3DStaticBuffer(d3ddev, testVertices, indices, false);
     delete buffer;
-    buffer = new LptaD3DStaticBuffer(d3ddev, &testVertices, indices, true);
+    buffer = new LptaD3DStaticBuffer(d3ddev, testVertices, indices, true);
     delete buffer;
 }

@@ -13,15 +13,15 @@ namespace lpta_d3d
 // an inheritance hierarchy
 LptaD3DStaticBuffer::LptaD3DStaticBuffer(
     LPDIRECT3DDEVICE9 d3ddev,
-    lpta::LptaVertices *vertices, 
+    const lpta::LptaVertices &vertices, 
     const lpta::INDICES &indices,
     const lpta::LptaSkin::SKIN_ID skinId,
     bool useShader) :
-        vertexType(vertices->GetType()), vertexBuffer(nullptr), indexBuffer(nullptr),
-        skinId(skinId), numVertices(vertices->GetNumVertices()), numIndices(indices.size())
+        vertexType(vertices.GetType()), vertexBuffer(nullptr), indexBuffer(nullptr),
+        skinId(skinId), numVertices(vertices.GetNumVertices()), numIndices(indices.size())
 {
     try {
-        LptaD3DVertexCopier copier(vertices);
+        LptaD3DVertexCopier copier(&vertices);
         if (SUCCEEDED(d3ddev->CreateVertexBuffer(
                 copier.ByteSize(),
                 D3DUSAGE_WRITEONLY, 

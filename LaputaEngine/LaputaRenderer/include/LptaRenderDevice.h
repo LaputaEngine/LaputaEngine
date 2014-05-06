@@ -89,6 +89,7 @@ public:
     // Rendering
     /////////////////////////////////////////////////////////////////
     virtual HRESULT UseWindow(UINT) = 0;
+    virtual bool Cache(LptaMesh &mesh) = 0;
     virtual HRESULT BeginRendering(bool clearPixel, bool clearDepth, bool clearStencil) = 0;
     virtual HRESULT Render(const LptaMesh &mesh) = 0;
     virtual void EndRendering(void) = 0;

@@ -9,7 +9,8 @@
 namespace lpta_d3d
 {
 
-LptaD3DVertexCopier::LptaD3DVertexCopier(lpta::LptaVertices *collection) : 
+// todo check for null case
+LptaD3DVertexCopier::LptaD3DVertexCopier(const lpta::LptaVertices *collection) : 
     copyBuffer(nullptr), copyBufferSize(0), collection(collection)
 {
 }
@@ -63,12 +64,12 @@ bool BufferLargeEnough(unsigned int byteSize, unsigned int bufferSize)
     return byteSize <= bufferSize;
 }
 
-void LptaD3DVertexCopier::Visit(lpta::LptaVertices *collection)
+void LptaD3DVertexCopier::Visit(const lpta::LptaVertices *collection) const
 {
     // log error
 }
 
-void LptaD3DVertexCopier::Visit(lpta::LptaUUVertices *collection)
+void LptaD3DVertexCopier::Visit(const lpta::LptaUUVertices *collection) const
 {
     if (!HasValidCopyBuffer<D3D_VERTEX>()) {
         // log error
@@ -92,7 +93,7 @@ void LptaD3DVertexCopier::Visit(lpta::LptaUUVertices *collection)
     }
 }
 
-void LptaD3DVertexCopier::Visit(lpta::LptaULVertices *collection)
+void LptaD3DVertexCopier::Visit(const lpta::LptaULVertices *collection) const
 {
     if (!HasValidCopyBuffer<D3D_LVERTEX>()) {
 

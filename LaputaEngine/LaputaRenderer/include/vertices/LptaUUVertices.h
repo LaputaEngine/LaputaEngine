@@ -24,7 +24,7 @@ public:
     virtual ~LptaUUVertices(void);
 
     virtual unsigned int GetNumVertices(void) const;
-    virtual void Accept(LptaVerticesVisitor *visitor);
+    virtual void Accept(LptaVerticesVisitor *visitor) const;
 
     void AddVertex(const UU_VERTEX &vertex);
     const std::vector<UU_VERTEX> &GetVertices(void) const;

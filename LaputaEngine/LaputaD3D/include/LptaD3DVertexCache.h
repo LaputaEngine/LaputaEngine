@@ -46,14 +46,14 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // Static Buffers
     /////////////////////////////////////////////////////////////////
-    virtual LptaD3DStaticBufferResource::ID CreateStaticBuffer(lpta::LptaVertices *vertices, 
+    virtual LptaD3DStaticBufferResource::ID CreateStaticBuffer(const lpta::LptaVertices &vertices, 
         const lpta::INDICES &indices, lpta::LptaSkin::SKIN_ID skinId);
     virtual HRESULT FlushStaticBuffer(LptaD3DStaticBufferResource::ID buffer);
     
     ///////////////////////////////////////////////////////////////////////////
     // Dynamic Buffers
     /////////////////////////////////////////////////////////////////
-    virtual HRESULT Render(lpta::LptaVertices *vertices, const lpta::INDICES &indices, 
+    virtual HRESULT Render(const lpta::LptaVertices &vertices, const lpta::INDICES &indices, 
         lpta::LptaSkin::SKIN_ID skinId);
     virtual HRESULT ForcedFlushAll(void);
     virtual HRESULT ForcedFlush(lpta::VERTEX_TYPE vertexType);

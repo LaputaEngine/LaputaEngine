@@ -21,7 +21,8 @@ LptaD3DVertexCache::~LptaD3DVertexCache(void)
 // Static buffers
 /////////////////////////////////////////////////////////////////////
 LptaD3DStaticBufferResource::ID LptaD3DVertexCache::CreateStaticBuffer(
-    lpta::LptaVertices *vertices, const lpta::INDICES &indices, lpta::LptaSkin::SKIN_ID skinId)
+    const lpta::LptaVertices &vertices, const lpta::INDICES &indices, 
+    lpta::LptaSkin::SKIN_ID skinId)
 {
     lpta::LptaResource::ID id = staticBuffers.AddBuffer(
         new LptaD3DStaticBuffer(d3ddev, vertices, indices, skinId)
@@ -92,7 +93,7 @@ D3DMATERIAL9 ToDXMaterial(const lpta::LptaMaterial &material)
 ///////////////////////////////////////////////////////////////////////////////
 // Dynamic buffers
 /////////////////////////////////////////////////////////////////////
-HRESULT LptaD3DVertexCache::Render(lpta::LptaVertices *vertices, const lpta::INDICES &indices, 
+HRESULT LptaD3DVertexCache::Render(const lpta::LptaVertices &vertices, const lpta::INDICES &indices, 
     lpta::LptaSkin::SKIN_ID skinId)
 {
     return E_FAIL;

@@ -65,19 +65,19 @@ bool LptaD3DDynamicBuffer::CanFit(const lpta::LptaVertices &vertices) const
     return (numVertices + vertices.GetNumVertices()) <= maxVertices;
 }
 
-bool LptaD3DDynamicBuffer::AddVertices(lpta::LptaVertices *vertices)
+bool LptaD3DDynamicBuffer::AddVertices(const lpta::LptaVertices &vertices)
 {
     lpta::INDICES empty;
     return Add(vertices, empty);
 }
-bool LptaD3DDynamicBuffer::Add(lpta::LptaVertices *vertices, const lpta::INDICES &indices)
+bool LptaD3DDynamicBuffer::Add(const lpta::LptaVertices &vertices, const lpta::INDICES &indices)
 {
-    if (!CanFit(*vertices, indices)) {
+    if (!CanFit(vertices, indices)) {
         return false;
     }
 
     void *vertexWriteBuffer;
-    unsigned int vertexByteSize = ToStride(vertices->GetType()) * vertices->GetNumVertices();
+    unsigned int vertexByteSize = ToStride(vertices.GetType()) * vertices.GetNumVertices();
 
     WORD *indexWriteBuffer;
     unsigned int indexByteSize = sizeof(WORD) * indices.size();
@@ -92,10 +92,10 @@ bool LptaD3DDynamicBuffer::Add(lpta::LptaVertices *vertices, const lpta::INDICES
         return false;
     }
 
-    LptaD3DVertexCopier copier(vertices);
+    LptaD3DVertexCopier copier(&vertices);
 
     copier.CopyToBuffer(vertexWriteBuffer, vertexByteSize);
-    numVertices += vertices->GetNumVertices();
+    numVertices += vertices.GetNumVertices();
 
     for (unsigned int i = 0; i < indices.size(); ++i) {
         indexWriteBuffer[i] = static_cast<WORD>(indices.at(i)) + indexOffset;

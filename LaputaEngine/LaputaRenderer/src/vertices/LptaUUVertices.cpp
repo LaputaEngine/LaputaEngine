@@ -16,7 +16,7 @@ unsigned int LptaUUVertices::GetNumVertices(void) const
     return vertices.size();
 }
 
-void LptaUUVertices::Accept(LptaVerticesVisitor *visitor)
+void LptaUUVertices::Accept(LptaVerticesVisitor *visitor) const
 {
     visitor->Visit(this);
 }

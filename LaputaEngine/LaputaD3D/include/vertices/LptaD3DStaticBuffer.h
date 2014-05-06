@@ -15,7 +15,7 @@ public:
     LptaD3DStaticBuffer(const LptaD3DStaticBuffer &copy) = delete;
 
     LptaD3DStaticBuffer(LPDIRECT3DDEVICE9 d3ddev, 
-        lpta::LptaVertices *vertices, const lpta::INDICES &indices, 
+        const lpta::LptaVertices &vertices, const lpta::INDICES &indices, 
         lpta::LptaSkin::SKIN_ID skinId, bool useShader=true);
     ~LptaD3DStaticBuffer(void);
 

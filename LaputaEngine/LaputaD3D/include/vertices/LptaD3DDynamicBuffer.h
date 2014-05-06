@@ -26,8 +26,8 @@ public:
     bool CanFit(const lpta::LptaVertices &vertices, const lpta::INDICES &indices) const;
     bool CanFit(const lpta::LptaVertices &vertices) const;
 
-    bool Add(lpta::LptaVertices *vertices, const lpta::INDICES &indices);
-    bool AddVertices(lpta::LptaVertices *vertices);
+    bool Add(const lpta::LptaVertices &vertices, const lpta::INDICES &indices);
+    bool AddVertices(const lpta::LptaVertices &vertices);
 
 private:
     bool LockedBuffers(void **vertexWriteBuffer, unsigned int vertexByteSize,

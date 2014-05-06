@@ -11,9 +11,9 @@ class LptaULVertices;
 class LptaVerticesVisitor
 {
 public:
-    virtual void Visit(LptaVertices *collection) = 0;
-    virtual void Visit(LptaUUVertices *collection) = 0;
-    virtual void Visit(LptaULVertices *collection) = 0;
+    virtual void Visit(const LptaVertices *collection) const = 0;
+    virtual void Visit(const LptaUUVertices *collection) const = 0;
+    virtual void Visit(const LptaULVertices *collection) const = 0;
 };
 
 }

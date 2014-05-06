@@ -18,7 +18,7 @@ public:
     } COPY_RESULT;
     
 public:
-    LptaD3DVertexCopier(lpta::LptaVertices *collection);
+    LptaD3DVertexCopier(const lpta::LptaVertices *collection);
     virtual ~LptaD3DVertexCopier(void);
 
     lpta::VERTEX_TYPE GetVertexType(void) const;
@@ -29,15 +29,15 @@ public:
     COPY_RESULT CopyToBuffer(void *buffer, unsigned int bufferSize);
 
 protected:
-    virtual void Visit(lpta::LptaVertices *collection);
-    virtual void Visit(lpta::LptaUUVertices *collection);
-    virtual void Visit(lpta::LptaULVertices *collection);
+    virtual void Visit(const lpta::LptaVertices *collection) const;
+    virtual void Visit(const lpta::LptaUUVertices *collection) const;
+    virtual void Visit(const lpta::LptaULVertices *collection) const;
 
     template <class T>
     bool HasValidCopyBuffer(void) const;
 
 private:
-    lpta::LptaVertices *collection;
+    const lpta::LptaVertices *collection;
 
     void *copyBuffer;
     unsigned int copyBufferSize;

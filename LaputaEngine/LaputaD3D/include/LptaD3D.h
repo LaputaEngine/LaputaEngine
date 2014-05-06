@@ -12,6 +12,7 @@
 #include "LptaD3DConfig.h"
 #include "LptaRenderDeviceImpl.h"
 #include "LptaD3DVertexCache.h"
+#include "LptaResource.h"
 using std::unique_ptr;
 
 namespace lpta
@@ -60,6 +61,7 @@ public:
     /////////////////////////////////////////////////////////////////
     void Release(void);
     bool IsRunning(void);
+    bool Cache(lpta::LptaMesh &mesh);
     HRESULT BeginRendering(bool clearPixel, bool clearDepth, bool clearStencil);
     HRESULT Render(const lpta::LptaMesh &mesh);
     HRESULT Clear(bool clearPixel, bool clearDepth, bool clearStencil);

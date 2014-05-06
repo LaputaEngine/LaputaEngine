@@ -12,15 +12,18 @@ namespace lpta
 class LptaAssimpMesh : public LptaMesh
 {
 public:
-    LptaAssimpMesh(const std::string &filename);
+    LptaAssimpMesh(VERTEX_TYPE vertexType, const std::string &filename);
     ~LptaAssimpMesh(void);
+
+    const LptaVertices &GetVertices(void) const;
+    const INDICES &GetIndices(void) const;
 
     unsigned int NumVertices(void) const;
     unsigned int NumFaces(void) const;
 
 private:
-    const aiScene *scene;
-    const aiMesh *mesh;
+    LptaVertices *vertices = nullptr;
+    INDICES indices;
 
 private:
     static Assimp::Importer assetImporter;

@@ -61,15 +61,15 @@ TEST_F(LptaD3DDynamicBufferTest, AddVertices)
     }
     {
         LptaD3DDynamicBuffer adequate(d3ddev, lpta::VERTEX_TYPE::VT_UL, 5, 5, 0);
-        ASSERT_TRUE(adequate.AddVertices(&ul));
-        ASSERT_FALSE(adequate.AddVertices(&ul));
+        ASSERT_TRUE(adequate.AddVertices(ul));
+        ASSERT_FALSE(adequate.AddVertices(ul));
     }
     {
         LptaD3DDynamicBuffer tooSmall(d3ddev, lpta::VERTEX_TYPE::VT_UL, 3, 3, 0);
-        ASSERT_FALSE(tooSmall.AddVertices(&ul));
+        ASSERT_FALSE(tooSmall.AddVertices(ul));
     }
     {
         LptaD3DDynamicBuffer incompat(d3ddev, lpta::VERTEX_TYPE::VT_UU, 5, 5, 0);
-        ASSERT_FALSE(incompat.AddVertices(&ul));
+        ASSERT_FALSE(incompat.AddVertices(ul));
     }
 }

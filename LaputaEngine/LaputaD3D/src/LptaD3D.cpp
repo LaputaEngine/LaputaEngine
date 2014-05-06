@@ -11,6 +11,8 @@
 #include "LptaMatrix.h"
 #include "LptaD3DMatrix.h"
 #include "LptaD3DUtils.h"
+#include "LptaResource.h"
+#include "models/LptaMesh.h"
 using lpta_3d::LptaVector;
 using lpta_3d::LptaNormalVector;
 using std::unique_ptr;
@@ -135,6 +137,15 @@ bool LptaD3D::IsRunning(void)
     return isRunning;
 }
 
+bool LptaD3D::Cache(lpta::LptaMesh &mesh)
+{
+    lpta::LptaResource::ID cacheId = 
+        vertexCache->CreateStaticBuffer(mesh.GetVertices(), mesh.GetIndices(), 0);
+    mesh.SetCached(cacheId);
+    // todo perform checking here
+    return true;
+}
+
 HRESULT LptaD3D::BeginRendering(bool clearPixel, bool clearDepth, bool clearStencil)
 {
     Clear(clearPixel, clearDepth, clearStencil);
@@ -145,7 +156,14 @@ HRESULT LptaD3D::BeginRendering(bool clearPixel, bool clearDepth, bool clearSten
 
 HRESULT LptaD3D::Render(const lpta::LptaMesh &mesh)
 {
-    return E_FAIL;
+    if (mesh.IsCached()) {
+        GetVertexCache()->FlushStaticBuffer(mesh.GetCacheId());
+        return S_OK;
+    }
+    else {
+        // todo dynamic buffering
+        return E_FAIL;
+    }
 }
 
 HRESULT LptaD3D::Clear(bool clearPixel, bool clearDepth, bool clearStencil)

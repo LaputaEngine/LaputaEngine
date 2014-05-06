@@ -102,13 +102,14 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
     indices.push_back(0);
     indices.push_back(1);
     indices.push_back(2);
-    LptaResource::ID bufferId = device->GetVertexCache()->CreateStaticBuffer(&tri, indices, 0);
+    LptaResource::ID bufferId = device->GetVertexCache()->CreateStaticBuffer(tri, indices, 0);
+
     device->SetCullingMode(RS_CULL_NONE);
     device->ActivateVertexShader(0, VERTEX_TYPE::VT_UU);
     device->ActivatePixelShader(0);
 
-    std::auto_ptr<LptaMesh> model(LptaMesh::LoadFromFile("test.3ds"));
-    model.reset();
+    std::auto_ptr<LptaMesh> model(LptaMesh::LoadFromFile("test.3ds", VERTEX_TYPE::VT_UU));
+    device->Cache(*model);
 
     LptaMatrix m = LptaMatrix::MakeIdentityMatrix();
     m.SetTranslation(0.0f, 0.0f, 0.0f);
@@ -128,9 +129,11 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
             //device->SetView3D(right, up, dir, point);
             device->SetWorldTransform(m);
             device->GetVertexCache()->FlushStaticBuffer(bufferId);
+            device->Render(*model);
             device->EndRendering();
         }
     }
+    model.reset();
     device.reset();
     return message.wParam;
 }

@@ -30,6 +30,6 @@ TEST_F(LptaD3DVertexCacheTest, CreateStaticBuffer)
     lpta::INDICES indices;
     indices.push_back(0);
     LptaD3DVertexCache cache(d3ddev);
-    lpta::LptaResource::ID id = cache.CreateStaticBuffer(&uu, indices, 0);
+    lpta::LptaResource::ID id = cache.CreateStaticBuffer(uu, indices, 0);
     ASSERT_EQ(1, id);
 }
