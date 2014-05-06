@@ -20,6 +20,12 @@ LptaD3DStaticBuffer::LptaD3DStaticBuffer(
         vertexType(vertices.GetType()), vertexBuffer(nullptr), indexBuffer(nullptr),
         skinId(skinId), numVertices(vertices.GetNumVertices()), numIndices(indices.size())
 {
+    if (vertices.GetNumVertices() == 0) {
+        // log warning
+        vertexBuffer = nullptr;
+        indexBuffer = nullptr;
+        return;
+    }
     try {
         LptaD3DVertexCopier copier(&vertices);
         if (SUCCEEDED(d3ddev->CreateVertexBuffer(
@@ -81,8 +87,12 @@ LptaD3DStaticBuffer::LptaD3DStaticBuffer(
 
 LptaD3DStaticBuffer::~LptaD3DStaticBuffer(void)
 {
-    vertexBuffer->Release();
-    indexBuffer->Release();
+    if (vertexBuffer) {
+        vertexBuffer->Release();
+    }
+    if (indexBuffer) {
+        indexBuffer->Release();
+    }
 }
 
 }
