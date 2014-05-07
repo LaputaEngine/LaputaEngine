@@ -83,7 +83,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
     LptaVector right(1.0f, 0.0f, 0.0f);
     LptaVector up(0.0f, 1.0f, 0.0f);
     LptaVector dir(0.0f, 0.0f, 1.0f);
-    LptaVector point(0.0f, 0.0f, 0.0f);
+    LptaVector point(0.0f, 0.0f, 5.0f);
 
     LptaUUVertices tri;
     UU_VERTEX vertex = {
@@ -126,8 +126,8 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArgs, in
 
         if (g_hasFocus) {
             device->BeginRendering(true, true, true);
-            //device->SetView3D(right, up, dir, point);
             device->SetWorldTransform(m);
+            device->SetView3D(right, up, dir, point);
             device->GetVertexCache()->FlushStaticBuffer(bufferId);
             device->Render(*model);
             device->EndRendering();

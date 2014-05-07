@@ -101,7 +101,7 @@ HRESULT LptaD3DDeviceBuilder::Make(HWND hWnd, const vector<HWND> &childWnds, lpt
 
     d3dDevice->screenWidth = d3dpp.BackBufferWidth;
     d3dDevice->screenHeight = d3dpp.BackBufferHeight;
-    d3dDevice->isUsingShader = true;
+    d3dDevice->isUsingShader = false;
     d3dDevice->d3ddev->SetRenderState(D3DRS_LIGHTING, TRUE);
     d3dDevice->d3ddev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
     d3dDevice->d3ddev->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
